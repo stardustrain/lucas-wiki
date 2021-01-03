@@ -1,22 +1,25 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Starter Blog`,
+    title: ``,
     author: {
-      name: `Kyle Mathews`,
-      summary: `who lives and works in San Francisco building useful things.`,
+      name: `Keuntaek Lucas Han`,
+      summary: `I'm Frontend engineer who loves functional programming, interested in writing solid and beautiful code and testing.`,
     },
-    description: `A starter blog demonstrating what Gatsby can do.`,
-    siteUrl: `https://gatsby-starter-blog-demo.netlify.app/`,
+    description: ``,
+    siteUrl: `https://wiki.lucashan.space/`,
     social: {
-      twitter: `kylemathews`,
+      twitter: `lucashan13`,
+      facebook: "https://www.facebook.com/veritaslux",
+      github: "https://github.com/stardustrain",
+      linkedin: "https://www.linkedin.com/in/lucas-keun-taek-han-443b08120/",
     },
   },
   plugins: [
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        path: `${__dirname}/content/blog`,
-        name: `blog`,
+        path: `${__dirname}/content/posts`,
+        name: `posts`,
       },
     },
     {
@@ -53,7 +56,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
-        //trackingId: `ADD YOUR TRACKING ID HERE`,
+        // trackingId: process.env.GA_TRACKING_ID,
       },
     },
     `gatsby-plugin-feed`,
@@ -70,6 +73,9 @@ module.exports = {
       },
     },
     `gatsby-plugin-react-helmet`,
+    {
+      resolve: "gatsby-plugin-sitemap",
+    },
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
