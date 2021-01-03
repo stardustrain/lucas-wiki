@@ -16,6 +16,13 @@ const siteMetadata = {
 
 const remarkPlugins = [
   {
+    resolve: 'gatsby-remark-autolink-headers',
+    options: {
+      offsetY: '10',
+      elements: ['h2', 'h3'],
+    },
+  },
+  {
     resolve: `gatsby-remark-images`,
     options: {
       maxWidth: 630,

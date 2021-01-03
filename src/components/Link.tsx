@@ -63,15 +63,15 @@ interface Props {
 }
 
 export default function Link({ href, children }: Props) {
-  const isInternalLink = href.startsWith('/')
+  const isExternalLink = /https?\:\/\/\w.*/g.test(href)
 
-  return isInternalLink ? (
-    <InternalLink to={href} rel="next">
-      {children}
-    </InternalLink>
-  ) : (
+  return isExternalLink ? (
     <ExternalLink href={href} rel="noopener noreferrer" target="_blank">
       {children} <Icon />
     </ExternalLink>
+  ) : (
+    <InternalLink to={href} rel="next">
+      {children}
+    </InternalLink>
   )
 }

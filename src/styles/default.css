@@ -366,3 +366,13 @@ a:focus {
   height: 1px;
   overflow: hidden;
 }
+
+h2 > a,
+h3 > a {
+  margin-right: 2px;
+}
+
+h2 > a > svg,
+h3 > a > svg {
+  transform: translateY(-2px);
+}
