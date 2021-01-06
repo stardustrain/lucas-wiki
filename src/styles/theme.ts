@@ -1,7 +1,7 @@
 export default {
   light: {
     color: {
-      icon: 'black',
+      icon: '#6a737d',
       link: '#3eaf7c',
     },
   },
