@@ -1,8 +1,13 @@
 export default {
   light: {
-    link: '#3eaf7c',
+    color: {
+      icon: 'black',
+      link: '#3eaf7c',
+    },
   },
   dark: {
-    link: 'blue',
+    color: {
+      link: 'blue',
+    },
   },
 }

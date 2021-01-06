@@ -4,6 +4,8 @@ import { Link as GatsbyLink } from 'gatsby'
 import styled from '@emotion/styled'
 import { css, jsx } from '@emotion/react'
 
+import ExternalLink from './ExternalLink'
+
 const Icon = () => (
   <span
     css={css`
@@ -48,13 +50,13 @@ const defaultLinkStyle = css`
 
 const InternalLink = styled(GatsbyLink)`
   ${defaultLinkStyle}
-  color: ${({ theme }) => theme.link};
+  color: ${({ theme }) => theme.color.link};
   transition: color 0.3s;
 `
 
-const ExternalLink = styled('a')`
+const StyledExternalLink = styled('a')`
   ${defaultLinkStyle}
-  color: ${({ theme }) => theme.link};
+  color: ${({ theme }) => theme.color.link};
 `
 
 interface Props {
@@ -66,9 +68,9 @@ export default function Link({ href, children }: Props) {
   const isExternalLink = /https?\:\/\/\w.*/g.test(href)
 
   return isExternalLink ? (
-    <ExternalLink href={href} rel="noopener noreferrer" target="_blank">
+    <StyledExternalLink href={href}>
       {children} <Icon />
-    </ExternalLink>
+    </StyledExternalLink>
   ) : (
     <InternalLink to={href} rel="next">
       {children}

@@ -1,5 +1,5 @@
 const siteMetadata = {
-  title: ``,
+  title: 'Lucas wiki',
   author: {
     name: `Keuntaek Lucas Han`,
     summary: `I'm Frontend engineer who loves functional programming, interested in writing solid and beautiful code and testing.`,
@@ -7,7 +7,7 @@ const siteMetadata = {
   description: ``,
   siteUrl: `https://wiki.lucashan.space/`,
   social: {
-    twitter: `lucashan13`,
+    twitter: `https://twitter.com/lucashan13`,
     facebook: 'https://www.facebook.com/veritaslux',
     github: 'https://github.com/stardustrain',
     linkedin: 'https://www.linkedin.com/in/lucas-keun-taek-han-443b08120/',

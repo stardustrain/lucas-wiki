@@ -2,6 +2,9 @@ import '@emotion/react'
 
 declare module '@emotion/react' {
   export interface Theme {
-    link: string
+    color: {
+      link: string
+      icon: string
+    }
   }
 }
