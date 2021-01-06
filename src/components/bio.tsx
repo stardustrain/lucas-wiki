@@ -5,9 +5,35 @@
  * See: https://www.gatsbyjs.com/docs/use-static-query/
  */
 
-import React from "react"
-import { useStaticQuery, graphql } from "gatsby"
-import Image from "gatsby-image"
+import React from 'react'
+import { useStaticQuery, graphql } from 'gatsby'
+import Image from 'gatsby-image'
+import styled from '@emotion/styled'
+
+import Icon from './Icon'
+import ExternalLink from './ExternalLink'
+
+const BioLayout = styled.div`
+  display: flex;
+  margin-bottom: var(--spacing-16);
+
+  p {
+    margin-bottom: var(--spacing-1);
+  }
+`
+
+const BioImage = styled(Image)`
+  margin-right: var(--spacing-4);
+  margin-bottom: var(--spacing-0);
+  min-width: 50px;
+  border-radius: 100%;
+`
+
+const BioLinks = styled.div`
+  a:last-child {
+    margin-left: 5px;
+  }
+`
 
 const Bio = () => {
   const data = useStaticQuery(graphql`
@@ -27,6 +53,8 @@ const Bio = () => {
           }
           social {
             twitter
+            github
+            linkedin
           }
         }
       }
@@ -40,9 +68,9 @@ const Bio = () => {
   const avatar = data?.avatar?.childImageSharp?.fixed
 
   return (
-    <div className="bio">
+    <BioLayout className="bio">
       {avatar && (
-        <Image
+        <BioImage
           fixed={avatar}
           alt={author?.name || ``}
           className="bio-avatar"
@@ -51,16 +79,28 @@ const Bio = () => {
           }}
         />
       )}
-      {author?.name && (
-        <p>
-          Written by <strong>{author.name}</strong> {author?.summary || null}
-          {` `}
-          <a href={`https://twitter.com/${social?.twitter || ``}`}>
-            You should follow them on Twitter
-          </a>
-        </p>
-      )}
-    </div>
+      <div>
+        {author?.name && (
+          <p>
+            Written by <strong>{author.name}</strong>.
+            <br />
+            {author?.summary || null}
+          </p>
+        )}
+        <BioLinks>
+          {social?.twitter && (
+            <ExternalLink href={social?.twitter}>
+              <Icon name="Twitter" />
+            </ExternalLink>
+          )}
+          {social?.linkedin && (
+            <ExternalLink href={social?.linkedin}>
+              <Icon name="LinkedIn" />
+            </ExternalLink>
+          )}
+        </BioLinks>
+      </div>
+    </BioLayout>
   )
 }
 
