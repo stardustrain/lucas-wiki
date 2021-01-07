@@ -1,11 +1,15 @@
 import React from 'react'
 import { Link as GatsbyLink, graphql } from 'gatsby'
 import rehypeReact from 'rehype-react'
+import styled from '@emotion/styled'
 
-import Bio from '../components/bio'
 import Layout from '../components/layout'
 import SEO from '../components/seo'
 import Link from '../components/Link'
+import Disqus from '../components/Disqus'
+import ArticleMeta from '../components/ArticleMeta'
+
+import { color } from '../styles/theme'
 
 // !HACK
 // @ts-ignore
@@ -16,6 +20,15 @@ const renderAst = new rehypeReact({
     a: Link,
   },
 }).Compiler
+
+const StyledLink = styled(GatsbyLink)`
+  color: ${color.pirmaryGreen};
+  font-weight: 600;
+
+  :hover {
+    text-decoration: underline;
+  }
+`
 
 const BlogPostTemplate = ({ data, location }) => {
   const post = data.markdownRemark
@@ -31,13 +44,10 @@ const BlogPostTemplate = ({ data, location }) => {
       <article className="blog-post" itemScope itemType="http://schema.org/Article">
         <header>
           <h1 itemProp="headline">{post.frontmatter.title}</h1>
-          <p>{post.frontmatter.date}</p>
         </header>
+        <ArticleMeta date={post.frontmatter.date} readTime={post.timeToRead} />
         <section itemProp="articleBody">{renderAst(post.htmlAst)}</section>
         <hr />
-        <footer>
-          <Bio />
-        </footer>
       </article>
       <nav className="blog-post-nav">
         <ul
@@ -51,20 +61,21 @@ const BlogPostTemplate = ({ data, location }) => {
         >
           <li>
             {previous && (
-              <GatsbyLink to={previous.fields.slug} rel="prev">
+              <StyledLink to={previous.fields.slug} rel="prev">
                 ← {previous.frontmatter.title}
-              </GatsbyLink>
+              </StyledLink>
             )}
           </li>
           <li>
             {next && (
-              <GatsbyLink to={next.fields.slug} rel="next">
+              <StyledLink to={next.fields.slug} rel="next">
                 {next.frontmatter.title} →
-              </GatsbyLink>
+              </StyledLink>
             )}
           </li>
         </ul>
       </nav>
+      <Disqus url={location.href} identifier={post.id} title={post.frontmatter.title} />
     </Layout>
   )
 }
@@ -82,6 +93,7 @@ export const pageQuery = graphql`
       id
       excerpt(pruneLength: 160)
       htmlAst
+      timeToRead
       frontmatter {
         title
         date(formatString: "MMMM DD, YYYY")

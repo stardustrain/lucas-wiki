@@ -10,11 +10,12 @@ const Div = styled.div`
 interface Props {
   date: string
   readTime: number
+  className?: string
 }
 
-export default function ArticleMeta({ date, readTime }: Props) {
+export default function ArticleMeta({ className, date, readTime }: Props) {
   return (
-    <Div className="ArticleMeta">
+    <Div className={className}>
       {date && (
         <>
           <small>Published: {date}</small>
