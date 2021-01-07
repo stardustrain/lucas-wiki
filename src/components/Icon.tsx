@@ -8,6 +8,7 @@ type IconName = keyof typeof Icons
 interface SvgProps {
   name: IconName
   className?: string
+  ariaHidden?: boolean
 }
 
 interface StyledProps {
@@ -17,10 +18,10 @@ interface StyledProps {
 
 interface Props extends SvgProps, StyledProps {}
 
-function SvgIcon({ name, className }: SvgProps) {
+function SvgIcon({ name, className, ariaHidden }: SvgProps) {
   const Svg = Icons[name]
 
-  return <Svg className={className} role="img" />
+  return <Svg className={className} role="img" aria-hidden={ariaHidden} />
 }
 
 const StyledIcon = styled(SvgIcon)<StyledProps>`
@@ -29,6 +30,6 @@ const StyledIcon = styled(SvgIcon)<StyledProps>`
   fill: ${({ theme, fill }) => fill ?? theme.color.icon};
 `
 
-export default function Icon({ name, className, size = 20 }: Props) {
-  return <StyledIcon name={name} className={className} size={size} />
+export default function Icon({ name, className, size = 20, ariaHidden }: Props) {
+  return <StyledIcon name={name} className={className} size={size} ariaHidden={ariaHidden} />
 }

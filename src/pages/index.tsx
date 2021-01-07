@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { graphql } from 'gatsby'
 import styled from '@emotion/styled'
+import { includes } from 'lodash'
 
 import Bio from '../components/bio'
 import Layout from '../components/layout'
 import SEO from '../components/seo'
 import Link from '../components/Link'
-import ReadTime from '../components/ArticleMeta'
+import ArticleMeta from '../components/ArticleMeta'
+import TagSelector from '../components/TagSelector'
 
 const Header = styled.header`
   border-bottom: 1px solid hsla(0, 0%, 0%, 0.07);
@@ -25,9 +27,20 @@ const Description = styled.p`
   color: ${({ theme }) => theme.color.description};
 `
 
+const Ol = styled.ol`
+  list-style: none;
+  min-height: 100vh;
+`
+
 const BlogIndex = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata?.title || `Title`
   const posts = data.allMarkdownRemark.nodes
+  const [tagList] = useState<string[]>(
+    posts
+      .flatMap(post => (Array.isArray(post.frontmatter.tags) ? post.frontmatter.tags : []))
+      .sort((tagA, tagB) => tagA.localeCompare(tagB))
+  )
+  const [selectedTag, setTag] = useState<string>('')
 
   if (posts.length === 0) {
     return (
@@ -42,12 +55,18 @@ const BlogIndex = ({ data, location }) => {
     )
   }
 
+  const filteredPosts =
+    selectedTag.length === 0
+      ? posts
+      : posts.filter(post => includes(post.frontmatter.tags, selectedTag))
+
   return (
     <Layout location={location} title={siteTitle}>
       <SEO title="All posts" />
       <Bio />
-      <ol style={{ listStyle: `none` }}>
-        {posts.map(post => {
+      <TagSelector tagList={tagList} onSetTag={setTag} />
+      <Ol style={{ listStyle: `none` }}>
+        {filteredPosts.map(post => {
           const title = post.frontmatter.title || post.fields.slug
 
           return (
@@ -59,7 +78,11 @@ const BlogIndex = ({ data, location }) => {
                       <span itemProp="headline">{title}</span>
                     </ArticleLink>
                   </H2>
-                  <ReadTime date={post.frontmatter.date} readTime={post.timeToRead} />
+                  <ArticleMeta
+                    date={post.frontmatter.date}
+                    readTime={post.timeToRead}
+                    tags={post.frontmatter.tags}
+                  />
                 </Header>
                 <section>
                   <Description
@@ -73,7 +96,7 @@ const BlogIndex = ({ data, location }) => {
             </li>
           )
         })}
-      </ol>
+      </Ol>
     </Layout>
   )
 }
@@ -97,6 +120,7 @@ export const pageQuery = graphql`
           date(formatString: "MMMM DD, YYYY")
           title
           description
+          tags
         }
         html
         timeToRead
