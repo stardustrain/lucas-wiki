@@ -71,7 +71,7 @@ useRequestAPI({
 <figure>
 <img src="https://user-images.githubusercontent.com/9318449/90943245-193c7600-e454-11ea-905a-943ba1781503.png
 " />
-<figurecaption style="font-size: 14px;">Ondemandchina의 home 화면</figurecaption>
+<figcaption style="font-size: 14px;">Ondemandchina의 home 화면</figcaption>
 </figure>
 </center>
 
@@ -249,11 +249,11 @@ Component에 **필요한 데이터를 선언할 수 있게 되었다**는 점은
 <div style="display: flex;justify-content: space-between;">
   <figure style="width: calc(50% - 5px); text-align: center; margin: 0 10px 0 0;" >
     <img src="https://user-images.githubusercontent.com/9318449/90944993-0aa68c80-e45d-11ea-96e4-cf5fa5742c4c.png" />
-    <figurecaption style="font-size: 14px;">Favorite list</figurecaption>
+    <figcaption style="font-size: 14px;">Favorite list</figcaption>
   </figure>
   <figure style="width: calc(50% - 5px); text-align: center; margin: 0;" >
     <img src="https://user-images.githubusercontent.com/9318449/90945001-1b570280-e45d-11ea-87b1-1c9b08237e78.png"/>
-    <figurecaption style="font-size: 14px;">Watch history</figurecaption>
+    <figcaption style="font-size: 14px;">Watch history</figcaption>
   </figure>
 </div>
 
@@ -437,18 +437,18 @@ Graphql server는 기본적으로 [graphiql](https://github.com/graphql/graphiql
 
 <figure style="text-align: center;">
 <img src="https://camo.githubusercontent.com/1a26385e3543849c561cfafd0c25de791a635570/68747470733a2f2f692e696d6775722e636f6d2f41453557364f572e706e67" />
-<figurecaption style="font-size: 14px;">
+<figcaption style="font-size: 14px;">
 graphql playground - 출처: <a href="https://github.com/prisma-labs/graphql-playground">https://github.com/prisma-labs/graphql-playground</a>
-</figurecaption>
+</figcaption>
 </figure>
 
 Schema 간의 상관관계를 아주 훌륭하게 시각화해 주는 [graphql-voyager](https://github.com/APIs-guru/graphql-voyager)를 admin에서 확인할 수 있게 설치해 놓았다.
 
 <figure style="text-align: center;">
 <img src="https://user-images.githubusercontent.com/9318449/90949911-004db800-e488-11ea-9d8b-24b4db6226fe.png" />
-<figurecaption style="font-size: 14px;">
+<figcaption style="font-size: 14px;">
 graphql-voyager로 볼 수 있는 schema 상관관계
-</figurecaption>
+</figcaption>
 </figure>
 
 Graphql voyager의 경우 새로 합류한 팀원들에게 반응이 괜찮았다. Schema의 상관관계라는 것은 결국 화면을 구성하는 data의 상관관계이기 때문이다. 아직 graphql을 본격적으로 적용하지 않았지만, component간의 구조나 data의 흐름을 파악하는 데 많은 도움이 되었다고 한다.
