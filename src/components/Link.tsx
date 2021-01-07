@@ -43,7 +43,10 @@ const Icon = () => (
 )
 
 const defaultLinkStyle = css`
+  cursor: pointer;
+
   :hover {
+    color: #0365d6;
     text-decoration: underline;
   }
 `
@@ -54,7 +57,7 @@ const InternalLink = styled(GatsbyLink)`
   transition: color 0.3s;
 `
 
-const StyledExternalLink = styled('a')`
+const StyledExternalLink = styled(ExternalLink)`
   ${defaultLinkStyle}
   color: ${({ theme }) => theme.color.link};
 `
@@ -62,17 +65,18 @@ const StyledExternalLink = styled('a')`
 interface Props {
   href: string
   children: React.ReactChild
+  className?: string
 }
 
-export default function Link({ href, children }: Props) {
+export default function Link({ href, children, className }: Props) {
   const isExternalLink = /https?\:\/\/\w.*/g.test(href)
 
   return isExternalLink ? (
-    <StyledExternalLink href={href}>
+    <StyledExternalLink className={className} href={href}>
       {children} <Icon />
     </StyledExternalLink>
   ) : (
-    <InternalLink to={href} rel="next">
+    <InternalLink className={className} to={href} rel="next">
       {children}
     </InternalLink>
   )

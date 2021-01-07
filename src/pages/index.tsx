@@ -1,9 +1,29 @@
 import React from 'react'
-import { Link, graphql } from 'gatsby'
+import { graphql } from 'gatsby'
+import styled from '@emotion/styled'
 
 import Bio from '../components/bio'
 import Layout from '../components/layout'
 import SEO from '../components/seo'
+import Link from '../components/Link'
+import ReadTime from '../components/ArticleMeta'
+
+const Header = styled.header`
+  border-bottom: 1px solid hsla(0, 0%, 0%, 0.07);
+`
+
+const H2 = styled.h2`
+  border-bottom: 0;
+  margin-bottom: 0;
+`
+
+const ArticleLink = styled(Link)`
+  color: ${({ theme }) => theme.color.h2};
+`
+
+const Description = styled.p`
+  color: ${({ theme }) => theme.color.description};
+`
 
 const BlogIndex = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata?.title || `Title`
@@ -15,7 +35,7 @@ const BlogIndex = ({ data, location }) => {
         <SEO title="All posts" />
         <Bio />
         <p>
-          No blog posts found. Add markdown posts to "content/blog" (or the directory you specified
+          No blog posts found. Add markdown posts to "content/posts" (or the directory you specified
           for the "gatsby-source-filesystem" plugin in gatsby-config.js).
         </p>
       </Layout>
@@ -33,16 +53,16 @@ const BlogIndex = ({ data, location }) => {
           return (
             <li key={post.fields.slug}>
               <article className="post-list-item" itemScope itemType="http://schema.org/Article">
-                <header>
-                  <h2>
-                    <Link to={post.fields.slug} itemProp="url">
+                <Header>
+                  <H2>
+                    <ArticleLink href={post.fields.slug}>
                       <span itemProp="headline">{title}</span>
-                    </Link>
-                  </h2>
-                  <small>{post.frontmatter.date}</small>
-                </header>
+                    </ArticleLink>
+                  </H2>
+                  <ReadTime date={post.frontmatter.date} readTime={post.timeToRead} />
+                </Header>
                 <section>
-                  <p
+                  <Description
                     dangerouslySetInnerHTML={{
                       __html: post.frontmatter.description || post.excerpt,
                     }}
@@ -78,6 +98,8 @@ export const pageQuery = graphql`
           title
           description
         }
+        html
+        timeToRead
       }
     }
   }
