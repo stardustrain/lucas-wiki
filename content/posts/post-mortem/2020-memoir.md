@@ -9,6 +9,8 @@ meta:
     content: FE개발자로 2020년을 돌아보는 회고록.
   - property: og:url
     content: https://wiki.lucashan.space/2020-memoir.html
+tags: ['회고록', '2020']
+date: '2020-12-30'
 ---
 
 <h1 class="screen-reader-text">2020년 회고록</h1>

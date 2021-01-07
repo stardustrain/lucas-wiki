@@ -15,7 +15,7 @@ import ExternalLink from './ExternalLink'
 
 const BioLayout = styled.div`
   display: flex;
-  margin-bottom: var(--spacing-16);
+  margin-bottom: var(--spacing-12);
 
   p {
     margin-bottom: var(--spacing-1);
@@ -30,8 +30,8 @@ const BioImage = styled(Image)`
 `
 
 const BioLinks = styled.div`
-  a:last-child {
-    margin-left: 5px;
+  a:not(:first-of-type) {
+    margin-left: 10px;
   }
 `
 
@@ -88,14 +88,19 @@ const Bio = () => {
           </p>
         )}
         <BioLinks>
+          {social?.github && (
+            <ExternalLink ariaLabel="Author's github profile" href={social?.github}>
+              <Icon name="Github" ariaHidden />
+            </ExternalLink>
+          )}
           {social?.twitter && (
-            <ExternalLink href={social?.twitter}>
-              <Icon name="Twitter" />
+            <ExternalLink ariaLabel="Author's twitter" href={social?.twitter}>
+              <Icon name="Twitter" ariaHidden />
             </ExternalLink>
           )}
           {social?.linkedin && (
-            <ExternalLink href={social?.linkedin}>
-              <Icon name="LinkedIn" />
+            <ExternalLink ariaLabel="Author's linkedin" href={social?.linkedin}>
+              <Icon name="LinkedIn" ariaHidden />
             </ExternalLink>
           )}
         </BioLinks>
