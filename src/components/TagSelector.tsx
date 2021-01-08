@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React from 'react'
 import styled from '@emotion/styled'
 
 import { rgba } from '../utils/misc'
@@ -6,15 +6,15 @@ import { color } from '../styles/theme'
 
 import type { Dispatch, SetStateAction } from 'react'
 
-const MARGIN_TOP = 5
-
 const Ul = styled.ul`
-  position: relative;
+  position: sticky;
+  top: -1px;
   background-color: #f4f7f8;
   border: 1px solid #ecf0f2;
   padding: calc(1rem - 5px) 1rem;
-
+  z-index: 1;
   list-style: none;
+  box-shadow: 0 2px 5px ${rgba('#d9d9d9', 0.5)};
 
   li {
     display: inline-block;
@@ -50,26 +50,12 @@ interface Props {
 }
 
 export default function TagSelector({ tagList, onSetTag }: Props) {
-  const ulRef = useRef<HTMLUListElement>(null)
-
-  const handleClick = (tag: string) => {
-    onSetTag(tag)
-
-    if (ulRef.current) {
-      const top = ulRef.current.offsetTop
-      window.scrollTo({
-        top: top - MARGIN_TOP,
-        behavior: 'smooth',
-      })
-    }
-  }
-
   return (
-    <Ul ref={ulRef} className="TagSelector">
+    <Ul>
       <li>
         <Button
           onClick={() => {
-            handleClick('')
+            onSetTag('')
           }}
         >
           All
@@ -79,7 +65,7 @@ export default function TagSelector({ tagList, onSetTag }: Props) {
         <li key={tag}>
           <Button
             onClick={() => {
-              handleClick(tag)
+              onSetTag(tag)
             }}
           >
             #{tag}

@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { graphql } from 'gatsby'
 import styled from '@emotion/styled'
-import { includes } from 'lodash'
+import { includes, isNil } from 'lodash'
 
 import Bio from '../components/bio'
 import Layout from '../components/layout'
@@ -27,7 +27,8 @@ const Description = styled.p`
   color: ${({ theme }) => theme.color.description};
 `
 
-const Ol = styled.ol`
+const PostContainer = styled.div`
+  position: relative;
   list-style: none;
   min-height: 100vh;
 `
@@ -40,7 +41,8 @@ const BlogIndex = ({ data, location }) => {
       .flatMap(post => (Array.isArray(post.frontmatter.tags) ? post.frontmatter.tags : []))
       .sort((tagA, tagB) => tagA.localeCompare(tagB))
   )
-  const [selectedTag, setTag] = useState<string>('')
+  const [selectedTag, setTag] = useState<string | null>(null)
+  const divRef = useRef<HTMLDivElement>(null)
 
   if (posts.length === 0) {
     return (
@@ -56,47 +58,63 @@ const BlogIndex = ({ data, location }) => {
   }
 
   const filteredPosts =
-    selectedTag.length === 0
+    selectedTag === null || selectedTag.length === 0
       ? posts
       : posts.filter(post => includes(post.frontmatter.tags, selectedTag))
+
+  useEffect(() => {
+    if (isNil(selectedTag)) {
+      return
+    }
+
+    if (divRef.current) {
+      const top = divRef.current.offsetTop
+      window.scrollTo({
+        top: top + 1,
+        behavior: 'smooth',
+      })
+    }
+  }, [selectedTag])
 
   return (
     <Layout location={location} title={siteTitle}>
       <SEO title="All posts" />
       <Bio />
-      <TagSelector tagList={tagList} onSetTag={setTag} />
-      <Ol style={{ listStyle: `none` }}>
-        {filteredPosts.map(post => {
-          const title = post.frontmatter.title || post.fields.slug
+      <PostContainer ref={divRef}>
+        <TagSelector tagList={tagList} onSetTag={setTag} />
+        <ol style={{ listStyle: 'none' }}>
+          {filteredPosts.map(post => {
+            const title = post.frontmatter.title || post.fields.slug
 
-          return (
-            <li key={post.fields.slug}>
-              <article className="post-list-item" itemScope itemType="http://schema.org/Article">
-                <Header>
-                  <H2>
-                    <ArticleLink href={post.fields.slug}>
-                      <span itemProp="headline">{title}</span>
-                    </ArticleLink>
-                  </H2>
-                  <ArticleMeta
-                    date={post.frontmatter.date}
-                    readTime={post.timeToRead}
-                    tags={post.frontmatter.tags}
-                  />
-                </Header>
-                <section>
-                  <Description
-                    dangerouslySetInnerHTML={{
-                      __html: post.frontmatter.description || post.excerpt,
-                    }}
-                    itemProp="description"
-                  />
-                </section>
-              </article>
-            </li>
-          )
-        })}
-      </Ol>
+            return (
+              <li key={post.fields.slug}>
+                <article className="post-list-item" itemScope itemType="http://schema.org/Article">
+                  <Header>
+                    <H2>
+                      <ArticleLink href={post.fields.slug}>
+                        <span itemProp="headline">{title}</span>
+                      </ArticleLink>
+                    </H2>
+                    <ArticleMeta
+                      date={post.frontmatter.date}
+                      readTime={post.timeToRead}
+                      tags={post.frontmatter.tags}
+                    />
+                  </Header>
+                  <section>
+                    <Description
+                      dangerouslySetInnerHTML={{
+                        __html: post.frontmatter.description || post.excerpt,
+                      }}
+                      itemProp="description"
+                    />
+                  </section>
+                </article>
+              </li>
+            )
+          })}
+        </ol>
+      </PostContainer>
     </Layout>
   )
 }
