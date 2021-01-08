@@ -55,6 +55,13 @@ const remarkPlugins = [
   },
 ]
 
+const getFavicons = () =>
+  [1, 2, 3, 4, 8, 16].map(num => ({
+    src: `content/assets/favicons/favicon-${num * 16}.png`,
+    sizes: `${num * 16}x${num * 16}`,
+    type: 'image/png',
+  }))
+
 module.exports = {
   siteMetadata,
   plugins: [
@@ -84,13 +91,14 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Gatsby Starter Blog`,
-        short_name: `GatsbyJS`,
+        name: `Lucas wiki`,
+        short_name: `LucasWiki`,
         start_url: `/`,
         background_color: `#ffffff`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `content/assets/gatsby-icon.png`,
+        icon: `content/assets/icon.png`,
+        icons: getFavicons(),
       },
     },
     `gatsby-plugin-react-helmet`,
