@@ -24,6 +24,7 @@
     "gatsby-plugin-typography": "^2.9.0",
     "gatsby-remark-autolink-headers": "^2.8.0",
     "gatsby-remark-copy-linked-files": "^2.4.0",
+    "gatsby-remark-custom-blocks": "^2.9.0",
     "gatsby-remark-emojis": "^0.4.3",
     "gatsby-remark-images": "^3.5.1",
     "gatsby-remark-prismjs": "^3.7.0",
