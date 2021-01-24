@@ -1,12 +1,10 @@
 import '@emotion/react'
+import { styleMap, lightColor } from '../styles/theme'
 
+type StyleMap = typeof styleMap
+type Color = typeof lightColor
 declare module '@emotion/react' {
-  export interface Theme {
-    color: {
-      h2: string
-      description: string
-      link: string
-      icon: string
-    }
+  export interface Theme extends StyleMap {
+    color: Color
   }
 }
