@@ -9,8 +9,6 @@ import Link from '../components/Link'
 import Disqus from '../components/Disqus'
 import ArticleMeta from '../components/ArticleMeta'
 
-import { color } from '../styles/theme'
-
 // !HACK
 // @ts-ignore
 const renderAst = new rehypeReact({
@@ -22,7 +20,7 @@ const renderAst = new rehypeReact({
 }).Compiler
 
 const StyledLink = styled(GatsbyLink)`
-  color: ${color.pirmaryGreen};
+  color: ${({ theme }) => theme.color.pirmaryGreen};
   font-weight: 600;
 
   :hover {
