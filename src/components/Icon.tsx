@@ -27,7 +27,7 @@ function SvgIcon({ name, className, ariaHidden }: SvgProps) {
 const StyledIcon = styled(SvgIcon)<StyledProps>`
   width: ${({ size }) => `${size}px`};
   height: ${({ size }) => `${size}px`};
-  fill: ${({ theme, fill }) => fill ?? theme.color.icon};
+  fill: ${({ theme, fill }) => fill ?? theme.color.textTertiary};
 `
 
 export default function Icon({ name, className, size = 20, ariaHidden }: Props) {

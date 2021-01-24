@@ -6,6 +6,8 @@ import { css, jsx } from '@emotion/react'
 
 import ExternalLink from './ExternalLink'
 
+import type { Theme } from '@emotion/react'
+
 const Icon = () => (
   <span
     css={css`
@@ -42,24 +44,23 @@ const Icon = () => (
   </span>
 )
 
-const defaultLinkStyle = css`
+const defaultLinkStyle = (color: Theme['color']) => css`
   cursor: pointer;
+  color: ${color.textLink};
 
   :hover {
-    color: #0365d6;
+    color: ${color.colorPrimary};
     text-decoration: underline;
   }
 `
 
 const InternalLink = styled(GatsbyLink)`
-  ${defaultLinkStyle}
-  color: ${({ theme }) => theme.color.link};
+  ${({ theme }) => defaultLinkStyle(theme.color)};
   transition: color 0.3s;
 `
 
 const StyledExternalLink = styled(ExternalLink)`
-  ${defaultLinkStyle}
-  color: ${({ theme }) => theme.color.link};
+  ${({ theme }) => defaultLinkStyle(theme.color)};
 `
 
 interface Props {

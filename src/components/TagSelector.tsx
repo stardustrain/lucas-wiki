@@ -2,7 +2,6 @@ import React from 'react'
 import styled from '@emotion/styled'
 
 import { rgba } from '../utils/misc'
-import { color } from '../styles/theme'
 
 import type { Dispatch, SetStateAction } from 'react'
 
@@ -27,7 +26,7 @@ const Ul = styled.ul`
 `
 
 const Button = styled.button`
-  color: ${rgba(color.textSecondary, 0.8)};
+  color: ${({ theme }) => rgba(theme.color.textSecondary, 0.8)};
   cursor: pointer;
   background-color: #fff;
   border: 1px solid #d9d9d9;
@@ -35,7 +34,7 @@ const Button = styled.button`
   transition: background-color 0.3s;
 
   :hover {
-    color: ${color.textSecondary};
+    color: ${({ theme }) => theme.color.textSecondary};
     background-color: #fafafa;
   }
 

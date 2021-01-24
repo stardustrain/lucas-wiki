@@ -53,6 +53,29 @@ const remarkPlugins = [
       },
     },
   },
+  {
+    resolve: 'gatsby-remark-custom-blocks',
+    options: {
+      blocks: {
+        danger: {
+          classes: 'danger',
+          title: 'optional',
+        },
+        info: {
+          classes: 'info',
+          title: 'optional',
+        },
+        tip: {
+          classes: 'tip',
+          title: 'optional',
+        },
+        warning: {
+          classes: 'warning',
+          title: 'optional',
+        },
+      },
+    },
+  },
 ]
 
 const getFavicons = () =>

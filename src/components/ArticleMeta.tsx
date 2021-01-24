@@ -1,11 +1,9 @@
 import React from 'react'
 import styled from '@emotion/styled'
 
-import { color } from '../styles/theme'
-
 const Div = styled.div`
   small {
-    color: ${color.textTertiary};
+    color: ${({ theme }) => theme.color.textTertiary};
   }
 
   ul {

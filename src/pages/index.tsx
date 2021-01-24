@@ -20,11 +20,11 @@ const H2 = styled.h2`
 `
 
 const ArticleLink = styled(Link)`
-  color: ${({ theme }) => theme.color.h2};
+  color: ${({ theme }) => theme.color.textPrimary};
 `
 
 const Description = styled.p`
-  color: ${({ theme }) => theme.color.description};
+  color: ${({ theme }) => theme.color.textSecondary};
 `
 
 const PostContainer = styled.div`

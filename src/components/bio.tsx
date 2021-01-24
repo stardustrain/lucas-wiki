@@ -15,16 +15,16 @@ import ExternalLink from './ExternalLink'
 
 const BioLayout = styled.div`
   display: flex;
-  margin-bottom: var(--spacing-12);
+  margin-bottom: ${({ theme }) => theme.spacing12};
 
   p {
-    margin-bottom: var(--spacing-1);
+    margin-bottom: ${({ theme }) => theme.spacing1};
   }
 `
 
 const BioImage = styled(Image)`
-  margin-right: var(--spacing-4);
-  margin-bottom: var(--spacing-0);
+  margin-right: ${({ theme }) => theme.spacing4};
+  margin-bottom: ${({ theme }) => theme.spacing0};
   min-width: 50px;
   border-radius: 100%;
 `
