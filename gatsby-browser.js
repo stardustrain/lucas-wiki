@@ -2,10 +2,7 @@
 import 'typeface-montserrat'
 import 'typeface-merriweather'
 import smoothscroll from 'smoothscroll-polyfill'
-// normalize CSS across browsers
-import './src/styles/normalize.css'
 // custom CSS styles
-import './src/styles/default.css'
 import './src/styles/prism-vsc-dark-plus.css'
 
 // Highlighting for code blocks
