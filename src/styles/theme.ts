@@ -56,11 +56,22 @@ export const lightColor = {
   colorText: '#2e353f',
   colorTextLight: '#4f5969',
   colorHeading: '#1a202c',
-  colorHeadingBlack: 'black',
   colorAccent: '#d1dce5',
 }
 
-export const darkColor = {}
+export const darkColor = {
+  textPrimary: '#c9d1d9',
+  textSecondary: '#8b949e',
+  textTertiary: '#8b949e',
+  pirmaryGreen: '#3eaf7c',
+  textLink: '#0d85d6',
+  colorPrimary: '#004675',
+  colorText: '#8b949e',
+  colorTextLight: '#4f5969',
+  colorHeading: '#1a202c',
+  colorAccent: '#747b80',
+  background: '#0d1117',
+}
 
 export default {
   light: Object.assign({ color: lightColor }, styleMap),

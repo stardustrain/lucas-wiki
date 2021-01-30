@@ -15,6 +15,7 @@ import ExternalLink from './ExternalLink'
 
 const BioLayout = styled.div`
   display: flex;
+  color: ${({ theme }) => theme.color.textPrimary};
   margin-bottom: ${({ theme }) => theme.spacing12};
 
   p {

@@ -2,7 +2,7 @@
 import { Global, css, jsx } from '@emotion/react'
 import { styleMap } from './theme'
 
-const globalStyles = css`
+const globalStyles = (mode: ColorScheme) => css`
   *,
   :after,
   :before {
@@ -17,6 +17,7 @@ const globalStyles = css`
     font-family: -apple-system, BlinkMacSystemFont, Montserrat, system-ui, 'Segoe UI', Roboto,
       'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
       'Segoe UI Symbol', 'Noto Color Emoji';
+    background-color: ${mode === 'light' ? '#fff' : '#0d1117'};
   }
 
   body {
@@ -280,8 +281,21 @@ const globalStyles = css`
   h3 > a > svg {
     transform: translateY(-2px);
   }
+
+  :not(pre) > code[class*='language-'] {
+    padding: 0.1em 0.3em;
+    border-radius: 0.3em;
+    color: ${mode === 'light' ? '#db4c69' : '#ffa44f'};
+    background: ${mode === 'light' ? '#f9f2f4' : '#3d3b3b'};
+  }
 `
 
-export default function GlobalStyle() {
-  return <Global styles={globalStyles} />
+export type ColorScheme = 'light' | 'dark'
+
+type Props = {
+  mode: ColorScheme
+}
+
+export default function GlobalStyle({ mode }: Props) {
+  return <Global styles={globalStyles(mode)} />
 }

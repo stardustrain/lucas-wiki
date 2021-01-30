@@ -1,3 +1,5 @@
 export { default as Twitter } from './Twitter'
 export { default as LinkedIn } from './LinkedIn'
 export { default as Github } from './Github'
+export { default as Sun } from './Sun'
+export { default as Moon } from './Moon'
