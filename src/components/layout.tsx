@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'gatsby'
 import { ThemeProvider, jsx } from '@emotion/react'
 import styled from '@emotion/styled'
@@ -67,9 +67,17 @@ const getColorScheme = () => {
 }
 
 const Layout = ({ location, title, children }) => {
-  const [mode, setMode] = useState<ColorScheme>(getColorScheme())
+  const [mode, setMode] = useState<ColorScheme>('light')
   const rootPath = `${__PATH_PREFIX__}/`
   const isRootPath = location.pathname === rootPath
+
+  useEffect(() => {
+    setMode(() => {
+      const scheme = getColorScheme()
+      localStorage.setItem('colorScheme', scheme)
+      return scheme
+    })
+  }, [])
 
   return (
     <ThemeProvider theme={theme[mode]}>
