@@ -22,10 +22,8 @@ const ColorSchemeContext = createContext<{
 })
 
 const colorSchemeReducer = (state: typeof defaultColorScheme, action: { type: string }) => {
-  console.log('test')
   switch (action.type) {
     case ActionTypes.dark:
-      console.log('test')
       return { mode: 'dark' as ColorScheme }
     case ActionTypes.light:
       return { mode: 'light' as ColorScheme }
