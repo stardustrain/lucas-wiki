@@ -49,14 +49,12 @@ const defaultLinkStyle = (color: Theme['color']) => css`
   color: ${color.textLink};
 
   :hover {
-    color: ${color.colorPrimary};
     text-decoration: underline;
   }
 `
 
 const InternalLink = styled(GatsbyLink)`
   ${({ theme }) => defaultLinkStyle(theme.color)};
-  transition: color 0.3s;
 `
 
 const StyledExternalLink = styled(ExternalLink)`

@@ -281,6 +281,13 @@ const globalStyles = (mode: ColorScheme) => css`
   h3 > a > svg {
     transform: translateY(-2px);
   }
+
+  :not(pre) > code[class*='language-'] {
+    padding: 0.1em 0.3em;
+    border-radius: 0.3em;
+    color: ${mode === 'light' ? '#db4c69' : '#ffa44f'};
+    background: ${mode === 'light' ? '#f9f2f4' : '#3d3b3b'};
+  }
 `
 
 export type ColorScheme = 'light' | 'dark'
