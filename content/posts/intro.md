@@ -1,14 +1,7 @@
 ---
-title: Introduce Lucas wiki
-meta:
-  - name: description
-    content: 글을 작성하는 본인과 wiki에 대한 설명입니다.
-  - property: og:title
-    content: Introduce Lucas wiki
-  - property: og:description
-    content: 글을 작성하는 본인과 wiki에 대한 설명입니다.
-  - property: og:url
-    content: https://wiki.lucashan.space/intro.html
+title: Introduce Keuntaek Lucas Han
+description: 글을 작성하는 본인과 wiki에 대한 설명입니다.
+url: https://wiki.lucashan.space/intro/
 disableDisqus: true
 ---
 
