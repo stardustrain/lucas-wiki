@@ -25,6 +25,7 @@ const SEO = ({ description = '', lang = 'ko', meta = [], title, url, keywords }:
         site {
           siteMetadata {
             title
+            siteUrl
             description
             social {
               twitter
@@ -37,6 +38,7 @@ const SEO = ({ description = '', lang = 'ko', meta = [], title, url, keywords }:
 
   const metaDescription = description || site.siteMetadata.description
   const defaultTitle = site.siteMetadata?.title
+  const siteUrl = site.siteMetadata?.siteUrl
 
   return (
     <Helmet
@@ -64,7 +66,7 @@ const SEO = ({ description = '', lang = 'ko', meta = [], title, url, keywords }:
         },
         {
           property: 'og:url',
-          content: url,
+          content: url ?? siteUrl,
         },
         {
           property: `og:type`,
@@ -88,7 +90,7 @@ const SEO = ({ description = '', lang = 'ko', meta = [], title, url, keywords }:
         },
         {
           name: 'twitter:url',
-          content: url,
+          content: url ?? siteUrl,
         },
       ].concat(meta)}
     />
