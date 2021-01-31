@@ -32,12 +32,15 @@ const BlogPostTemplate = ({ data, location }) => {
   const post = data.markdownRemark
   const siteTitle = data.site.siteMetadata?.title || `Title`
   const { previous, next } = data
+  const disableDisqus = !!post.frontmatter.disableDisqus
 
   return (
     <Layout location={location} title={siteTitle}>
       <SEO
         title={post.frontmatter.title}
         description={post.frontmatter.description || post.excerpt}
+        url={post.frontmatter.url}
+        keywords={post.frontmatter.keywords}
       />
       <article className="blog-post" itemScope itemType="http://schema.org/Article">
         <header>
@@ -73,7 +76,9 @@ const BlogPostTemplate = ({ data, location }) => {
           </li>
         </ul>
       </nav>
-      <Disqus url={location.href} identifier={post.id} title={post.frontmatter.title} />
+      {disableDisqus ? null : (
+        <Disqus url={location.href} identifier={post.id} title={post.frontmatter.title} />
+      )}
     </Layout>
   )
 }
@@ -96,6 +101,9 @@ export const pageQuery = graphql`
         title
         date(formatString: "MMMM DD, YYYY")
         description
+        url
+        keywords
+        disableDisqus
       }
     }
     previous: markdownRemark(id: { eq: $previousPostId }) {

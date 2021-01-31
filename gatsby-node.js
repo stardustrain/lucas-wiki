@@ -104,6 +104,9 @@ exports.createSchemaCustomization = ({ actions }) => {
       description: String
       date: Date @dateformat
       tags: [String!]
+      keywords: [String!]
+      url: String
+      disableDisqus: Boolean
     }
 
     type Fields {
