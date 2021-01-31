@@ -1,19 +1,12 @@
 ---
 title: 2019년 회고록
-meta:
-  - name: description
-    content: FE개발자로 2019년을 돌아보는 회고록.
-  - property: og:title
-    content: 2019년 회고록
-  - property: og:description
-    content: FE개발자로 2019년을 돌아보는 회고록.
-  - property: og:url
-    content: https://wiki.lucashan.space/2019-memoir.html
+description: FE개발자로 2019년을 돌아보는 회고록.
+url: https://wiki.lucashan.space/post-mortem/2019-memoir/
+date: 2019-12-30
+tags: [Post-mortem, 2019]
 ---
 
-<h1 class="screen-reader-text">2019년 회고록</h1>
-
-<h2 class="first-header">들어가며</h2>
+## 들어가며
 
 `인생여구과극`(人生如駒過隙; 시간이 지나가는 것은 당나귀가 문틈사이를 휙 지나가는것 같아서, 순식간에 슬쩍 지나감)이라는 말이 실감나는 한 해 였다. 2018년 회고록을 작성한지 얼마 되지 않은것 같은데, 벌써 2019년의 회고록을 작성하는 시간이 돌아와 버렸으니 말이다.
 
