@@ -1,21 +1,11 @@
 ---
 title: 프로그래밍 수련법
-meta:
-  - name: description
-    content: 프로그래밍 수련법을 읽고 난 후 느낀점과 요약입니다.
-  - name: keywords
-    content: 프로그래밍 수련법, 프로그래밍 수련법 요약
-  - property: og:title
-    content: 프로그래밍 수련법
-  - property: og:description
-    content: 프로그래밍 수련법을 읽고 난 후 느낀점과 요약입니다.
-  - property: og:url
-    content: https://wiki.lucashan.space/book-reports/the-practice-of-programming.html
+description: 프로그래밍 수련법을 읽고 난 후 느낀점과 요약입니다.
+keywords: [프로그래밍 수련법, 프로그래밍 수련법 요약]
+url: https://wiki.lucashan.space/book-reports/the-practice-of-programming/
+date: 2020-01-13
+tags: ['Book reports', '2020']
 ---
-
-# 프로그래밍 수련법
-
-[[toc]]
 
 ## 1. 짧은 평가, 느낀점
 
