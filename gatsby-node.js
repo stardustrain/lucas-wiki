@@ -80,6 +80,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       author: Author
       siteUrl: String
       social: Social
+      resume: String
     }
 
     type Author {
@@ -104,6 +105,9 @@ exports.createSchemaCustomization = ({ actions }) => {
       description: String
       date: Date @dateformat
       tags: [String!]
+      keywords: [String!]
+      url: String
+      disableDisqus: Boolean
     }
 
     type Fields {

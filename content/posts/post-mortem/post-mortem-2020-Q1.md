@@ -1,17 +1,10 @@
 ---
 title: 2020년 Q1 OKR 회고
-meta:
-  - name: description
-    content: 2020년 Q1의 OKR을 회고하는 글.
-  - property: og:title
-    content: 2020년 Q1 OKR 회고
-  - property: og:description
-    content: 2020년 Q1의 OKR을 회고하는 글.
-  - property: og:url
-    content: https://wiki.lucashan.space/post-mortem-2020-Q1.html
+description: 2020년 Q1의 OKR을 회고하는 글.
+url: https://wiki.lucashan.space/post-mortem/post-mortem-2020-Q1/
+date: 2020-04-12
+tags: [Post-mortem, 2020]
 ---
-
-# 2020년 Q1 OKR 회고
 
 글을 쓰는 시점에서 생각해보면 2020년 Q1에 정말 많은 일들이 있었고, 고민하는 시간도 많았었던 것 같다. 더불어, 처음으로 개인 OKR을 정하고 실천하기로 했기 때문에 꽤나 중요한 시기였다고 생각한다. 일단 2020년 Q1의 ~~소박한~~ OKR을 회고해보고, 개인적으로 했던 고민과 결정들을 써보고자 한다.
 
@@ -58,8 +51,8 @@ meta:
 
 목표달성 **25%**
 
-- [Github report bot 만들기](/programming/make-github-report-bot.html#_1-github-report-bot)
-- [프로그래밍 수련법](/book-reports/the-practice-of-programming.html)
+- [Github report bot 만들기](/programming/make-github-report-bot/)
+- [프로그래밍 수련법](/book-reports/the-practice-of-programming/)
 
 정말로 부끄러운 부분인데, 두 개의 글 밖에 쓰지 못했다. 의심할 필요없이 내가 게을렀기 때문이고, 딱히 글로 쓸만한 소재를 발견하지 못한 것도 있었다. 짧은 글이라도 쓰면 좋을텐데 너무 거창한 주제로 긴 글을 쓰려고 했던 탓이 아닌가라는 생각도 들었다.
 
@@ -76,7 +69,7 @@ Q2에는 작은 내용이라도 알게된 것이 있거나, 소소하게라도 �
 
 정말 즐겁게 토이 프로젝트를 수행했다. 프로젝트의 난이도는 적당했고, 얻은 부분도 많았기 때문에 의미있는 시간을 사용했다고 생각한다.
 
-[Github report bot 만들기](/programming/make-github-report-bot.html)에도 써있지만, 2020년 전체의 목표가 **생산성 측정과 관리**이기 때문에, 작지만 데이터를 명확하게 리포팅해주는 서비스를 만들었다는 것이 고무적이었다.
+[Github report bot 만들기](/programming/make-github-report-bot/)에도 써있지만, 2020년 전체의 목표가 **생산성 측정과 관리**이기 때문에, 작지만 데이터를 명확하게 리포팅해주는 서비스를 만들었다는 것이 고무적이었다.
 
 <center>
 <figure>

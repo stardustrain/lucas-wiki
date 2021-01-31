@@ -1,19 +1,11 @@
 ---
 title: '유닉스의 탄생: 세상을 바꾼 운영체제를 만든 천재들의 숨은 이야기'
-meta:
-  - name: description
-    content: 유닉스의 탄생을 읽고 난 후 느낀점과 요약입니다.
-  - name: keywords
-    content: 유닉스, 브라이언 커니핸, 데니스 리치, 켄 톰프슨, BSD, 리눅스
-  - property: og:title
-    content: '유닉스의 탄생: 세상을 바꾼 운영체제를 만든 천재들의 숨은 이야기'
-  - property: og:description
-    content: 유닉스의 탄생을 읽고 난 후 느낀점과 요약입니다.
-  - property: og:url
-    content: https://wiki.lucashan.space/book-reports/unix-a-history-and-a-memoir.html
+description: 유닉스의 탄생을 읽고 난 후 느낀점과 요약입니다.
+keywords: [유닉스, 브라이언 커니핸, 데니스 리치, 켄 톰프슨, BSD, 리눅스]
+url: https://wiki.lucashan.space/book-reports/unix-a-history-and-a-memoir/
+date: 2020-08-16
+tags: ['Book reports', '2020']
 ---
-
-# 유닉스의 탄생: 세상을 바꾼 운영체제를 만든 천재들의 숨은 이야기
 
 굉장히 흥미를 불러일으키는 제목이었다. 그리고 이 책을 구매한 이유는 단지 그것뿐이었다. 사실 이 책을 쓴 사람이 데니스 리치와 함께 `C programming language`를 저술한 브라이언 커니핸이라는 사실을 나중에야 알게 되었다. 이 분은 `AMPL`과 `awk`라는 유명한 언어를 만드신 분 중 한 분이라는 것도 이 책을 읽으며 알게 되었다. 또, 올 초에 읽었던 `프로그래밍 수련법`이라는 책을 쓰셨다는 사실도 알게 되었다 ~~무언가 알게 된 것이 많아졌다~~.
 

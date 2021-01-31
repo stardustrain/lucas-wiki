@@ -1,19 +1,11 @@
 ---
 title: ODC에 graphql 도입하기
-meta:
-  - name: description
-    content: 회사의 서비스인 ondemandchina에 graphql을 도입한 과정을 공유합니다.
-  - name: keywords
-    content: ODC에 graphql 도입하기
-  - property: og:title
-    content: ODC에 graphql 도입하기
-  - property: og:description
-    content: 회사의 서비스인 ondemandchina에 graphql을 도입한 과정을 공유합니다.
-  - property: og:url
-    content: https://wiki.lucashan.space/programming/introduce-a-graphql-to-odc.html
+description: 회사의 서비스인 ondemandchina에 graphql을 도입한 과정을 공유합니다.
+keywords: [graphql 도입하기, graphQL wrapping REST]
+url: https://wiki.lucashan.space/programming/introduce-a-graphql-to-odc/
+date: 2020-08-29
+tags: [Programming, 2020]
 ---
-
-# ODC에 graphql 도입하기
 
 최근 세 달여간의 작업 끝에, 회사의 서비스인 [ondemandchina](https://ondemandchina.com)를 위한 graphql server를 배포했다. 올해 초 팀에 합류하여 여러 가지 활약을 보여준 [김지훈](https://future-seller.dev/) (a.k.a. Professor K)님과 함께 작업을 하였고, 이제부터 frontend app과 mobile app에 점진적으로 적용하는 일만 남았다.
 

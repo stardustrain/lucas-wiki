@@ -30,8 +30,14 @@ const BioImage = styled(Image)`
   border-radius: 100%;
 `
 
-const BioLinks = styled.div`
-  a:not(:first-of-type) {
+const BioLinks = styled.ul`
+  list-style: none;
+
+  li {
+    display: inline-block;
+  }
+
+  li:not(:first-of-type) {
     margin-left: 10px;
   }
 `
@@ -57,6 +63,7 @@ const Bio = () => {
             github
             linkedin
           }
+          resume
         }
       }
     }
@@ -65,21 +72,35 @@ const Bio = () => {
   // Set these values by editing "siteMetadata" in gatsby-config.js
   const author = data.site.siteMetadata?.author
   const social = data.site.siteMetadata?.social
+  const resume = data.site.siteMetadata?.resume
 
   const avatar = data?.avatar?.childImageSharp?.fixed
 
   return (
     <BioLayout className="bio">
-      {avatar && (
-        <BioImage
-          fixed={avatar}
-          alt={author?.name || ``}
-          className="bio-avatar"
-          imgStyle={{
-            borderRadius: `50%`,
-          }}
-        />
-      )}
+      {avatar ? (
+        resume ? (
+          <ExternalLink ariaLabel="Author's resume" href={resume}>
+            <BioImage
+              fixed={avatar}
+              alt={author?.name || ``}
+              className="bio-avatar"
+              imgStyle={{
+                borderRadius: `50%`,
+              }}
+            />
+          </ExternalLink>
+        ) : (
+          <BioImage
+            fixed={avatar}
+            alt={author?.name || ``}
+            className="bio-avatar"
+            imgStyle={{
+              borderRadius: `50%`,
+            }}
+          />
+        )
+      ) : null}
       <div>
         {author?.name && (
           <p>
@@ -90,19 +111,32 @@ const Bio = () => {
         )}
         <BioLinks>
           {social?.github && (
-            <ExternalLink ariaLabel="Author's github profile" href={social?.github}>
-              <Icon name="Github" ariaHidden />
-            </ExternalLink>
+            <li>
+              <ExternalLink ariaLabel="Author's github profile" href={social?.github}>
+                <Icon name="Github" ariaHidden />
+              </ExternalLink>
+            </li>
           )}
           {social?.twitter && (
-            <ExternalLink ariaLabel="Author's twitter" href={social?.twitter}>
-              <Icon name="Twitter" ariaHidden />
-            </ExternalLink>
+            <li>
+              <ExternalLink ariaLabel="Author's twitter" href={social?.twitter}>
+                <Icon name="Twitter" ariaHidden />
+              </ExternalLink>
+            </li>
           )}
           {social?.linkedin && (
-            <ExternalLink ariaLabel="Author's linkedin" href={social?.linkedin}>
-              <Icon name="LinkedIn" ariaHidden />
-            </ExternalLink>
+            <li>
+              <ExternalLink ariaLabel="Author's linkedin" href={social?.linkedin}>
+                <Icon name="LinkedIn" ariaHidden />
+              </ExternalLink>
+            </li>
+          )}
+          {resume && (
+            <li>
+              <ExternalLink ariaLabel="Author's resume" href={resume}>
+                <Icon name="Resume" size={20} ariaHidden />
+              </ExternalLink>
+            </li>
           )}
         </BioLinks>
       </div>

@@ -1,21 +1,14 @@
 ---
 title: Github report bot 만들기
-meta:
-  - name: description
-    content: Github report bot을 만들었던 과정을 공유합니다.
-  - name: keywords
-    content: Github report bot 만들기
-  - property: og:title
-    content: Github report bot 만들기
-  - property: og:description
-    content: Github report bot을 만들었던 과정을 공유합니다.
-  - property: og:url
-    content: https://wiki.lucashan.space/programming/make-github-report-bot.html
+description: Github report bot을 만들었던 과정을 공유합니다.
+url: https://wiki.lucashan.space/programming/make-github-report-bot/
+date: 2020-02-23
+tags: [Programming, 2020]
 ---
 
 # Github report bot 만들기
 
-[2019 회고록](/2019-memoir.html)을 작성하면서 올해 한가지 마음 먹은것이 있었다. 바로 `생산성`에 대한 부분이다.
+[2019 회고록](/post-mortem/2019-memoir/)을 작성하면서 올해 한가지 마음 먹은것이 있었다. 바로 `생산성`에 대한 부분이다.
 
 사실 아직 생산성이 무엇을 말하는지는 정확하게 감이 오지는 않지만, 예전에 같이 일했던 [**그분1**](https://seokjun.kim/)의 말에 의하면 *꾸준함*과 _예측가능함_ 인 것 같다. 본인의 일하는 패턴과 평소 생산량을 어느정도 측정할 수 있다면 일정을 예측하는 것이 더 쉬워질 것이고, 일정을 예측했다면 적절한 업무량 분배로 overdrive를 막아준다는 이야기다.
 
@@ -145,12 +138,12 @@ const query = (from: string, to: string) => `
 const instance = axios.create({
   baseURL: 'https://api.github.com/graphql',
   headers: {
-    Authorization: `bearer ${process.env.GITHUB_API_KEY}` // Personal access token
-  }
+    Authorization: `bearer ${process.env.GITHUB_API_KEY}`, // Personal access token
+  },
 })
 
 const res = await instance.post<GithubResponse>('', {
-  query: query(from, to)
+  query: query(from, to),
 })
 ```
 
@@ -214,11 +207,11 @@ export const getLineCount = (prNodes: PullrequestNode[]) =>
   prNodes.reduce(
     (acc, prNode) => ({
       additions: acc.additions + (prNode.additions ?? 0),
-      deletions: acc.deletions + (prNode.deletions ?? 0)
+      deletions: acc.deletions + (prNode.deletions ?? 0),
     }),
     {
       additions: 0,
-      deletions: 0
+      deletions: 0,
     }
   )
 
@@ -228,7 +221,7 @@ export const getCommitsCount = (prNodes: PullrequestNode[]) =>
 export const generatePRInformation = (prNodes: PullrequestNode[]) => ({
   lines: getLineCount(prNodes),
   commits: getCommitsCount(prNodes),
-  totalPRCount: prNodes.length
+  totalPRCount: prNodes.length,
 })
 ```
 
@@ -245,16 +238,11 @@ export const getContributionByRepository = (
 ) =>
   pipe(
     keys,
-    map<string, [string, PRInformation]>(key => [
-      key,
-      generatePRInformation(projects[key])
-    ]),
+    map<string, [string, PRInformation]>(key => [key, generatePRInformation(projects[key])]),
     sortBy(v => negate(prop(criteria, v[PR_INFORMATION_INDEX])))
   )(projects)
 
-const result = getContributionByRepository(
-  getProjectsGroupbyRepository(prNodes)
-)
+const result = getContributionByRepository(getProjectsGroupbyRepository(prNodes))
 ```
 
 ## 4. Slack webhook 연동하기
@@ -408,17 +396,17 @@ gsutil 4.46
    ```typescript
    const helloWorld = () => {
      // business logic
-   };
+   }
 
    // Run blow functions
    export const hello = () => {
-     helloWorld();
-   };
+     helloWorld()
+   }
 
    // javascript
-   exports.hello = function() {
-     helloWorld();
-   };
+   exports.hello = function () {
+     helloWorld()
+   }
    ```
 
    설명이 조금 어려운 느낌인데, GCP의 문서에는 아래와 같이 적혀있다.
@@ -571,7 +559,7 @@ deploy:
     - name: Activate GCP service account
       uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
       with:
-        version: "274.0.1"
+        version: '274.0.1'
         service_account_key: ${{ secrets.GCP_SA_KEY }}
     - name: Deploy
       run: |

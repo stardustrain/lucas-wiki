@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { graphql } from 'gatsby'
 import styled from '@emotion/styled'
-import { includes, isNil } from 'lodash'
+import { includes, isNil, uniq } from 'lodash'
 
 import Bio from '../components/bio'
 import Layout from '../components/layout'
@@ -37,9 +37,11 @@ const BlogIndex = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata?.title || `Title`
   const posts = data.allMarkdownRemark.nodes
   const [tagList] = useState<string[]>(
-    posts
-      .flatMap(post => (Array.isArray(post.frontmatter.tags) ? post.frontmatter.tags : []))
-      .sort((tagA, tagB) => tagA.localeCompare(tagB))
+    uniq(
+      posts
+        .flatMap(post => (Array.isArray(post.frontmatter.tags) ? post.frontmatter.tags : []))
+        .sort((tagA, tagB) => tagA.localeCompare(tagB))
+    )
   )
   const [selectedTag, setTag] = useState<string | null>(null)
   const divRef = useRef<HTMLDivElement>(null)
@@ -128,7 +130,10 @@ export const pageQuery = graphql`
         title
       }
     }
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+    allMarkdownRemark(
+      filter: { frontmatter: { title: { ne: "Introduce Keuntaek Lucas Han" } } }
+      sort: { fields: [frontmatter___date, frontmatter___url], order: [DESC, ASC] }
+    ) {
       nodes {
         excerpt
         fields {
