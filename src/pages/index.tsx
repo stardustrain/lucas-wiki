@@ -131,7 +131,8 @@ export const pageQuery = graphql`
       }
     }
     allMarkdownRemark(
-      sort: { fields: [frontmatter___date, frontmatter___title], order: [DESC, ASC] }
+      filter: { frontmatter: { title: { ne: "Introduce Keuntaek Lucas Han" } } }
+      sort: { fields: [frontmatter___date, frontmatter___url], order: [DESC, ASC] }
     ) {
       nodes {
         excerpt

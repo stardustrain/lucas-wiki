@@ -80,6 +80,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       author: Author
       siteUrl: String
       social: Social
+      resume: String
     }
 
     type Author {
