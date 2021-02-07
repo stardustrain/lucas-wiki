@@ -1,7 +1,6 @@
-/** @jsx jsx */
 import { useEffect } from 'react'
 import { Link } from 'gatsby'
-import { ThemeProvider, jsx } from '@emotion/react'
+import { ThemeProvider } from '@emotion/react'
 import styled from '@emotion/styled'
 import Switch from 'react-switch'
 import { includes } from 'lodash'
