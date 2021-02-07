@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import { Global, css, jsx } from '@emotion/react'
-import { styleMap } from './theme'
-import { rgba } from '../utils/misc'
+import theme, { styleMap } from './theme'
 
 const globalStyles = (mode: ColorScheme) => css`
   *,
@@ -18,7 +17,7 @@ const globalStyles = (mode: ColorScheme) => css`
     font-family: -apple-system, BlinkMacSystemFont, Montserrat, system-ui, 'Segoe UI', Roboto,
       'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
       'Segoe UI Symbol', 'Noto Color Emoji';
-    background-color: ${mode === 'light' ? '#fff' : '#0d1117'};
+    background-color: ${theme[mode].color.background};
   }
 
   body {
@@ -310,20 +309,20 @@ const globalStyles = (mode: ColorScheme) => css`
   }
 
   .custom-block.tip {
-    background-color: ${mode === 'light' ? '#f3f5f7' : rgba('#f3f5f7', 0.1)};
-    border-top: 3px solid #3eaf7c;
+    background-color: ${theme[mode].color.customBlock.tip.backgroundColor};
+    border-top: 3px solid ${theme[mode].color.customBlock.tip.borderTop};
   }
 
   .custom-block.warning {
-    background-color: ${mode === 'light' ? rgba('#ffe564', 0.3) : rgba('#ffe564', 0.1)};
-    border-top: 3px solid ${rgba('#e7c000', 0.6)};
-    color: ${mode === 'light' ? '#6b5900' : '#c4a404'};
+    background-color: ${theme[mode].color.customBlock.warning.backgroundColor};
+    border-top: 3px solid ${theme[mode].color.customBlock.warning.borderTop};
+    color: ${theme[mode].color.customBlock.warning.color};
   }
 
   .custom-block.danger {
-    background-color: ${mode === 'light' ? '#ffe6e6' : rgba('#9c7c7c', 0.5)};
-    border-top: 3px solid ${rgba('#cc0000', 0.6)};
-    color: ${mode === 'light' ? '#4d0000' : '#ff7e70'};
+    background-color: ${theme[mode].color.customBlock.danger.backgroundColor};
+    border-top: 3px solid ${theme[mode].color.customBlock.danger.borderTop};
+    color: ${theme[mode].color.customBlock.danger.color};
   }
 `
 

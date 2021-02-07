@@ -5,7 +5,7 @@ export default function Resume(props: React.SVGProps<SVGSVGElement>) {
     <svg
       {...props}
       id="Layer_1"
-      enable-background="new 0 0 496.231 496.231"
+      enableBackground="new 0 0 496.231 496.231"
       height="512"
       viewBox="0 0 496.231 496.231"
       width="512"

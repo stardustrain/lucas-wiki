@@ -1,3 +1,5 @@
+import { rgba } from '../utils/misc'
+
 export const styleMap = {
   maxWidthNone: 'none',
   maxWidthXs: '20rem',
@@ -57,6 +59,28 @@ export const lightColor = {
   colorTextLight: '#4f5969',
   colorHeading: '#1a202c',
   colorAccent: '#d1dce5',
+  background: '#ffffff',
+  tagSelector: {
+    background: '#f4f7f8',
+    border: '#ecf0f2',
+    boxShadow: '#d9d9d9',
+  },
+  customBlock: {
+    tip: {
+      backgroundColor: '#f3f5f7',
+      borderTop: '#3eaf7c',
+    },
+    warning: {
+      backgroundColor: rgba('#ffe564', 0.3),
+      borderTop: rgba('#e7c000', 0.6),
+      color: '#6b5900',
+    },
+    danger: {
+      backgroundColor: rgba('#9c7c7c', 0.5),
+      borderTop: rgba('#cc0000', 0.6),
+      color: '#ff7e70',
+    },
+  },
 }
 
 export const darkColor = {
@@ -71,6 +95,27 @@ export const darkColor = {
   colorHeading: '#1a202c',
   colorAccent: '#747b80',
   background: '#0d1117',
+  tagSelector: {
+    background: '#232e40',
+    border: '#3f5373',
+    boxShadow: '#536d96',
+  },
+  customBlock: {
+    tip: {
+      backgroundColor: rgba('#f3f5f7', 0.1),
+      borderTop: '#3eaf7c',
+    },
+    warning: {
+      backgroundColor: rgba('#ffe564', 0.1),
+      borderTop: rgba('#e7c000', 0.6),
+      color: '#c4a404',
+    },
+    danger: {
+      backgroundColor: rgba('#9c7c7c', 0.5),
+      borderTop: rgba('#cc0000', 0.6),
+      color: '#ff7e70',
+    },
+  },
 }
 
 export default {
