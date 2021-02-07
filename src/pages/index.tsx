@@ -3,6 +3,8 @@ import { graphql } from 'gatsby'
 import styled from '@emotion/styled'
 import { includes, isNil, uniq } from 'lodash'
 
+import { useSelectedTagContext } from '../contexts/SelectedTagContext'
+
 import Bio from '../components/bio'
 import Layout from '../components/layout'
 import SEO from '../components/seo'
@@ -43,7 +45,9 @@ const BlogIndex = ({ data, location }) => {
         .sort((tagA, tagB) => tagA.localeCompare(tagB))
     )
   )
-  const [selectedTag, setTag] = useState<string | null>(null)
+  const {
+    state: { selectedTag },
+  } = useSelectedTagContext()
   const divRef = useRef<HTMLDivElement>(null)
 
   if (posts.length === 0) {
@@ -60,7 +64,7 @@ const BlogIndex = ({ data, location }) => {
   }
 
   const filteredPosts =
-    selectedTag === null || selectedTag.length === 0
+    selectedTag === 'all' || selectedTag === null
       ? posts
       : posts.filter(post => includes(post.frontmatter.tags, selectedTag))
 
@@ -83,7 +87,7 @@ const BlogIndex = ({ data, location }) => {
       <SEO title="All posts" />
       <Bio />
       <PostContainer ref={divRef}>
-        <TagSelector tagList={tagList} onSetTag={setTag} />
+        <TagSelector tagList={tagList} />
         <ol style={{ listStyle: 'none' }}>
           {filteredPosts.map(post => {
             const title = post.frontmatter.title || post.fields.slug
