@@ -4,7 +4,7 @@ const siteMetadata = {
     name: `Keuntaek Lucas Han`,
     summary: `I'm Frontend engineer who loves functional programming, interested in writing solid and beautiful code and testing.`,
   },
-  description: ``,
+  description: `Personal blog by Lucas Han. Where I wrote my thoughts freely.`,
   siteUrl: `https://wiki.lucashan.space/`,
   social: {
     twitter: `https://twitter.com/lucashan13`,
