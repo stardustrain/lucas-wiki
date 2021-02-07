@@ -15,6 +15,8 @@ smoothscroll.polyfill()
 
 export const wrapRootElement = ({ element }) => (
   <ColorSchemeProvider>
-    <SelectedTagContextProvider>{element}</SelectedTagContextProvider>
+    <SelectedTagContextProvider>
+      {element}
+    </SelectedTagContextProvider>
   </ColorSchemeProvider>
 )

@@ -4,6 +4,8 @@ import { SelectedTagContextProvider } from './src/contexts/SelectedTagContext'
 
 export const wrapRootElement = ({ element }) => (
   <ColorSchemeProvider>
-    <SelectedTagContextProvider>{element}</SelectedTagContextProvider>
+    <SelectedTagContextProvider>
+      {element}
+    </SelectedTagContextProvider>
   </ColorSchemeProvider>
 )
