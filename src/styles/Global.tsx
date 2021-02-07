@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { Global, css, jsx } from '@emotion/react'
 import { styleMap } from './theme'
+import { rgba } from '../utils/misc'
 
 const globalStyles = (mode: ColorScheme) => css`
   *,
@@ -287,6 +288,42 @@ const globalStyles = (mode: ColorScheme) => css`
     border-radius: 0.3em;
     color: ${mode === 'light' ? '#db4c69' : '#ffa44f'};
     background: ${mode === 'light' ? '#f9f2f4' : '#3d3b3b'};
+  }
+
+  center {
+    margin: ${styleMap.spacing0} ${styleMap.spacing0} ${styleMap.spacing3} ${styleMap.spacing0};
+  }
+
+  /* Custom block */
+  .custom-block {
+    padding: ${styleMap.spacing3};
+    margin: ${styleMap.spacing0} ${styleMap.spacing0} ${styleMap.spacing8} ${styleMap.spacing0};
+
+    p {
+      margin: ${styleMap.spacing0};
+    }
+
+    .custom-block-heading {
+      font-weight: bold;
+      margin-bottom: ${styleMap.spacing2};
+    }
+  }
+
+  .custom-block.tip {
+    background-color: ${mode === 'light' ? '#f3f5f7' : rgba('#f3f5f7', 0.1)};
+    border-top: 3px solid #3eaf7c;
+  }
+
+  .custom-block.warning {
+    background-color: ${mode === 'light' ? rgba('#ffe564', 0.3) : rgba('#ffe564', 0.1)};
+    border-top: 3px solid ${rgba('#e7c000', 0.6)};
+    color: ${mode === 'light' ? '#6b5900' : '#c4a404'};
+  }
+
+  .custom-block.danger {
+    background-color: ${mode === 'light' ? '#ffe6e6' : rgba('#9c7c7c', 0.5)};
+    border-top: 3px solid ${rgba('#cc0000', 0.6)};
+    color: ${mode === 'light' ? '#4d0000' : '#ff7e70'};
   }
 `
 
