@@ -27,7 +27,7 @@ const reducer = (state: typeof defaultTag, action: { type: string; payload: stri
   }
 }
 
-export const SelectedTagContextProvider = ({ children }) => {
+export const SelectedTagProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, defaultTag)
 
   return (
