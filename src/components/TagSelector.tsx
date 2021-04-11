@@ -2,7 +2,6 @@ import React from 'react'
 import styled from '@emotion/styled'
 
 import { useSelectedTagContext } from '../contexts/SelectedTagContext'
-import { rgba } from '../utils/misc'
 
 const Ul = styled.ul`
   position: sticky;
@@ -12,7 +11,7 @@ const Ul = styled.ul`
   padding: calc(1rem - 5px) 1rem;
   z-index: 1;
   list-style: none;
-  box-shadow: ${({ theme }) => `0 2px 5px ${rgba(theme.color.tagSelector.boxShadow, 0.5)}`};
+  box-shadow: ${({ theme }) => `0 2px 5px ${theme.color.tagSelector.boxShadow}`};
 
   li {
     display: inline-block;
@@ -25,11 +24,10 @@ const Ul = styled.ul`
 `
 
 const Button = styled.button<{ isSelected: boolean }>`
-  color: ${({ theme, isSelected }) =>
-    isSelected ? '#f4f7f8' : rgba(theme.color.textSecondary, 0.8)};
+  color: ${({ isSelected }) => (isSelected ? '#f4f7f8' : 'hsla(var(--text-base), 45%)')};
   cursor: pointer;
-  background-color: ${({ theme, isSelected }) =>
-    isSelected ? rgba(theme.color.textSecondary, 0.8) : '#fff'};
+  background-color: ${({ isSelected }) =>
+    isSelected ? 'hsla(var(--text-base), 45%, 50%)' : '#fff'};
   border: ${({ isSelected }) => (isSelected ? 0 : '1px solid #d9d9d9;')};
   border-radius: 10px;
   transition: background-color 0.3s;

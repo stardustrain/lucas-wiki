@@ -1,16 +1,18 @@
-import React from 'react'
-import { ColorSchemeProvider } from './src/contexts/ColorSchemeContext'
-import { SelectedTagProvider } from './src/contexts/SelectedTagContext'
+const React = require('react')
+const { ColorSchemeProvider } = require('./src/contexts/ColorSchemeContext')
+const { SelectedTagProvider } = require('./src/contexts/SelectedTagContext')
 
 // custom typefaces
-import 'typeface-montserrat'
-import 'typeface-merriweather'
-import smoothscroll from 'smoothscroll-polyfill'
+require('typeface-montserrat')
+require('typeface-merriweather')
+const smoothscroll = require('smoothscroll-polyfill')
 // custom CSS styles
-import './src/styles/prism-vsc-dark-plus.css'
+require('./src/styles/prism-vsc-dark-plus.css')
+require('./src/styles/normalize.css')
+require('./src/styles/global.css')
 
 // Highlighting for code blocks
-import 'prismjs/plugins/line-numbers/prism-line-numbers.css'
+require('prismjs/plugins/line-numbers/prism-line-numbers.css')
 smoothscroll.polyfill()
 
 export const wrapRootElement = ({ element }) => (

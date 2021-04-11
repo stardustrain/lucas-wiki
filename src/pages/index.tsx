@@ -13,7 +13,8 @@ import ArticleMeta from '../components/ArticleMeta'
 import TagSelector from '../components/TagSelector'
 
 const Header = styled.header`
-  border-bottom: 1px solid hsla(0, 0%, 0%, 0.07);
+  border-bottom: 1px solid hsla(var(--text-base), 40%, 25%);
+  padding-bottom: ${({ theme }) => theme.spacing1};
 `
 
 const H2 = styled.h2`
