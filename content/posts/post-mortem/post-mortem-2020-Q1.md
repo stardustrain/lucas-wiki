@@ -3,7 +3,7 @@ title: 2020년 Q1 OKR 회고
 description: 2020년 Q1의 OKR을 회고하는 글.
 url: https://wiki.lucashan.space/post-mortem/post-mortem-2020-Q1/
 date: 2020-04-12
-tags: [Post-mortem, 2020]
+tags: [Post-mortem, '2020']
 ---
 
 글을 쓰는 시점에서 생각해보면 2020년 Q1에 정말 많은 일들이 있었고, 고민하는 시간도 많았었던 것 같다. 더불어, 처음으로 개인 OKR을 정하고 실천하기로 했기 때문에 꽤나 중요한 시기였다고 생각한다. 일단 2020년 Q1의 ~~소박한~~ OKR을 회고해보고, 개인적으로 했던 고민과 결정들을 써보고자 한다.

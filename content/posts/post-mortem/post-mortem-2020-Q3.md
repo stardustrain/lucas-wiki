@@ -3,7 +3,7 @@ title: 2020년 Q3 회고
 description: 2020년 Q3을 회고하는 글.
 url: https://wiki.lucashan.space/post-mortem-2020-Q3/
 date: 2020-10-18
-tags: [Post-mortem, 2020]
+tags: [Post-mortem, '2020']
 ---
 
 Q3에는 정말 바쁘게 움직였던 것 같다. 팀의 프로세스가 안정세에 접어들고 bottom-up으로 진행하는 일들이 본격적으로 늘어나면서 Q2보다 코드에 쏟는 시간이 많아졌고, 새로운 프로세스를 경험하기도 하였다. 다행히도 새로운 프로젝트를 런칭했으며, 프로젝트를 진행하는 과정에서 내 생각과 태도가 많이 바뀌기도 하였다.

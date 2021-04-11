@@ -7,7 +7,7 @@
 
 import React from 'react'
 import { useStaticQuery, graphql } from 'gatsby'
-import Image from 'gatsby-image'
+import { GatsbyImage } from 'gatsby-plugin-image'
 import styled from '@emotion/styled'
 
 import Icon from './Icon'
@@ -23,7 +23,7 @@ const BioLayout = styled.div`
   }
 `
 
-const BioImage = styled(Image)`
+const BioImage = styled(GatsbyImage)`
   margin-right: ${({ theme }) => theme.spacing4};
   margin-bottom: ${({ theme }) => theme.spacing0};
   min-width: 50px;
@@ -47,9 +47,7 @@ const Bio = () => {
     query BioQuery {
       avatar: file(absolutePath: { regex: "/profile-pic.jpg/" }) {
         childImageSharp {
-          fixed(width: 50, height: 50, quality: 95) {
-            ...GatsbyImageSharpFixed
-          }
+          gatsbyImageData(layout: FIXED, width: 50, height: 50, quality: 95)
         }
       }
       site {
@@ -74,7 +72,7 @@ const Bio = () => {
   const social = data.site.siteMetadata?.social
   const resume = data.site.siteMetadata?.resume
 
-  const avatar = data?.avatar?.childImageSharp?.fixed
+  const avatar = data?.avatar?.childImageSharp?.gatsbyImageData
 
   return (
     <BioLayout className="bio">
@@ -82,7 +80,7 @@ const Bio = () => {
         resume ? (
           <ExternalLink ariaLabel="Author's resume" href={resume}>
             <BioImage
-              fixed={avatar}
+              image={avatar}
               alt={author?.name || ``}
               className="bio-avatar"
               imgStyle={{
@@ -92,7 +90,7 @@ const Bio = () => {
           </ExternalLink>
         ) : (
           <BioImage
-            fixed={avatar}
+            image={avatar}
             alt={author?.name || ``}
             className="bio-avatar"
             imgStyle={{

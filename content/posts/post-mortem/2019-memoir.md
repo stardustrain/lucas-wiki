@@ -3,7 +3,7 @@ title: 2019년 회고록
 description: FE개발자로 2019년을 돌아보는 회고록.
 url: https://wiki.lucashan.space/post-mortem/2019-memoir/
 date: 2019-12-30
-tags: [Post-mortem, 2019]
+tags: [Post-mortem, '2019']
 ---
 
 ## 들어가며
