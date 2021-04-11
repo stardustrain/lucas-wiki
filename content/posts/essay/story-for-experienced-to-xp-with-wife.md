@@ -3,7 +3,7 @@ title: XP 실천방법 따라해 보기 - Pair programming과 TDD
 description: XP 실천방법 따라해 보기 - 3일간 인생의 동반자와 TDD해본 이야기.
 url: https://wiki.lucashan.space/essay/story-for-experienced-to-xp-with-wife/
 date: 2020-05-08
-tags: [Essay, 2020]
+tags: [Essay, '2020']
 ---
 
 최근 [익스트림 프로그래밍](http://www.yes24.com/Product/Goods/2126201) 이라는 책을 읽고 있다. 꽤 재미있게 읽고 있는 만큼, HDD(Hype Driven Development; 설레발 주도 개발)로 연결되지 않을까 두려워 한편으로는 조심스럽게 접근하고 있다. 이 책을 **주의하여 읽지 않으면**, _XP가 모든 문제를 해결할 수 있다_ 라는 **착각**에 빠지기 쉽기 때문이다. 그런 착각에 빠지게 되면, 팀의 분위기나 문화는 그대로인데 적당한 프로세스만 도입한다거나 애자일 실천방법을 성과에 묶어버리는 이상한 상황이 발생한다. 본인이 실제로 겪어본 일이기도 하고.

@@ -3,7 +3,7 @@ title: Github report bot 만들기
 description: Github report bot을 만들었던 과정을 공유합니다.
 url: https://wiki.lucashan.space/programming/make-github-report-bot/
 date: 2020-02-23
-tags: [Programming, 2020]
+tags: [Programming, '2020']
 ---
 
 # Github report bot 만들기
