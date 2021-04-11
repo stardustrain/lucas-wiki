@@ -6,12 +6,9 @@ import Switch from 'react-switch'
 import { includes } from 'lodash'
 
 import { useColorScheme } from '../contexts/ColorSchemeContext'
-
-import Global, { ColorScheme } from '../styles/Global'
-import Normalize from '../styles/Normalize'
-import Icon from './Icon'
-
 import theme from '../styles/theme'
+
+import Icon from './Icon'
 
 const GlobalWrapper = styled.div`
   color: ${({ theme }) => theme.color.colorText};
@@ -62,7 +59,7 @@ const StyledSwitch = styled(Switch)`
 const getColorScheme = () => {
   const scheme = localStorage.getItem('colorScheme')
   if (includes(['light', 'dark'], scheme)) {
-    return scheme as ColorScheme
+    return scheme
   }
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
 }
@@ -77,6 +74,7 @@ const Layout = ({ location, title, children }) => {
 
   useEffect(() => {
     const scheme = getColorScheme()
+    document.body.dataset.theme = scheme
     dispatch({
       type: scheme,
     })
@@ -84,9 +82,7 @@ const Layout = ({ location, title, children }) => {
   }, [])
 
   return (
-    <ThemeProvider theme={theme[mode]}>
-      <Normalize />
-      <Global mode={mode} />
+    <ThemeProvider theme={theme}>
       <GlobalWrapper className="global-wrapper" data-is-root-path={isRootPath}>
         <Header className="global-header">
           {isRootPath ? (
@@ -106,6 +102,7 @@ const Layout = ({ location, title, children }) => {
                 dispatch({
                   type: currentMode,
                 })
+                document.body.dataset.theme = currentMode
                 localStorage.setItem('colorScheme', currentMode)
               }}
               checked={mode === 'light'}

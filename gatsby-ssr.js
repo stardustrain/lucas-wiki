@@ -1,6 +1,6 @@
-import React from 'react'
-import { ColorSchemeProvider } from './src/contexts/ColorSchemeContext'
-import { SelectedTagProvider } from './src/contexts/SelectedTagContext'
+const React = require('react')
+const { ColorSchemeProvider } = require('./src/contexts/ColorSchemeContext')
+const { SelectedTagProvider } = require('./src/contexts/SelectedTagContext')
 
 export const wrapRootElement = ({ element }) => (
   <ColorSchemeProvider>

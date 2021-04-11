@@ -1,0 +1,429 @@
+*,
+:after,
+:before {
+  box-sizing: border-box;
+}
+
+:root {
+  --maxWidthNone: none;
+  --maxWidthXs: 20rem;
+  --maxWidthSm: 24rem;
+  --maxWidthMd: 28rem;
+  --maxWidthLg: 32rem;
+  --maxWidthXl: 36rem;
+  --maxWidth2xl: 42rem;
+  --maxWidth3xl: 48rem;
+  --maxWidth4xl: 56rem;
+  --maxWidthFull: 100%;
+  --spacingPx: 1px;
+  --spacing0: 0;
+  --spacing1: 0.25rem;
+  --spacing2: 0.5rem;
+  --spacing3: 0.75rem;
+  --spacing4: 1rem;
+  --spacing5: 1.25rem;
+  --spacing6: 1.5rem;
+  --spacing8: 2rem;
+  --spacing10: 2.5rem;
+  --spacing12: 3rem;
+  --spacing16: 4rem;
+  --spacing20: 5rem;
+  --spacing24: 6rem;
+  --spacing32: 8rem;
+  --fontWeightNormal: 400;
+  --fontWeightMedium: 500;
+  --fontWeightSemibold: 600;
+  --fontWeightBold: 700;
+  --fontWeightExtrabold: 800;
+  --fontWeightBlack: 900;
+  --fontSizeRoot: 16px;
+  --lineHeightNone: 1;
+  --lineHeightTight: 1.1;
+  --lineHeightNormal: 1.5;
+  --lineHeightRelaxed: 1.625;
+  /* 1.200 Minor Third Type Scale */
+  --fontSize0: 0.833rem;
+  --fontSize1: 1rem;
+  --fontSize2: 1.2rem;
+  --fontSize3: 1.44rem;
+  --fontSize4: 1.728rem;
+  --fontSize5: 2.074rem;
+  --fontSize6: 2.488rem;
+  --fontSize7: 2.986rem;
+}
+
+body[data-theme='light'] {
+  --text-base: 210, 12%;
+  --textPrimary: hsl(var(--text-base), 16%);
+  --textSecondary: hsl(var(--text-base), 38%);
+  --textTertiary: hsl(var(--text-base), 45%);
+  --pirmaryGreen: hsl(153, 48%, 46%);
+  --textLink: hsl(214, 98%, 50%);
+  --colorPrimary: hsl(204, 100%, 30%);
+  --colorText: hsl(215, 16%, 21%);
+  --colorTextLight: hsl(217, 14%, 36%);
+  --colorHeading: hsl(220, 26%, 14%);
+  --colorAccent: hsl(207, 28%, 86%);
+  --background: hsl(0, 0%, 100%);
+  --tagSelector-background: hsl(195, 22%, 96%);
+  --tagSelector-border: hsl(200, 19%, 94%);
+  --tagSelector-boxShadow: hsl(0, 0%, 85%);
+  --customBlock-tip-backgroundColor: hsl(210, 20%, 96%);
+  --customBlock-tip-borderTop: hsl(153, 48%, 46%);
+  --customBlock-warning-backgroundColor: hsla(50, 100%, 70%, 30%);
+  --customBlock-warning-borderTop: hsla(50, 100%, 45%, 60%);
+  --customBlock-warning-color: hsl(50, 100%, 21%);
+  --customBlock-danger-backgroundColor: hsla(0, 14%, 55%, 50%);
+  --customBlock-danger-borderTop: hsla(0, 100%, 40%, 60%);
+  --customBlock-danger-color: hsl(6, 100%, 72%);
+}
+
+body[data-theme='dark'] {
+  --text-base: 210, 17%;
+  --textPrimary: hsl(var(--text-base), 80%);
+  --textSecondary: hsl(var(--text-base), 60%);
+  --textTertiary: hsl(var(--text-base), 60%);
+  --pirmaryGreen: hsl(153, 48%, 46%);
+  --textLink: hsl(204, 89%, 45%);
+  --colorPrimary: hsl(204, 100%, 23%);
+  --colorText: hsl(212, 9%, 58%);
+  --colorTextLight: hsl(217, 14%, 36%);
+  --colorHeading: hsl(220, 26%, 14%);
+  --colorAccent: hsl(205, 5%, 48%);
+  --background: hsl(216, 28%, 7%);
+  --tagSelector-background: hsl(217, 29%, 19%);
+  --tagSelector-border: hsl(217, 29%, 35%);
+  --tagSelector-boxShadow: hsla(217, 29%, 46%, 50%);
+  --customBlock-tip-backgroundColor: hsla(210, 20%, 96%, 10%);
+  --customBlock-tip-borderTop: hsl(153, 48%, 46%);
+  --customBlock-warning-backgroundColor: hsla(50, 100%, 70%, 10%);
+  --customBlock-warning-borderTop: hsla(50, 100%, 45%, 60%);
+  --customBlock-warning-color: hsl(50, 96%, 39%);
+  --customBlock-danger-backgroundColor: hsla(0, 14%, 55%, 50%);
+  --customBlock-danger-borderTop: hsla(0, 100%, 40%, 60%);
+  --customBlock-danger-color: hsl(6, 100%, 72%);
+}
+
+html {
+  line-height: var(--lineHeightNormal);
+  font-size: var(--fontSizeRoot);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: -apple-system, BlinkMacSystemFont, Montserrat, system-ui, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+body {
+  font-size: var(--fontSize1);
+  background-color: var(--background);
+}
+
+footer {
+  padding: var(--spacing6) var(--spacing0);
+}
+
+hr {
+  height: 1px;
+  border: 0;
+}
+
+/* Heading */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: var(--spacing12);
+  margin-bottom: var(--spacing6);
+  line-height: var(--lineHeightTight);
+  letter-spacing: -0.025em;
+}
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: var(--fontWeightBold);
+}
+
+h1 {
+  font-weight: var(--fontWeightBlack);
+  font-size: var(--fontSize6);
+}
+
+h2 {
+  font-size: var(--fontSize5);
+}
+
+h3 {
+  font-size: var(--fontSize4);
+}
+
+h4 {
+  font-size: var(--fontSize3);
+}
+
+h5 {
+  font-size: var(--fontSize2);
+}
+
+h6 {
+  font-size: var(--fontSize1);
+}
+
+h1 > a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h2 > a,
+h3 > a,
+h4 > a,
+h5 > a,
+h6 > a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Prose */
+
+p {
+  line-height: var(--lineHeightRelaxed);
+  --baseline-multiplier: 0.179;
+  --x-height-multiplier: 0.35;
+  margin: var(--spacing0) var(--spacing0) var(--spacing8) var(--spacing0);
+  margin: var(--spacing0) var(--spacing0) var(--spacing8) var(--spacing0);
+  padding: var(--spacing0);
+}
+
+ul,
+ol {
+  margin-left: var(--spacing0);
+  margin-right: var(--spacing0);
+  padding: var(--spacing0);
+  margin-bottom: var(--spacing8);
+  list-style-position: outside;
+  list-style-image: none;
+}
+
+ul li,
+ol li {
+  padding-left: var(--spacing0);
+  margin-bottom: calc(var(--spacing8) / 2);
+}
+
+li > p {
+  margin-bottom: calc(var(--spacing8) / 2);
+}
+
+li *:last-child {
+  margin-bottom: var(--spacing0);
+}
+
+li > ul {
+  margin-left: var(--spacing8);
+  margin-top: calc(var(--spacing8) / 2);
+}
+
+blockquote {
+  margin-left: calc(-1 * var(--spacing6));
+  margin-right: var(--spacing8);
+  padding: var(--spacing0) var(--spacing0) var(--spacing0) var(--spacing6);
+  font-size: var(--fontSize2);
+  font-style: italic;
+  margin-bottom: var(--spacing8);
+}
+
+blockquote > :last-child {
+  margin-bottom: var(--spacing0);
+}
+
+blockquote > ul,
+blockquote > ol {
+  list-style-position: inside;
+}
+
+table {
+  width: 100%;
+  margin-bottom: var(--spacing8);
+  border-collapse: collapse;
+  border-spacing: 0.25rem;
+}
+
+/* Link */
+
+a:hover,
+a:focus {
+  text-decoration: none;
+}
+
+/* Custom classes */
+
+.global-wrapper {
+  margin: var(--spacing0) auto;
+  max-width: var(--maxWidth2xl);
+  padding: var(--spacing10) var(--spacing5);
+}
+
+.global-header {
+  margin-bottom: var(--spacing12);
+}
+
+.main-heading {
+  font-size: var(--fontSize7);
+  margin: 0;
+}
+
+.post-list-item {
+  margin-bottom: var(--spacing8);
+  margin-top: var(--spacing8);
+}
+
+.post-list-item p {
+  margin-bottom: var(--spacing0);
+}
+
+.post-list-item h2 {
+  font-size: var(--fontSize4);
+  margin-top: var(--spacing0);
+}
+
+.post-list-item header {
+  margin-bottom: var(--spacing4);
+}
+
+.header-link-home {
+  font-weight: var(--fontWeightBold);
+  text-decoration: none;
+  font-size: var(--fontSize2);
+}
+
+.blog-post header h1 {
+  margin: var(--spacing0) var(--spacing0) var(--spacing4) var(--spacing0);
+}
+
+.blog-post header p {
+  font-size: var(--fontSize2);
+}
+
+.blog-post-nav ul {
+  margin: var(--spacing0);
+}
+
+.gatsby-highlight {
+  margin-bottom: var(--spacing8);
+}
+
+/* Media queries */
+
+@media (max-width: 42rem) {
+  blockquote {
+    padding: var(--spacing0) var(--spacing0) var(--spacing0) var(--spacing4);
+    margin-left: var(--spacing0);
+  }
+  ul,
+  ol {
+    list-style-position: inside;
+  }
+}
+
+/* Custom added */
+/* Prism */
+/* Adjust the position of the line numbers */
+.gatsby-highlight pre[class*='language-'].line-numbers {
+  padding-left: 2.8em;
+}
+
+/**
+* If you only want to use line numbering
+*/
+
+.gatsby-highlight {
+  background-color: #1e1e1e;
+  border-radius: 0.3em;
+  margin: 0.5em 0;
+  padding: 1em;
+  overflow: auto;
+}
+
+.gatsby-highlight pre[class*='language-'].line-numbers {
+  padding: 0;
+  padding-left: 2.8em;
+}
+
+.token.operator {
+  background: none;
+}
+
+.screen-reader-only {
+  position: absolute;
+  clip: rect(1px, 1px, 1px, 1px);
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+h2 > a,
+h3 > a {
+  margin-right: 2px;
+}
+
+h2 > a > svg,
+h3 > a > svg {
+  transform: translateY(-2px);
+}
+
+:not(pre) > code[class*='language-'] {
+  padding: 0.1em 0.3em;
+  border-radius: 0.3em;
+}
+
+body[data-theme='light'] :not(pre) > code[class*='language-'] {
+  color: hsl(348, 67%, 58%);
+  background: hsl(343, 37%, 96%);
+}
+
+body[data-theme='dark'] :not(pre) > code[class*='language-'] {
+  color: hsl(29, 100%, 65%);
+  background: hsl(0, 2%, 24%);
+}
+
+center {
+  margin: var(--spacing0) var(--spacing0) var(--spacing3) var(--spacing0);
+}
+
+/* Custom block */
+.custom-block {
+  padding: var(--spacing3);
+  margin: var(--spacing0) var(--spacing0) var(--spacing8) var(--spacing0);
+}
+
+.custom-block p {
+  margin: var(--spacing0);
+}
+
+.custom-block .custom-block-heading {
+  font-weight: bold;
+  margin-bottom: var(--spacing2);
+}
+
+.custom-block.tip {
+  background-color: var(--customBlock-tip-backgroundColor);
+  border-top: 3px solid var(--customBlock-tip-borderTop);
+}
+
+.custom-block.warning {
+  background-color: var(--customBlock-warning-backgroundColor);
+  border-top: 3px solid var(--customBlock-warning-borderTop);
+  color: var(--customBlock-warning-color);
+}
+
+.custom-block.danger {
+  background-color: var(--customBlock-danger-backgroundColor);
+  border-top: 3px solid var(--customBlock-danger-borderTop);
+  color: var(--customBlock-danger-color);
+}
