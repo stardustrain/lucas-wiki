@@ -1,7 +1,7 @@
 ---
 title: 2020년 Q3 회고
 description: 2020년 Q3을 회고하는 글.
-url: https://wiki.lucashan.space/post-mortem-2020-Q3/
+url: https://wiki.lucashan.space/post-mortem/post-mortem-2020-Q3/
 date: 2020-10-18
 tags: [Post-mortem, '2020']
 ---

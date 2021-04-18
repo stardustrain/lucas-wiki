@@ -40,6 +40,60 @@ const SEO = ({ description = '', lang = 'ko', meta = [], title, url, keywords }:
   const defaultTitle = site.siteMetadata?.title
   const siteUrl = site.siteMetadata?.siteUrl
 
+  const metaTags = [
+    {
+      name: `description`,
+      content: metaDescription,
+    },
+    {
+      name: 'keywords',
+      content: keywords ?? '',
+    },
+    {
+      property: `og:title`,
+      content: title,
+    },
+    {
+      property: `og:description`,
+      content: metaDescription,
+    },
+    {
+      property: 'og:url',
+      content: url ?? siteUrl,
+    },
+    {
+      property: `og:type`,
+      content: `website`,
+    },
+    {
+      name: `twitter:card`,
+      content: `summary`,
+    },
+    {
+      name: `twitter:creator`,
+      content: site.siteMetadata?.social?.twitter || ``,
+    },
+    {
+      name: `twitter:title`,
+      content: title,
+    },
+    {
+      name: `twitter:description`,
+      content: metaDescription,
+    },
+    {
+      name: 'twitter:url',
+      content: url ?? siteUrl,
+    },
+  ].concat(meta)
+
+  if (process.env.GATSBY_GOOGLE_SITE_VERIFICATION) {
+    metaTags.push({
+      name: 'google-site-verification',
+      content: process.env.GATSBY_GOOGLE_SITE_VERIFICATION,
+    })
+  }
+
   return (
     <Helmet
       htmlAttributes={{
@@ -47,52 +101,7 @@ const SEO = ({ description = '', lang = 'ko', meta = [], title, url, keywords }:
       }}
       title={title}
       titleTemplate={defaultTitle ? `%s | ${defaultTitle}` : null}
-      meta={[
-        {
-          name: `description`,
-          content: metaDescription,
-        },
-        {
-          name: 'keywords',
-          content: keywords ?? '',
-        },
-        {
-          property: `og:title`,
-          content: title,
-        },
-        {
-          property: `og:description`,
-          content: metaDescription,
-        },
-        {
-          property: 'og:url',
-          content: url ?? siteUrl,
-        },
-        {
-          property: `og:type`,
-          content: `website`,
-        },
-        {
-          name: `twitter:card`,
-          content: `summary`,
-        },
-        {
-          name: `twitter:creator`,
-          content: site.siteMetadata?.social?.twitter || ``,
-        },
-        {
-          name: `twitter:title`,
-          content: title,
-        },
-        {
-          name: `twitter:description`,
-          content: metaDescription,
-        },
-        {
-          name: 'twitter:url',
-          content: url ?? siteUrl,
-        },
-      ].concat(meta)}
+      meta={metaTags}
     />
   )
 }
