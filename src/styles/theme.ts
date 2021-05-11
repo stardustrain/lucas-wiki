@@ -1,3 +1,10 @@
+import { includes } from 'lodash'
+
+const themeMode = ['dark', 'light'] as const
+export type ThemeMode = typeof themeMode[number]
+export const isCorrectTheme = (themeExpected: string): themeExpected is ThemeMode =>
+  includes(themeMode, themeExpected)
+
 export const styleMap = {
   maxWidthNone: 'var(--maxWidthNone)',
   maxWidthXs: 'var(--maxWidthXs)',

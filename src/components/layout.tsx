@@ -1,14 +1,11 @@
-import { useEffect } from 'react'
 import { Link } from 'gatsby'
 import { ThemeProvider } from '@emotion/react'
 import styled from '@emotion/styled'
 import Switch from 'react-switch'
-import { includes } from 'lodash'
-
-import { useColorScheme } from '../contexts/ColorSchemeContext'
-import theme from '../styles/theme'
 
 import Icon from './Icon'
+import { useColorScheme } from '../contexts/ColorSchemeContext'
+import blogTheme from '../styles/theme'
 
 const GlobalWrapper = styled.div`
   color: ${({ theme }) => theme.color.colorText};
@@ -33,8 +30,6 @@ const GlobalWrapper = styled.div`
   table thead tr th {
     border-bottom: 1px solid ${({ theme }) => theme.color.colorAccent};
   }
-
-  transition: color 0.5s, background-color 1s;
 `
 
 const Header = styled.header`
@@ -56,33 +51,13 @@ const StyledSwitch = styled(Switch)`
   }
 `
 
-const getColorScheme = () => {
-  const scheme = localStorage.getItem('colorScheme')
-  if (includes(['light', 'dark'], scheme)) {
-    return scheme
-  }
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-}
-
 const Layout = ({ location, title, children }) => {
-  const {
-    state: { mode },
-    dispatch,
-  } = useColorScheme()
+  const { themeMode, setThemeMode } = useColorScheme()
   const rootPath = `${__PATH_PREFIX__}/`
   const isRootPath = location.pathname === rootPath
 
-  useEffect(() => {
-    const scheme = getColorScheme()
-    document.body.dataset.theme = scheme
-    dispatch({
-      type: scheme,
-    })
-    localStorage.setItem('colorScheme', scheme)
-  }, [])
-
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={blogTheme}>
       <GlobalWrapper className="global-wrapper" data-is-root-path={isRootPath}>
         <Header className="global-header">
           {isRootPath ? (
@@ -94,25 +69,25 @@ const Layout = ({ location, title, children }) => {
               {title}
             </Link>
           )}
-          <label>
-            <span className="screen-reader-only">Switch with toggle darkmode</span>
-            <StyledSwitch
-              onChange={() => {
-                const currentMode = mode === 'light' ? 'dark' : 'light'
-                dispatch({
-                  type: currentMode,
-                })
-                document.body.dataset.theme = currentMode
-                localStorage.setItem('colorScheme', currentMode)
-              }}
-              checked={mode === 'light'}
-              checkedIcon={<StyledIcon size={22} name="Sun" ariaHidden={false} left />}
-              uncheckedIcon={<StyledIcon size={20} name="Moon" ariaHidden={false} />}
-              onColor="#0f1114"
-              offColor="#6a737d"
-              height={25}
-            />
-          </label>
+          {themeMode && (
+            <label>
+              <span className="screen-reader-only">Switch with toggle darkmode</span>
+              <StyledSwitch
+                onChange={() => {
+                  const currentMode = document.body.dataset.theme === 'light' ? 'dark' : 'light'
+                  document.body.dataset.theme = currentMode
+                  localStorage.setItem('theme', currentMode)
+                  setThemeMode(currentMode)
+                }}
+                checked={themeMode === 'light'}
+                checkedIcon={<StyledIcon size={22} name="Sun" ariaHidden={false} left />}
+                uncheckedIcon={<StyledIcon size={20} name="Moon" ariaHidden={false} />}
+                onColor="#0f1114"
+                offColor="#6a737d"
+                height={25}
+              />
+            </label>
+          )}
         </Header>
         <main>{children}</main>
         <footer>

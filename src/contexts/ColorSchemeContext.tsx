@@ -1,42 +1,29 @@
-import { createContext, useContext, useReducer } from 'react'
+import { createContext, SetStateAction, useContext, useEffect, useState } from 'react'
+import { isCorrectTheme } from '../styles/theme'
+
 import type { Dispatch } from 'react'
-import type { ColorScheme } from '../styles/Global'
-
-const defaultColorScheme: { mode: ColorScheme } = {
-  mode: 'light',
-}
-
-const ActionTypes = {
-  light: 'light',
-  dark: 'dark',
-}
+import type { ThemeMode } from '../styles/theme'
 
 const ColorSchemeContext = createContext<{
-  state: { mode: ColorScheme }
-  dispatch: Dispatch<{
-    type: ColorScheme
-  }>
+  themeMode: null
+  setThemeMode: Dispatch<SetStateAction<ThemeMode>>
 }>({
-  state: defaultColorScheme,
-  dispatch: () => {},
+  themeMode: null,
+  setThemeMode: () => {},
 })
 
-const colorSchemeReducer = (state: typeof defaultColorScheme, action: { type: string }) => {
-  switch (action.type) {
-    case ActionTypes.dark:
-      return { mode: 'dark' as ColorScheme }
-    case ActionTypes.light:
-      return { mode: 'light' as ColorScheme }
-    default:
-      return state
-  }
-}
-
 export const ColorSchemeProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(colorSchemeReducer, defaultColorScheme)
+  const [themeMode, setThemeMode] = useState(null)
+
+  useEffect(() => {
+    const currentTheme = document.body.dataset.theme
+    if (isCorrectTheme(currentTheme)) {
+      setThemeMode(currentTheme)
+    }
+  }, [])
 
   return (
-    <ColorSchemeContext.Provider value={{ state, dispatch }}>
+    <ColorSchemeContext.Provider value={{ themeMode, setThemeMode }}>
       {children}
     </ColorSchemeContext.Provider>
   )
