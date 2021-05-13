@@ -9,6 +9,8 @@ import Link from '../components/Link'
 import Disqus from '../components/Disqus'
 import ArticleMeta from '../components/ArticleMeta'
 
+import type { WindowLocation } from '@reach/router'
+
 // !HACK
 // @ts-ignore
 const renderAst = new rehypeReact({
@@ -28,7 +30,12 @@ const StyledLink = styled(GatsbyLink)`
   }
 `
 
-const BlogPostTemplate = ({ data, location }) => {
+type Props = {
+  location: WindowLocation
+  data: any // !HACK
+}
+
+const BlogPostTemplate = ({ data, location }: Props) => {
   const post = data.markdownRemark
   const siteTitle = data.site.siteMetadata?.title || `Title`
   const { previous, next } = data
