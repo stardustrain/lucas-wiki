@@ -1,3 +1,4 @@
+import React from 'react'
 import { Link } from 'gatsby'
 import { ThemeProvider } from '@emotion/react'
 import styled from '@emotion/styled'
@@ -6,6 +7,8 @@ import Switch from 'react-switch'
 import Icon from './Icon'
 import { useColorScheme } from '../contexts/ColorSchemeContext'
 import blogTheme from '../styles/theme'
+
+import type { WindowLocation } from '@reach/router'
 
 const GlobalWrapper = styled.div`
   color: ${({ theme }) => theme.color.colorText};
@@ -51,7 +54,13 @@ const StyledSwitch = styled(Switch)`
   }
 `
 
-const Layout = ({ location, title, children }) => {
+type Props = {
+  title: string
+  location: WindowLocation
+  children: React.ReactNode
+}
+
+const Layout = ({ location, title, children }: Props) => {
   const { themeMode, setThemeMode } = useColorScheme()
   const rootPath = `${__PATH_PREFIX__}/`
   const isRootPath = location.pathname === rootPath
