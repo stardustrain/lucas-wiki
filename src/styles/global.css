@@ -428,3 +428,7 @@ center {
   border-top: 3px solid var(--customBlock-danger-borderTop);
   color: var(--customBlock-danger-color);
 }
+
+summary {
+  cursor: pointer;
+}
