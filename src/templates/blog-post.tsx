@@ -40,6 +40,20 @@ const BlogPostTemplate = ({ data, location }: Props) => {
   const siteTitle = data.site.siteMetadata?.title || `Title`
   const { previous, next } = data
   const disableDisqus = !!post.frontmatter.disableDisqus
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.frontmatter.title,
+    datePublished: post.frontmatter.seoDate,
+    dateModified: post.fields.gitModifiedAt,
+    wordCount: post.wordCount.words,
+    author: {
+      '@type': 'Person',
+      name: data.site.siteMetadata.author.name,
+    },
+    keywords: post.frontmatter.keywords,
+    description: post.frontmatter.description || post.excerpt,
+  }
 
   return (
     <Layout location={location} title={siteTitle}>
@@ -48,6 +62,7 @@ const BlogPostTemplate = ({ data, location }: Props) => {
         description={post.frontmatter.description || post.excerpt}
         url={post.frontmatter.url}
         keywords={post.frontmatter.keywords}
+        jsonLd={jsonLd}
       />
       <article className="blog-post" itemScope itemType="http://schema.org/Article">
         <header>
@@ -97,6 +112,9 @@ export const pageQuery = graphql`
     site {
       siteMetadata {
         title
+        author {
+          name
+        }
       }
     }
     markdownRemark(id: { eq: $id }) {
@@ -104,9 +122,16 @@ export const pageQuery = graphql`
       excerpt(pruneLength: 160)
       htmlAst
       timeToRead
+      wordCount {
+        words
+      }
+      fields {
+        gitModifiedAt
+      }
       frontmatter {
         title
         date(formatString: "MMMM DD, YYYY")
+        seoDate: date
         description
         url
         keywords
