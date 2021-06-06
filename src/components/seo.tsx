@@ -106,12 +106,7 @@ const SEO = ({ description = '', lang = 'ko', meta = [], title, url, keywords, j
       meta={metaTags}
     >
       {isPlainObject(jsonLd) ? (
-        <script
-          type="application/ld+json"
-          // dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        >
-          {`${JSON.stringify(jsonLd)}`}
-        </script>
+        <script type="application/ld+json">{`${JSON.stringify(jsonLd)}`}</script>
       ) : null}
     </Helmet>
   )
