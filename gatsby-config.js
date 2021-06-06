@@ -86,64 +86,69 @@ const getFavicons = () =>
     type: 'image/png',
   }))
 
+const plugins = [
+  {
+    resolve: `gatsby-source-filesystem`,
+    options: {
+      path: `${__dirname}/content/posts`,
+      name: `posts`,
+    },
+  },
+  {
+    resolve: `gatsby-source-filesystem`,
+    options: {
+      path: `${__dirname}/content/assets`,
+      name: `assets`,
+    },
+  },
+  {
+    resolve: `gatsby-transformer-remark`,
+    options: {
+      plugins: remarkPlugins,
+    },
+  },
+  `gatsby-plugin-image`,
+  `gatsby-plugin-sharp`,
+  `gatsby-transformer-sharp`,
+  `gatsby-plugin-feed`,
+  {
+    resolve: `gatsby-plugin-manifest`,
+    options: {
+      name: `Lucas wiki`,
+      short_name: `LucasWiki`,
+      start_url: `/`,
+      background_color: `#ffffff`,
+      theme_color: `#663399`,
+      display: `minimal-ui`,
+      icon: `content/assets/icon.png`,
+      icons: getFavicons(),
+    },
+  },
+  `gatsby-plugin-react-helmet`,
+  'gatsby-plugin-sitemap',
+  {
+    resolve: `gatsby-plugin-typography`,
+    options: {
+      pathToConfigModule: `src/utils/typography`,
+    },
+  },
+  'gatsby-plugin-emotion',
+  // this (optional) plugin enables Progressive Web App + Offline functionality
+  // To learn more, visit: https://gatsby.dev/offline
+  // `gatsby-plugin-offline`,
+  `gatsby-plugin-postcss`,
+]
+
+if (process.env.GA_TRACKING_ID) {
+  plugins.push({
+    resolve: `gatsby-plugin-google-analytics`,
+    options: {
+      trackingId: process.env.GA_TRACKING_ID,
+    },
+  })
+}
+
 module.exports = {
   siteMetadata,
-  plugins: [
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        path: `${__dirname}/content/posts`,
-        name: `posts`,
-      },
-    },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        path: `${__dirname}/content/assets`,
-        name: `assets`,
-      },
-    },
-    {
-      resolve: `gatsby-transformer-remark`,
-      options: {
-        plugins: remarkPlugins,
-      },
-    },
-    `gatsby-plugin-image`,
-    `gatsby-plugin-sharp`,
-    `gatsby-transformer-sharp`,
-    `gatsby-plugin-feed`,
-    {
-      resolve: `gatsby-plugin-manifest`,
-      options: {
-        name: `Lucas wiki`,
-        short_name: `LucasWiki`,
-        start_url: `/`,
-        background_color: `#ffffff`,
-        theme_color: `#663399`,
-        display: `minimal-ui`,
-        icon: `content/assets/icon.png`,
-        icons: getFavicons(),
-      },
-    },
-    `gatsby-plugin-react-helmet`,
-    'gatsby-plugin-sitemap',
-    {
-      resolve: `gatsby-plugin-google-analytics`,
-      options: {
-        trackingId: process.env.GA_TRACKING_ID,
-      },
-    },
-    {
-      resolve: `gatsby-plugin-typography`,
-      options: {
-        pathToConfigModule: `src/utils/typography`,
-      },
-    },
-    'gatsby-plugin-emotion',
-    // this (optional) plugin enables Progressive Web App + Offline functionality
-    // To learn more, visit: https://gatsby.dev/offline
-    // `gatsby-plugin-offline`,
-    `gatsby-plugin-postcss`,
-  ],
+  plugins,
 }
