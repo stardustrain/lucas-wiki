@@ -6,7 +6,7 @@
  */
 
 import React from 'react'
-import { useStaticQuery, graphql } from 'gatsby'
+import { useStaticQuery, graphql, Link } from 'gatsby'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import styled from '@emotion/styled'
 
@@ -78,7 +78,7 @@ const Bio = () => {
     <BioLayout className="bio">
       {avatar ? (
         resume ? (
-          <ExternalLink ariaLabel="Author's resume" href={resume}>
+          <Link to={resume}>
             <BioImage
               image={avatar}
               alt={author?.name || ``}
@@ -87,7 +87,7 @@ const Bio = () => {
                 borderRadius: `50%`,
               }}
             />
-          </ExternalLink>
+          </Link>
         ) : (
           <BioImage
             image={avatar}
@@ -131,9 +131,9 @@ const Bio = () => {
           )}
           {resume && (
             <li>
-              <ExternalLink ariaLabel="Author's resume" href={resume}>
+              <Link to={resume}>
                 <Icon name="Resume" size={20} ariaHidden />
-              </ExternalLink>
+              </Link>
             </li>
           )}
         </BioLinks>
