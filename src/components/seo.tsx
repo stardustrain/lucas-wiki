@@ -8,6 +8,7 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
 import { useStaticQuery, graphql } from 'gatsby'
+import { isPlainObject } from 'lodash'
 
 type Props = {
   description?: string
@@ -16,9 +17,10 @@ type Props = {
   title: string
   url?: string
   keywords?: string[]
+  jsonLd?: Record<string, any>
 }
 
-const SEO = ({ description = '', lang = 'ko', meta = [], title, url, keywords }: Props) => {
+const SEO = ({ description = '', lang = 'ko', meta = [], title, url, keywords, jsonLd }: Props) => {
   const { site } = useStaticQuery(
     graphql`
       query {
@@ -100,9 +102,13 @@ const SEO = ({ description = '', lang = 'ko', meta = [], title, url, keywords }:
         lang,
       }}
       title={title}
-      titleTemplate={defaultTitle ? `%s | ${defaultTitle}` : null}
+      titleTemplate={defaultTitle ? `%s | ${defaultTitle}` : undefined}
       meta={metaTags}
-    />
+    >
+      {isPlainObject(jsonLd) ? (
+        <script type="application/ld+json">{`${JSON.stringify(jsonLd)}`}</script>
+      ) : null}
+    </Helmet>
   )
 }
 
