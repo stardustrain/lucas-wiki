@@ -196,8 +196,7 @@ p {
   line-height: var(--lineHeightRelaxed);
   --baseline-multiplier: 0.179;
   --x-height-multiplier: 0.35;
-  margin: var(--spacing0) var(--spacing0) var(--spacing8) var(--spacing0);
-  margin: var(--spacing0) var(--spacing0) var(--spacing8) var(--spacing0);
+  margin: var(--spacing0) var(--spacing0) var(--spacing3) var(--spacing0);
   padding: var(--spacing0);
 }
 
@@ -304,7 +303,7 @@ a:focus {
 }
 
 .blog-post header h1 {
-  margin: var(--spacing0) var(--spacing0) var(--spacing4) var(--spacing0);
+  margin: var(--spacing0) var(--spacing0) var(--spacing5) var(--spacing0);
 }
 
 .blog-post header p {
@@ -427,6 +426,11 @@ center {
   background-color: var(--customBlock-danger-backgroundColor);
   border-top: 3px solid var(--customBlock-danger-borderTop);
   color: var(--customBlock-danger-color);
+}
+
+.custom-block ul {
+  list-style-position: inside;
+  margin-bottom: var(--spacing0);
 }
 
 summary {
