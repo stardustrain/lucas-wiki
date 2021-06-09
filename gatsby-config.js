@@ -12,7 +12,7 @@ const siteMetadata = {
     github: 'https://github.com/stardustrain',
     linkedin: 'https://www.linkedin.com/in/lucas-keun-taek-han-443b08120/',
   },
-  resume: 'https://wiki.lucashan.space/intro/',
+  resume: '/intro/',
 }
 
 const remarkPlugins = [

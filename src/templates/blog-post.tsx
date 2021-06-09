@@ -30,6 +30,8 @@ const StyledLink = styled(GatsbyLink)`
   }
 `
 
+const isIntroPage = (slug: string) => /intro/.test(slug)
+
 type Props = {
   location: WindowLocation
   data: any // !HACK
@@ -68,36 +70,40 @@ const BlogPostTemplate = ({ data, location }: Props) => {
         <header>
           <h1 itemProp="headline">{post.frontmatter.title}</h1>
         </header>
-        <ArticleMeta date={post.frontmatter.date} readTime={post.timeToRead} />
+        {isIntroPage(post.fields.slug) ? null : (
+          <ArticleMeta date={post.frontmatter.date} readTime={post.timeToRead} />
+        )}
         <section itemProp="articleBody">{renderAst(post.htmlAst)}</section>
         <hr />
       </article>
-      <nav className="blog-post-nav">
-        <ul
-          style={{
-            display: `flex`,
-            flexWrap: `wrap`,
-            justifyContent: `space-between`,
-            listStyle: `none`,
-            padding: 0,
-          }}
-        >
-          <li>
-            {previous && (
-              <StyledLink to={previous.fields.slug} rel="prev">
-                ← {previous.frontmatter.title}
-              </StyledLink>
-            )}
-          </li>
-          <li>
-            {next && (
-              <StyledLink to={next.fields.slug} rel="next">
-                {next.frontmatter.title} →
-              </StyledLink>
-            )}
-          </li>
-        </ul>
-      </nav>
+      {isIntroPage(post.fields.slug) ? null : (
+        <nav className="blog-post-nav">
+          <ul
+            style={{
+              display: `flex`,
+              flexWrap: `wrap`,
+              justifyContent: `space-between`,
+              listStyle: `none`,
+              padding: 0,
+            }}
+          >
+            <li>
+              {previous && !isIntroPage(previous.fields.slug) && (
+                <StyledLink to={previous.fields.slug} rel="prev">
+                  ← {previous.frontmatter.title}
+                </StyledLink>
+              )}
+            </li>
+            <li>
+              {next && !isIntroPage(next.fields.slug) && (
+                <StyledLink to={next.fields.slug} rel="next">
+                  {next.frontmatter.title} →
+                </StyledLink>
+              )}
+            </li>
+          </ul>
+        </nav>
+      )}
       {disableDisqus ? null : (
         <Disqus url={location.href} identifier={post.id} title={post.frontmatter.title} />
       )}
@@ -126,6 +132,7 @@ export const pageQuery = graphql`
         words
       }
       fields {
+        slug
         gitModifiedAt
       }
       frontmatter {
