@@ -15,12 +15,20 @@ type Props = {
   lang?: string
   meta?: { name: string; content: any }[]
   title: string
-  url?: string
+  slug?: string
   keywords?: string[]
   jsonLd?: Record<string, any>
 }
 
-const SEO = ({ description = '', lang = 'ko', meta = [], title, url, keywords, jsonLd }: Props) => {
+const SEO = ({
+  description = '',
+  lang = 'ko',
+  meta = [],
+  title,
+  slug,
+  keywords,
+  jsonLd,
+}: Props) => {
   const { site } = useStaticQuery(
     graphql`
       query {
@@ -61,7 +69,7 @@ const SEO = ({ description = '', lang = 'ko', meta = [], title, url, keywords, j
     },
     {
       property: 'og:url',
-      content: url ?? siteUrl,
+      content: slug ? `${siteUrl}${slug}` : siteUrl,
     },
     {
       property: `og:type`,
@@ -85,7 +93,7 @@ const SEO = ({ description = '', lang = 'ko', meta = [], title, url, keywords, j
     },
     {
       name: 'twitter:url',
-      content: url ?? siteUrl,
+      content: slug ? `${siteUrl}${slug}` : siteUrl,
     },
   ].concat(meta)
 
