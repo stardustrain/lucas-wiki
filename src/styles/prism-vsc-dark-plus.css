@@ -225,6 +225,8 @@ pre[class*='language-'] {
 * Language Specific
 */
 
+pre[class*='language-diff-'],
+code[class*='language-diff-'],
 pre[class*='language-javascript'],
 code[class*='language-javascript'],
 pre[class*='language-jsx'],
@@ -277,4 +279,23 @@ pre[class*='language-'] > code[class*='language-'] {
   pointer-events: none;
   line-height: inherit;
   white-space: pre;
+}
+
+pre[class*='language-diff-'] > code .token.deleted:not(.prefix),
+pre > code[class*='language-diff-'] .token.deleted:not(.prefix) {
+  background-color: rgba(255, 0, 0, 0.1);
+  color: inherit;
+  display: block;
+}
+
+pre[class*='language-diff-'] > code .token.inserted:not(.prefix),
+pre > code[class*='language-diff-'] .token.inserted:not(.prefix) {
+  background-color: rgba(0, 255, 128, 0.1);
+  color: inherit;
+  display: block;
+}
+
+pre[class*='language-diff-'] > code .token.prefix.unchanged,
+pre > code[class*='language-diff-'] .token.prefix.unchanged {
+  display: none;
 }
