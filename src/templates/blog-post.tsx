@@ -62,7 +62,7 @@ const BlogPostTemplate = ({ data, location }: Props) => {
       <SEO
         title={post.frontmatter.title}
         description={post.frontmatter.description || post.excerpt}
-        url={post.frontmatter.url}
+        slug={post.fields.slug}
         keywords={post.frontmatter.keywords}
         jsonLd={jsonLd}
       />

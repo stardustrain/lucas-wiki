@@ -40,6 +40,7 @@ const remarkPlugins = [
     options: {
       showLineNumbers: true,
       noInlineHighlight: false,
+      showDiffHighlight: true,
     },
   },
   `gatsby-remark-copy-linked-files`,
