@@ -1,5 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import styled from '@emotion/styled'
+
+import useDropdownEventListener from '../hooks/useDropdownEventListener'
 
 import DefaultIcon from './Icon'
 
@@ -86,9 +88,17 @@ export default function Dropdown({
   onSelect,
 }: Props) {
   const [isOpen, setIsOpen] = useState(false)
+  const wrapperRef = useRef<HTMLDivElement>(null)
+
+  useDropdownEventListener({
+    wrapperRef,
+    onCloseDropdown: () => {
+      setIsOpen(false)
+    },
+  })
 
   return (
-    <Wrapper className={className}>
+    <Wrapper ref={wrapperRef} className={className}>
       <Button
         aria-haspopup="listbox"
         aria-expanded={isOpen}
