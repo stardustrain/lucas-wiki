@@ -6,12 +6,12 @@ import { useSelectedTagContext } from '../contexts/SelectedTagContext'
 const Ul = styled.ul`
   position: sticky;
   top: -1px;
-  background-color: ${({ theme }) => theme.color.tagSelector.background};
-  border: ${({ theme }) => `1px solid ${theme.color.tagSelector.border}`};
+  background-color: ${({ theme }) => theme.color.button.background};
+  border: ${({ theme }) => `1px solid ${theme.color.button.border}`};
   padding: calc(1rem - 5px) 1rem;
   z-index: 1;
   list-style: none;
-  box-shadow: ${({ theme }) => `0 2px 5px ${theme.color.tagSelector.boxShadow}`};
+  box-shadow: ${({ theme }) => `0 2px 5px ${theme.color.button.boxShadow}`};
 
   li {
     display: inline-block;
