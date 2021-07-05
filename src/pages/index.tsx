@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { graphql } from 'gatsby'
 import styled from '@emotion/styled'
-import { includes, isNil, uniq } from 'lodash'
+import { isNil, uniq, flatMap } from 'lodash'
 
-import { useSelectedTagContext } from '../contexts/SelectedTagContext'
 import { useSeriesContext } from '../contexts/SeriesContext'
 
 import Bio from '../components/bio'
@@ -13,6 +12,8 @@ import Link from '../components/Link'
 import ArticleMeta from '../components/ArticleMeta'
 import SeriesSelector from '../components/SeriesSelector'
 import RemoveFilterButton from '../components/RemoveFilterButton'
+
+import type { WindowLocation } from '@reach/router'
 
 const Header = styled.header`
   border-bottom: 1px solid hsla(var(--text-base), 40%, 25%);
@@ -40,33 +41,39 @@ const PostContainer = styled.div`
 
 const FilterWrapper = styled.div`
   display: flex;
+  position: sticky;
+  top: -1px;
+  background-color: ${({ theme }) => theme.color.background};
+  padding: ${({ theme }) => `${theme.spacing2} 0`};
+
   & > *:not(:first-child) {
     margin-inline-start: 3px;
   }
+
+  @media (max-width: 42rem) {
+    width: 100%;
+    & > *:not(:first-child) {
+      margin-inline-start: 5px;
+    }
+  }
 `
 
-const BlogIndex = ({ data, location }) => {
+interface Props {
+  data: {
+    site: Site
+    allMarkdownRemark: AllMarkdownRemark
+  }
+  location: WindowLocation
+}
+
+const BlogIndex = ({ data, location }: Props) => {
   const siteTitle = data.site.siteMetadata?.title || `Title`
   const posts = data.allMarkdownRemark.nodes
-  const [tagList] = useState(
-    uniq<string>(
-      posts
-        .flatMap(post => (Array.isArray(post.frontmatter.tags) ? post.frontmatter.tags : []))
-        .sort((tagA, tagB) => tagA.localeCompare(tagB))
-    )
+  const seriesList = uniq(
+    flatMap(posts, post =>
+      typeof post.frontmatter.series === 'string' ? [post.frontmatter.series] : []
+    ).sort((seriesA, seriesB) => seriesA.localeCompare(seriesB))
   )
-  const [seriesList] = useState(
-    uniq<string>(
-      posts
-        .flatMap(post =>
-          typeof post.frontmatter.series === 'string' ? [post.frontmatter.series] : []
-        )
-        .sort((seriesA, seriesB) => seriesA.localeCompare(seriesB))
-    )
-  )
-  const {
-    state: { selectedTag },
-  } = useSelectedTagContext()
   const {
     state: { selectedSeries },
   } = useSeriesContext()
@@ -88,21 +95,21 @@ const BlogIndex = ({ data, location }) => {
   const filteredPosts =
     selectedSeries === null
       ? posts
-      : posts.filter(post => includes(post.frontmatter.series, selectedSeries))
+      : posts.filter(post => post.frontmatter.series === selectedSeries)
 
   useEffect(() => {
-    if (isNil(selectedTag)) {
+    if (isNil(selectedSeries)) {
       return
     }
 
     if (divRef.current) {
       const top = divRef.current.offsetTop
       window.scrollTo({
-        top: top + 1,
+        top,
         behavior: 'smooth',
       })
     }
-  }, [selectedTag])
+  }, [selectedSeries])
 
   return (
     <Layout location={location} title={siteTitle}>

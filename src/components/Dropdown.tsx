@@ -29,6 +29,10 @@ const Ul = styled.ul<{ isOpen: boolean }>`
   border-radius: 5px;
   box-shadow: ${({ theme }) => `0 2px 5px ${theme.color.button.boxShadow}`};
   z-index: 1;
+
+  @media (max-width: 42rem) {
+    top: 40px;
+  }
 `
 
 const Li = styled.li<{ focused: boolean }>`
@@ -53,6 +57,11 @@ const Li = styled.li<{ focused: boolean }>`
 
   &:active {
     background-color: ${({ theme }) => theme.color.button.active};
+  }
+
+  @media (max-width: 42rem) {
+    padding: ${({ theme }) =>
+      `${theme.spacing3} ${theme.spacing8} ${theme.spacing3} ${theme.spacing2}`};
   }
 `
 

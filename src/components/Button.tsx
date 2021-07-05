@@ -20,6 +20,10 @@ const Button = styled.button`
   &:active {
     background-color: ${({ theme }) => theme.color.button.active};
   }
+
+  @media (max-width: 42rem) {
+    padding: ${({ theme }) => `${theme.spacing2} ${theme.spacing3}`};
+  }
 `
 
 interface Props extends DOMAttributes<HTMLButtonElement> {
