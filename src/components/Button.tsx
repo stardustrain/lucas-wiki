@@ -8,6 +8,7 @@ const Button = styled.button`
   color: ${({ theme }) => theme.color.textPrimary};
   background-color: ${({ theme }) => theme.color.tagSelector.background};
   border: ${({ theme }) => `1px solid ${theme.color.tagSelector.border}`};
+  border-radius: 5px;
   box-shadow: ${({ theme }) => `0 2px 5px ${theme.color.tagSelector.boxShadow}`};
   padding: ${({ theme }) => `${theme.spacing1} ${theme.spacing3}`};
 
