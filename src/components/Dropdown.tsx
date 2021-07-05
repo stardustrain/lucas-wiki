@@ -132,19 +132,16 @@ export default function Dropdown({
     $elem?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
   }, [focusElementIndex])
 
-  useEventListener(
-    [
-      {
-        type: 'click',
-        callback: e => {
-          if (e.target !== buttonRef.current) {
-            setIsOpen(false)
-          }
-        },
+  useEventListener([
+    {
+      type: 'click',
+      callback: e => {
+        if (e.target !== buttonRef.current) {
+          setIsOpen(false)
+        }
       },
-    ],
-    document
-  )
+    },
+  ])
 
   return (
     <Wrapper className={className}>

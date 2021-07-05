@@ -7,20 +7,21 @@ type Params = {
 
 const useEventListener = (
   events: Params,
-  target: Document | Element | null,
+  target?: Document | Element,
   dependencies: any[] = []
 ) => {
   useEffect(() => {
     if (!target) {
       return
     }
+    const eventBindingTarget = target ?? document
 
     events.forEach(({ type, callback }) => {
-      target.addEventListener(type, callback)
+      eventBindingTarget.addEventListener(type, callback)
     })
     return () => {
       events.forEach(({ type, callback }) => {
-        target.removeEventListener(type, callback)
+        eventBindingTarget.removeEventListener(type, callback)
       })
     }
   }, [target, ...dependencies])
