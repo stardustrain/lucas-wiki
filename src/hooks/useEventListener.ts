@@ -5,7 +5,11 @@ type Params = {
   callback: EventListenerOrEventListenerObject
 }[]
 
-const useEventListener = (events: Params, target: Document | Element | null) => {
+const useEventListener = (
+  events: Params,
+  target: Document | Element | null,
+  dependencies: any[] = []
+) => {
   useEffect(() => {
     if (!target) {
       return
@@ -19,7 +23,7 @@ const useEventListener = (events: Params, target: Document | Element | null) => 
         target.removeEventListener(type, callback)
       })
     }
-  }, [target])
+  }, [target, ...dependencies])
 }
 
 export default useEventListener

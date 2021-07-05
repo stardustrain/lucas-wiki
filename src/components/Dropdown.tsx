@@ -1,8 +1,9 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import styled from '@emotion/styled'
 
-import useDropdownEventListener from '../hooks/useDropdownEventListener'
+import useEventListener from '../hooks/useEventListener'
 
+import Button from './Button'
 import DefaultIcon from './Icon'
 
 const Wrapper = styled.div`
@@ -11,26 +12,15 @@ const Wrapper = styled.div`
   top: 0;
 `
 
-const Button = styled.button`
-  display: block;
-  color: ${({ theme }) => theme.color.textPrimary};
-  background-color: ${({ theme }) => theme.color.tagSelector.background};
-  border: ${({ theme }) => `1px solid ${theme.color.tagSelector.border}`};
-  box-shadow: ${({ theme }) => `0 2px 5px ${theme.color.tagSelector.boxShadow}`};
-  padding: ${({ theme }) => `${theme.spacing1} ${theme.spacing3}`};
-
-  &:hover {
-    cursor: pointer;
-  }
-`
-
 const Ul = styled.ul<{ isOpen: boolean }>`
-  display: ${({ isOpen }) => (isOpen ? 'inline-block' : 'none')};
+  display: ${({ isOpen }) => (isOpen ? 'initial' : 'none')};
   position: absolute;
   left: 0;
   top: 32px;
   width: 100%;
   margin-bottom: 0;
+  max-height: 300px;
+  overflow: auto;
   list-style: none;
   color: ${({ theme }) => theme.color.textPrimary};
   background-color: white;
@@ -40,11 +30,13 @@ const Ul = styled.ul<{ isOpen: boolean }>`
   z-index: 1;
 `
 
-const Li = styled.li`
+const Li = styled.li<{ focused: boolean }>`
   position: relative;
   margin-bottom: 0;
   padding: ${({ theme }) =>
     `${theme.spacing1} ${theme.spacing8} ${theme.spacing1} ${theme.spacing2}`};
+  background-color: ${({ theme, focused }) =>
+    focused ? theme.color.tagSelector.border : 'inherit'};
 
   &:not(:first-of-type) {
     border-top: ${({ theme }) => `1px solid ${theme.color.tagSelector.border}`};
@@ -73,7 +65,7 @@ type Option = {
 }
 
 interface Props {
-  selectedValue?: string | number
+  selectedValue: string | number | null
   defaultButtonTitle?: string
   options: Option[]
   className?: string
@@ -88,18 +80,63 @@ export default function Dropdown({
   onSelect,
 }: Props) {
   const [isOpen, setIsOpen] = useState(false)
-  const wrapperRef = useRef<HTMLDivElement>(null)
+  const [focusElementIndex, setFocusElementIndex] = useState(-1)
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  const listRef = useRef<HTMLUListElement>(null)
+  const $elem = listRef.current?.children[focusElementIndex]
 
-  useDropdownEventListener({
-    wrapperRef,
-    onCloseDropdown: () => {
+  const keyMap: { [key: string]: () => void } = {
+    Enter: () => {
+      onSelect(options[focusElementIndex].value)
+      if (isOpen) {
+        setIsOpen(false)
+      }
+    },
+    ArrowUp: () => {
+      if (focusElementIndex === 0) {
+        return
+      }
+      setFocusElementIndex(focusElementIndex - 1)
+    },
+    ArrowDown: () => {
+      if (focusElementIndex + 1 === options.length) {
+        return
+      }
+      setFocusElementIndex(focusElementIndex + 1)
+    },
+    Escape: () => {
       setIsOpen(false)
     },
-  })
+  }
+
+  useEffect(() => {
+    if (isOpen) {
+      listRef.current?.focus()
+    }
+  }, [isOpen])
+
+  useEffect(() => {
+    $elem?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+  }, [focusElementIndex])
+
+  useEventListener(
+    [
+      {
+        type: 'click',
+        callback: e => {
+          if (e.target !== buttonRef.current) {
+            setIsOpen(false)
+          }
+        },
+      },
+    ],
+    document
+  )
 
   return (
-    <Wrapper ref={wrapperRef} className={className}>
+    <Wrapper className={className}>
       <Button
+        ref={buttonRef}
         aria-haspopup="listbox"
         aria-expanded={isOpen}
         onClick={() => {
@@ -108,13 +145,24 @@ export default function Dropdown({
       >
         {selectedValue ?? defaultButtonTitle ?? 'Select'}
       </Button>
-      <Ul isOpen={isOpen} role="listbox" tabIndex={-1}>
-        {options.map(({ label, value }) => {
+      <Ul
+        ref={listRef}
+        isOpen={isOpen}
+        role="listbox"
+        tabIndex={-1}
+        onKeyDown={e => {
+          const action = keyMap[e.key]
+          e.preventDefault()
+          action?.()
+        }}
+      >
+        {options.map(({ label, value }, index) => {
           const isSelected = value === selectedValue
           return (
             <Li
               key={value}
               aria-selected={isSelected}
+              focused={focusElementIndex === index}
               onClick={() => {
                 onSelect(value)
                 setIsOpen(false)

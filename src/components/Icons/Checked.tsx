@@ -6,7 +6,7 @@ export default function Checked(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
-      enable-background="0 0 352.62 352.62"
+      enableBackground="0 0 352.62 352.62"
       width="352.62px"
       height="352.62px"
       viewBox="0 0 352.62 352.62"
