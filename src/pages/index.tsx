@@ -40,7 +40,9 @@ const PostContainer = styled.div`
 
 const FilterWrapper = styled.div`
   display: flex;
-  justify-content: space-between;
+  & > *:not(:first-child) {
+    margin-inline-start: 3px;
+  }
 `
 
 const BlogIndex = ({ data, location }) => {

@@ -24,9 +24,10 @@ const Ul = styled.ul<{ isOpen: boolean }>`
   list-style: none;
   color: ${({ theme }) => theme.color.textPrimary};
   background-color: white;
-  background-color: ${({ theme }) => theme.color.tagSelector.background};
-  border: ${({ theme }) => `1px solid ${theme.color.tagSelector.border}`};
-  box-shadow: ${({ theme }) => `0 2px 5px ${theme.color.tagSelector.boxShadow}`};
+  background-color: ${({ theme }) => theme.color.button.background};
+  border: ${({ theme }) => `1px solid ${theme.color.button.border}`};
+  border-radius: 5px;
+  box-shadow: ${({ theme }) => `0 2px 5px ${theme.color.button.boxShadow}`};
   z-index: 1;
 `
 
@@ -35,11 +36,10 @@ const Li = styled.li<{ focused: boolean }>`
   margin-bottom: 0;
   padding: ${({ theme }) =>
     `${theme.spacing1} ${theme.spacing8} ${theme.spacing1} ${theme.spacing2}`};
-  background-color: ${({ theme, focused }) =>
-    focused ? theme.color.tagSelector.border : 'inherit'};
+  background-color: ${({ theme, focused }) => (focused ? theme.color.button.border : 'inherit')};
 
   &:not(:first-of-type) {
-    border-top: ${({ theme }) => `1px solid ${theme.color.tagSelector.border}`};
+    border-top: ${({ theme }) => `1px solid ${theme.color.button.border}`};
   }
 
   &[aria-selected='true'] {
@@ -48,7 +48,11 @@ const Li = styled.li<{ focused: boolean }>`
 
   &:hover {
     cursor: pointer;
-    background-color: ${({ theme }) => theme.color.tagSelector.border};
+    background-color: ${({ theme }) => theme.color.button.border};
+  }
+
+  &:active {
+    background-color: ${({ theme }) => theme.color.button.active};
   }
 `
 

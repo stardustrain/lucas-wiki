@@ -65,10 +65,12 @@ export const color = {
   colorHeading: 'var(--colorHeading)',
   colorAccent: 'var(--colorAccent)',
   background: 'var(--background)',
-  tagSelector: {
-    background: 'var(--tagSelector-background)',
-    border: 'var(--tagSelector-border)',
-    boxShadow: 'var(--tagSelector-boxShadow)',
+  button: {
+    background: 'var(--button-background)',
+    hover: 'var(--button-background-hover)',
+    active: 'var(--button-background-active)',
+    border: 'var(--button-border)',
+    boxShadow: 'var(--button-boxShadow)',
   },
   customBlock: {
     tip: {
