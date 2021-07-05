@@ -121,6 +121,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       keywords: [String!]
       url: String
       disableDisqus: Boolean
+      series: String
     }
 
     type Fields {

@@ -1,6 +1,9 @@
 import React from 'react'
+import styled from '@emotion/styled'
 
-import Dropdown from './Dropdown'
+import { useSeriesContext } from '../contexts/SeriesContext'
+
+import DefaultDropdown from './Dropdown'
 
 const dummy = [
   {
@@ -205,8 +208,33 @@ const dummy = [
   },
 ]
 
-interface Props {}
+const Dropdown = styled(DefaultDropdown)`
+  button {
+    min-width: 200px;
+  }
+`
 
-export default function SeriesSelector() {
-  return <Dropdown options={dummy} defaultButtonTitle="Select to series" onSelect={() => {}} />
+interface Props {
+  seriesList: string[]
+}
+
+export default function SeriesSelector({ seriesList }: Props) {
+  const { state, dispatch } = useSeriesContext()
+
+  return (
+    <Dropdown
+      options={seriesList.map(series => ({
+        label: series,
+        value: series,
+      }))}
+      defaultButtonTitle="시리즈 모아 보기"
+      onSelect={value => {
+        dispatch({
+          type: 'SET_SERIES',
+          payload: typeof value === 'number' ? value.toString() : value,
+        })
+      }}
+      selectedValue={state.selectedSeries}
+    />
+  )
 }
