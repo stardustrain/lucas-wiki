@@ -1,5 +1,6 @@
+import React from 'react'
 import { createContext, useContext, useReducer } from 'react'
-import type { Dispatch } from 'react'
+import type { Dispatch, FC } from 'react'
 
 const defaultTag: { selectedTag: string | null } = {
   selectedTag: null,
@@ -27,7 +28,7 @@ const reducer = (state: typeof defaultTag, action: { type: string; payload: stri
   }
 }
 
-export const SelectedTagProvider = ({ children }) => {
+export const SelectedTagProvider: FC = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, defaultTag)
 
   return (
