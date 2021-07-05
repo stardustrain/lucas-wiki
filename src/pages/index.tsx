@@ -4,13 +4,15 @@ import styled from '@emotion/styled'
 import { includes, isNil, uniq } from 'lodash'
 
 import { useSelectedTagContext } from '../contexts/SelectedTagContext'
+import { useSeriesContext } from '../contexts/SeriesContext'
 
 import Bio from '../components/bio'
 import Layout from '../components/layout'
 import SEO from '../components/seo'
 import Link from '../components/Link'
 import ArticleMeta from '../components/ArticleMeta'
-import TagSelector from '../components/TagSelector'
+import SeriesSelector from '../components/SeriesSelector'
+import RemoveFilterButton from '../components/RemoveFilterButton'
 
 const Header = styled.header`
   border-bottom: 1px solid hsla(var(--text-base), 40%, 25%);
@@ -36,19 +38,36 @@ const PostContainer = styled.div`
   min-height: 100vh;
 `
 
+const FilterWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+`
+
 const BlogIndex = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata?.title || `Title`
   const posts = data.allMarkdownRemark.nodes
-  const [tagList] = useState<string[]>(
-    uniq(
+  const [tagList] = useState(
+    uniq<string>(
       posts
         .flatMap(post => (Array.isArray(post.frontmatter.tags) ? post.frontmatter.tags : []))
         .sort((tagA, tagB) => tagA.localeCompare(tagB))
     )
   )
+  const [seriesList] = useState(
+    uniq<string>(
+      posts
+        .flatMap(post =>
+          typeof post.frontmatter.series === 'string' ? [post.frontmatter.series] : []
+        )
+        .sort((seriesA, seriesB) => seriesA.localeCompare(seriesB))
+    )
+  )
   const {
     state: { selectedTag },
   } = useSelectedTagContext()
+  const {
+    state: { selectedSeries },
+  } = useSeriesContext()
   const divRef = useRef<HTMLDivElement>(null)
 
   if (posts.length === 0) {
@@ -65,9 +84,9 @@ const BlogIndex = ({ data, location }) => {
   }
 
   const filteredPosts =
-    selectedTag === 'all' || selectedTag === null
+    selectedSeries === null
       ? posts
-      : posts.filter(post => includes(post.frontmatter.tags, selectedTag))
+      : posts.filter(post => includes(post.frontmatter.series, selectedSeries))
 
   useEffect(() => {
     if (isNil(selectedTag)) {
@@ -88,7 +107,10 @@ const BlogIndex = ({ data, location }) => {
       <SEO title="All posts" />
       <Bio />
       <PostContainer ref={divRef}>
-        <TagSelector tagList={tagList} />
+        <FilterWrapper>
+          <SeriesSelector seriesList={seriesList} />
+          <RemoveFilterButton />
+        </FilterWrapper>
         <ol style={{ listStyle: 'none' }}>
           {filteredPosts.map(post => {
             const title = post.frontmatter.title || post.fields.slug
@@ -137,7 +159,7 @@ export const pageQuery = graphql`
     }
     allMarkdownRemark(
       filter: { frontmatter: { title: { ne: "Introduce Keuntaek Lucas Han" } } }
-      sort: { fields: [frontmatter___date, frontmatter___url], order: [DESC, ASC] }
+      sort: { fields: [frontmatter___date], order: [DESC] }
     ) {
       nodes {
         excerpt
@@ -149,6 +171,7 @@ export const pageQuery = graphql`
           title
           description
           tags
+          series
         }
         html
         timeToRead
