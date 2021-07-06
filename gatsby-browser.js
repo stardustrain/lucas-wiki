@@ -1,6 +1,7 @@
 const React = require('react')
 const { ColorSchemeProvider } = require('./src/contexts/ColorSchemeContext')
 const { SelectedTagProvider } = require('./src/contexts/SelectedTagContext')
+const { SeriesContextProvider } = require('./src/contexts/SeriesContext')
 
 // custom typefaces
 require('typeface-montserrat')
@@ -17,6 +18,8 @@ smoothscroll.polyfill()
 
 export const wrapRootElement = ({ element }) => (
   <ColorSchemeProvider>
-    <SelectedTagProvider>{element}</SelectedTagProvider>
+    <SelectedTagProvider>
+      <SeriesContextProvider>{element}</SeriesContextProvider>
+    </SelectedTagProvider>
   </ColorSchemeProvider>
 )
