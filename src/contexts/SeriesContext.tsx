@@ -5,23 +5,31 @@ const defaultState: { selectedSeries: string | null } = {
   selectedSeries: null,
 }
 
+type ActionParameter =
+  | {
+      type: 'SET_SERIES'
+      payload: string
+    }
+  | {
+      type: 'RESET_SERIES'
+    }
+
 const SeriesContext = createContext<{
   state: typeof defaultState
-  dispatch: Dispatch<{
-    type: string
-    payload: string | null
-  }>
+  dispatch: Dispatch<ActionParameter>
 }>({
   state: defaultState,
   dispatch: () => {},
 })
 
-const reducer = (state: typeof defaultState, action: { type: string; payload: string | null }) => {
+const reducer = (state: typeof defaultState, action: ActionParameter) => {
   switch (action.type) {
     case 'SET_SERIES':
       return {
         selectedSeries: action.payload,
       }
+    case 'RESET_SERIES':
+      return defaultState
     default:
       return state
   }

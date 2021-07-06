@@ -17,8 +17,7 @@ export default function RemoveFilterButton() {
           payload: null,
         })
         seriesContext.dispatch({
-          type: 'SET_SERIES',
-          payload: null,
+          type: 'RESET_SERIES',
         })
       }}
     >
