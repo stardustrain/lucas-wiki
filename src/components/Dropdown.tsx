@@ -93,7 +93,7 @@ export default function Dropdown({
 }: Props) {
   const [isOpen, setIsOpen] = useState(false)
   const [focusElementIndex, setFocusElementIndex] = useState(-1)
-  const buttonRef = useRef<HTMLButtonElement>(null)
+  const wrapperRef = useRef<HTMLDivElement>(null)
   const listRef = useRef<HTMLUListElement>(null)
   const $elem = listRef.current?.children[focusElementIndex]
 
@@ -135,7 +135,7 @@ export default function Dropdown({
     {
       type: 'click',
       callback: e => {
-        if (e.target !== buttonRef.current) {
+        if (!wrapperRef.current?.contains(e.target as HTMLElement)) {
           setIsOpen(false)
         }
       },
@@ -143,7 +143,7 @@ export default function Dropdown({
     {
       type: 'touchstart',
       callback: e => {
-        if (e.target !== buttonRef.current) {
+        if (!wrapperRef.current?.contains(e.target as HTMLElement)) {
           setIsOpen(false)
         }
       },
@@ -151,9 +151,8 @@ export default function Dropdown({
   ])
 
   return (
-    <Wrapper className={className}>
+    <Wrapper ref={wrapperRef} className={className}>
       <Button
-        ref={buttonRef}
         aria-haspopup="listbox"
         aria-expanded={isOpen}
         onClick={() => {
