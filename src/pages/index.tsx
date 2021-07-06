@@ -46,13 +46,13 @@ const FilterWrapper = styled.div`
   background-color: ${({ theme }) => theme.color.background};
   padding: ${({ theme }) => `${theme.spacing2} 0`};
 
-  & > *:not(:first-child) {
+  & > :not(style) ~ :not(style) {
     margin-inline-start: 3px;
   }
 
   @media (max-width: 42rem) {
     width: 100%;
-    & > *:not(:first-child) {
+    & > :not(style) ~ :not(style) {
       margin-inline-start: 5px;
     }
   }

@@ -32,6 +32,7 @@ const BioImage = styled(GatsbyImage)`
 
 const BioLinks = styled.ul`
   list-style: none;
+  margin: 0;
 
   li {
     display: inline-block;
