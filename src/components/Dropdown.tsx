@@ -7,9 +7,8 @@ import Button from './Button'
 import DefaultIcon from './Icon'
 
 const Wrapper = styled.div`
-  position: sticky;
+  position: relative;
   display: inline-flex;
-  top: 0;
 `
 
 const Ul = styled.ul<{ isOpen: boolean }>`
@@ -135,6 +134,14 @@ export default function Dropdown({
   useEventListener([
     {
       type: 'click',
+      callback: e => {
+        if (e.target !== buttonRef.current) {
+          setIsOpen(false)
+        }
+      },
+    },
+    {
+      type: 'touchstart',
       callback: e => {
         if (e.target !== buttonRef.current) {
           setIsOpen(false)

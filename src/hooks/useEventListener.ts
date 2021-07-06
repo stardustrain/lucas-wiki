@@ -11,10 +11,7 @@ const useEventListener = (
   dependencies: any[] = []
 ) => {
   useEffect(() => {
-    if (!target) {
-      return
-    }
-    const eventBindingTarget = target ?? document
+    const eventBindingTarget = target ?? document.body
 
     events.forEach(({ type, callback }) => {
       eventBindingTarget.addEventListener(type, callback)
@@ -24,7 +21,7 @@ const useEventListener = (
         eventBindingTarget.removeEventListener(type, callback)
       })
     }
-  }, [target, ...dependencies])
+  }, [...dependencies])
 }
 
 export default useEventListener
