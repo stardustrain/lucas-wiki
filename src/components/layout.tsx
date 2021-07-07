@@ -5,6 +5,7 @@ import styled from '@emotion/styled'
 import Switch from 'react-switch'
 
 import Icon from './Icon'
+import DefaultMoveToTopButton from './MoveToTopButton'
 import { useColorScheme } from '../contexts/ColorSchemeContext'
 import blogTheme from '../styles/theme'
 
@@ -67,6 +68,20 @@ const SkipLink = styled.a`
   }
 `
 
+const MoveToTopButton = styled(DefaultMoveToTopButton)`
+  position: fixed;
+  bottom: 20px;
+  right: 40px;
+  background-color: ${({ theme }) => theme.color.background};
+  z-index: 1;
+
+  @media (max-width: 42rem) {
+    bottom: 10px;
+    right: 10px;
+    padding: ${({ theme }) => `${theme.spacing4} ${theme.spacing4}`};
+  }
+`
+
 type Props = {
   title: string
   location: WindowLocation
@@ -103,8 +118,8 @@ const Layout = ({ location, title, children }: Props) => {
                   setThemeMode(currentMode)
                 }}
                 checked={themeMode === 'light'}
-                checkedIcon={<StyledIcon size={22} name="Sun" ariaHidden={false} left />}
-                uncheckedIcon={<StyledIcon size={20} name="Moon" ariaHidden={false} />}
+                checkedIcon={<StyledIcon size={22} name="Sun" aria-hidden focusable={false} left />}
+                uncheckedIcon={<StyledIcon size={20} name="Moon" aria-hidden focusable={false} />}
                 onColor="#0f1114"
                 offColor="#6a737d"
                 height={25}
@@ -113,6 +128,7 @@ const Layout = ({ location, title, children }: Props) => {
           )}
         </Header>
         <main>{children}</main>
+        <MoveToTopButton />
         <footer>
           © {new Date().getFullYear()}, Built with
           {` `}
