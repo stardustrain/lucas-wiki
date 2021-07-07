@@ -112,28 +112,28 @@ const Bio = () => {
           {social?.github && (
             <li>
               <ExternalLink ariaLabel="Author's github profile" href={social?.github}>
-                <Icon name="Github" ariaHidden />
+                <Icon name="Github" aria-hidden focusable={false} />
               </ExternalLink>
             </li>
           )}
           {social?.twitter && (
             <li>
               <ExternalLink ariaLabel="Author's twitter" href={social?.twitter}>
-                <Icon name="Twitter" ariaHidden />
+                <Icon name="Twitter" aria-hidden focusable={false} />
               </ExternalLink>
             </li>
           )}
           {social?.linkedin && (
             <li>
               <ExternalLink ariaLabel="Author's linkedin" href={social?.linkedin}>
-                <Icon name="LinkedIn" ariaHidden />
+                <Icon name="LinkedIn" aria-hidden focusable={false} />
               </ExternalLink>
             </li>
           )}
           {resume && (
             <li>
               <Link to={resume}>
-                <Icon name="Resume" size={20} ariaHidden />
+                <Icon name="Resume" size={20} aria-hidden focusable={false} />
               </Link>
             </li>
           )}

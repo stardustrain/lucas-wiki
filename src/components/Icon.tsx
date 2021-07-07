@@ -1,35 +1,31 @@
-import React from 'react'
-import styled from '@emotion/styled'
+/** @jsx jsx */
+import { jsx, css } from '@emotion/react'
 
 import * as Icons from './Icons'
 
+import type { SVGProps } from 'react'
+
 type IconName = keyof typeof Icons
 
-interface SvgProps {
+interface Props extends SVGProps<SVGSVGElement> {
   name: IconName
-  className?: string
-  ariaHidden?: boolean
-}
-
-interface StyledProps {
   fill?: string
   size?: number
+  className?: string
 }
 
-interface Props extends SvgProps, StyledProps {}
-
-function SvgIcon({ name, className, ariaHidden }: SvgProps) {
+export default function Icon({ name, className, size = 20, fill, ...props }: Props) {
   const Svg = Icons[name]
-
-  return <Svg className={className} role="img" aria-hidden={ariaHidden} />
-}
-
-const StyledIcon = styled(SvgIcon)<StyledProps>`
-  width: ${({ size }) => `${size}px`};
-  height: ${({ size }) => `${size}px`};
-  fill: ${({ theme, fill }) => fill ?? theme.color.textTertiary};
-`
-
-export default function Icon({ name, className, size = 20, ariaHidden }: Props) {
-  return <StyledIcon name={name} className={className} size={size} ariaHidden={ariaHidden} />
+  return (
+    <Svg
+      css={css`
+        width: ${size}px;
+        height: ${size}px;
+        fill: ${fill ?? 'var(--textTertiary)'};
+      `}
+      className={className}
+      role="img"
+      {...props}
+    />
+  )
 }
