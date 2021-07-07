@@ -54,6 +54,19 @@ const StyledSwitch = styled(Switch)`
   }
 `
 
+const SkipLink = styled.a`
+  position: absolute;
+  left: -120px;
+  top: 0;
+  color: ${({ theme }) => theme.color.textLink};
+
+  &:focus {
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+`
+
 type Props = {
   title: string
   location: WindowLocation
@@ -68,6 +81,7 @@ const Layout = ({ location, title, children }: Props) => {
   return (
     <ThemeProvider theme={blogTheme}>
       <GlobalWrapper className="global-wrapper" data-is-root-path={isRootPath}>
+        <SkipLink href="#post-container">Skip to Content</SkipLink>
         <Header className="global-header">
           {isRootPath ? (
             <h1 className="main-heading">

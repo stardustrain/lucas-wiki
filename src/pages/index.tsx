@@ -115,7 +115,7 @@ const BlogIndex = ({ data, location }: Props) => {
     <Layout location={location} title={siteTitle}>
       <SEO title="All posts" />
       <Bio />
-      <PostContainer ref={divRef}>
+      <PostContainer ref={divRef} id="post-container">
         <FilterWrapper>
           <SeriesSelector seriesList={seriesList} />
           <RemoveFilterButton />
