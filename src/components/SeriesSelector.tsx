@@ -2,9 +2,10 @@ import React, { useEffect } from 'react'
 import { navigate, useLocation } from '@reach/router'
 import styled from '@emotion/styled'
 
-import { useSeriesContext } from '../contexts/SeriesContext'
+import { useFilterContext } from '../contexts/FilterContext'
 
 import DefaultDropdown from './Dropdown'
+import RemoveFilterButton from './RemoveFilterButton'
 
 const getQueryObject = (qs: string) =>
   qs
@@ -28,13 +29,31 @@ const Dropdown = styled(DefaultDropdown)`
   }
 `
 
+const Div = styled.div`
+  display: flex;
+
+  & > :not(style) ~ :not(style) {
+    margin-inline-start: 3px;
+  }
+
+  @media (max-width: 42rem) {
+    width: 100%;
+    & > :not(style) ~ :not(style) {
+      margin-inline-start: 5px;
+    }
+  }
+`
+
 interface Props {
   seriesList: string[]
 }
 
 export default function SeriesSelector({ seriesList }: Props) {
   const location = useLocation()
-  const { state, dispatch } = useSeriesContext()
+  const {
+    state: { selectedSeries },
+    dispatch,
+  } = useFilterContext()
 
   useEffect(() => {
     if (location.search.length <= 0) {
@@ -59,15 +78,18 @@ export default function SeriesSelector({ seriesList }: Props) {
   }))
 
   return (
-    <Dropdown
-      options={options}
-      defaultButtonTitle="시리즈 모아 보기"
-      onSelect={value => {
-        const payload = typeof value === 'number' ? value.toString() : value
-        navigate(`${location.pathname}?series=${payload}`)
-      }}
-      buttonTitle={options.find(({ value }) => value === state.selectedSeries)?.label}
-      selectedValue={state.selectedSeries}
-    />
+    <Div>
+      <Dropdown
+        options={options}
+        defaultButtonTitle="시리즈 모아 보기"
+        onSelect={value => {
+          const payload = typeof value === 'number' ? value.toString() : value
+          navigate(`${location.pathname}?series=${payload}`)
+        }}
+        buttonTitle={options.find(({ value }) => value === selectedSeries)?.label}
+        selectedValue={selectedSeries}
+      />
+      <RemoveFilterButton disabled={selectedSeries === null} />
+    </Div>
   )
 }
