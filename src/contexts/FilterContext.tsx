@@ -14,7 +14,7 @@ type ActionParameter =
       type: 'RESET_SERIES'
     }
 
-const SeriesContext = createContext<{
+const FilterContext = createContext<{
   state: typeof defaultState
   dispatch: Dispatch<ActionParameter>
 }>({
@@ -35,18 +35,18 @@ const reducer = (state: typeof defaultState, action: ActionParameter) => {
   }
 }
 
-export const SeriesContextProvider: FC = ({ children }) => {
+export const FilterContextProvider: FC = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, defaultState)
   return (
-    <SeriesContext.Provider
+    <FilterContext.Provider
       value={{
         state,
         dispatch,
       }}
     >
       {children}
-    </SeriesContext.Provider>
+    </FilterContext.Provider>
   )
 }
 
-export const useSeriesContext = () => useContext(SeriesContext)
+export const useFilterContext = () => useContext(FilterContext)
