@@ -118,7 +118,7 @@ const BlogIndex = ({ data, location }: Props) => {
       <PostContainer ref={divRef} id="post-container">
         <FilterWrapper>
           <SeriesSelector seriesList={seriesList} />
-          <RemoveFilterButton />
+          <RemoveFilterButton disabled={selectedSeries === null} />
         </FilterWrapper>
         <ol style={{ listStyle: 'none' }}>
           {filteredPosts.map(post => {

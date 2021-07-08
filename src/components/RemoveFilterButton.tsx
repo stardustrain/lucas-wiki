@@ -5,12 +5,17 @@ import { useSeriesContext } from '../contexts/SeriesContext'
 
 import Button from './Button'
 
-export default function RemoveFilterButton() {
+interface Props {
+  disabled: boolean
+}
+
+export default function RemoveFilterButton({ disabled }: Props) {
   const selectedTagContext = useSelectedTagContext()
   const seriesContext = useSeriesContext()
 
   return (
     <Button
+      aria-label="Remove selected filter"
       onClick={() => {
         selectedTagContext.dispatch({
           type: 'SET_TAG',
@@ -20,6 +25,7 @@ export default function RemoveFilterButton() {
           type: 'RESET_SERIES',
         })
       }}
+      disabled={disabled}
     >
       X
     </Button>
