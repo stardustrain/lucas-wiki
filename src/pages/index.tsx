@@ -3,7 +3,7 @@ import { graphql } from 'gatsby'
 import styled from '@emotion/styled'
 import { isNil, uniq, flatMap } from 'lodash'
 
-import { useSeriesContext } from '../contexts/SeriesContext'
+import { useFilterContext } from '../contexts/FilterContext'
 
 import Bio from '../components/bio'
 import Layout from '../components/layout'
@@ -11,7 +11,7 @@ import SEO from '../components/seo'
 import Link from '../components/Link'
 import ArticleMeta from '../components/ArticleMeta'
 import SeriesSelector from '../components/SeriesSelector'
-import RemoveFilterButton from '../components/RemoveFilterButton'
+import SortFilter from '../components/SortFilter'
 
 import type { WindowLocation } from '@reach/router'
 
@@ -45,17 +45,6 @@ const FilterWrapper = styled.div`
   top: -1px;
   background-color: ${({ theme }) => theme.color.background};
   padding: ${({ theme }) => `${theme.spacing2} 0`};
-
-  & > :not(style) ~ :not(style) {
-    margin-inline-start: 3px;
-  }
-
-  @media (max-width: 42rem) {
-    width: 100%;
-    & > :not(style) ~ :not(style) {
-      margin-inline-start: 5px;
-    }
-  }
 `
 
 interface Props {
@@ -78,7 +67,7 @@ const BlogIndex = ({ data, location }: Props) => {
   )
   const {
     state: { selectedSeries },
-  } = useSeriesContext()
+  } = useFilterContext()
   const divRef = useRef<HTMLDivElement>(null)
 
   if (posts.length === 0) {
@@ -138,7 +127,7 @@ const BlogIndex = ({ data, location }: Props) => {
       <PostContainer ref={divRef} id="post-container">
         <FilterWrapper>
           <SeriesSelector seriesList={seriesList} />
-          <RemoveFilterButton disabled={selectedSeries === null} />
+          <SortFilter />
         </FilterWrapper>
         <ol style={{ listStyle: 'none' }}>
           {filteredPosts.map(post => {
