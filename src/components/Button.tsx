@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react'
 import styled from '@emotion/styled'
 
-import type { DOMAttributes } from 'react'
+import type { ButtonHTMLAttributes } from 'react'
 
 const Button = styled.button`
   display: block;
@@ -12,13 +12,19 @@ const Button = styled.button`
   box-shadow: ${({ theme }) => `0 2px 5px ${theme.color.button.boxShadow}`};
   padding: ${({ theme }) => `${theme.spacing1} ${theme.spacing3}`};
 
-  &:hover {
+  &:not(:disabled):hover {
     cursor: pointer;
     background-color: ${({ theme }) => theme.color.button.hover};
   }
 
-  &:active {
+  &:not(:disabled):active {
     background-color: ${({ theme }) => theme.color.button.active};
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    background-color: ${({ theme }) => theme.color.button.background};
+    opacity: 0.3;
   }
 
   @media (max-width: 42rem) {
@@ -26,7 +32,7 @@ const Button = styled.button`
   }
 `
 
-interface Props extends DOMAttributes<HTMLButtonElement> {
+interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string
 }
 
