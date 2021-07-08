@@ -1,7 +1,7 @@
 const React = require('react')
 const { ColorSchemeProvider } = require('./src/contexts/ColorSchemeContext')
 const { SelectedTagProvider } = require('./src/contexts/SelectedTagContext')
-const { SeriesContextProvider } = require('./src/contexts/SeriesContext')
+const { FilterContextProvider } = require('./src/contexts/FilterContext')
 
 // custom typefaces
 require('typeface-montserrat')
@@ -26,7 +26,7 @@ export const shouldUpdateScroll = ({ prevRouterProps, routerProps, getSavedScrol
 export const wrapRootElement = ({ element }) => (
   <ColorSchemeProvider>
     <SelectedTagProvider>
-      <SeriesContextProvider>{element}</SeriesContextProvider>
+      <FilterContextProvider>{element}</FilterContextProvider>
     </SelectedTagProvider>
   </ColorSchemeProvider>
 )
