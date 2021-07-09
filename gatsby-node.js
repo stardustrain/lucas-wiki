@@ -117,6 +117,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       title: String
       description: String
       date: Date @dateformat
+      dateWithoutFormat: Date
       tags: [String!]
       keywords: [String!]
       url: String
