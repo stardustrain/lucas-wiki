@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'gatsby'
 import { ThemeProvider } from '@emotion/react'
 import styled from '@emotion/styled'
+import isPropValid from '@emotion/is-prop-valid'
 import Switch from 'react-switch'
 
 import Icon from './Icon'
@@ -43,7 +44,9 @@ const Header = styled.header`
 `
 
 type StyledIconProps = Parameters<typeof Icon>[number] & { left?: boolean }
-const StyledIcon = styled(Icon)<StyledIconProps>`
+const StyledIcon = styled(Icon, {
+  shouldForwardProp: props => isPropValid(props),
+})<StyledIconProps>`
   ${({ left }) => (left ? 'left: 2px;' : 'right: 4px;')};
 `
 
