@@ -3,7 +3,7 @@ import { graphql } from 'gatsby'
 import styled from '@emotion/styled'
 import { isNil, uniq, flatMap } from 'lodash'
 
-import { useFilterContext } from '../contexts/FilterContext'
+import { useFilterContext, SortOption } from '../contexts/FilterContext'
 
 import Bio from '../components/bio'
 import Layout from '../components/layout'
@@ -43,8 +43,13 @@ const FilterWrapper = styled.div`
   display: flex;
   position: sticky;
   top: -1px;
+  justify-content: space-between;
   background-color: ${({ theme }) => theme.color.background};
   padding: ${({ theme }) => `${theme.spacing2} 0`};
+
+  @media (max-width: 30rem) {
+    flex-direction: column;
+  }
 `
 
 interface Props {
@@ -66,7 +71,7 @@ const BlogIndex = ({ data, location }: Props) => {
     ).sort((seriesA, seriesB) => seriesA.localeCompare(seriesB))
   )
   const {
-    state: { selectedSeries },
+    state: { selectedSeries, sortOption },
   } = useFilterContext()
   const divRef = useRef<HTMLDivElement>(null)
 
@@ -89,6 +94,13 @@ const BlogIndex = ({ data, location }: Props) => {
       : posts.filter(
           post => post.frontmatter.series?.replace(/\s/g, '-').toLowerCase() === selectedSeries
         )
+  const sortedPosts = filteredPosts.sort((postA, postB) => {
+    const postAPublishedTime = new Date(postA.frontmatter.dateWithoutFormat).getTime()
+    const postBPublishedTime = new Date(postB.frontmatter.dateWithoutFormat).getTime()
+    return sortOption === SortOption.DESC
+      ? postBPublishedTime - postAPublishedTime
+      : postAPublishedTime - postBPublishedTime
+  })
 
   useEffect(() => {
     if (divRef.current) {
@@ -130,7 +142,7 @@ const BlogIndex = ({ data, location }: Props) => {
           <SortFilter />
         </FilterWrapper>
         <ol style={{ listStyle: 'none' }}>
-          {filteredPosts.map(post => {
+          {sortedPosts.map(post => {
             const title = post.frontmatter.title || post.fields.slug
 
             return (
@@ -190,6 +202,7 @@ export const pageQuery = graphql`
           description
           tags
           series
+          dateWithoutFormat: date
         }
         html
         timeToRead
