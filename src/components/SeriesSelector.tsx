@@ -24,20 +24,21 @@ const Dropdown = styled(DefaultDropdown)`
     width: 100%;
   }
 
-  @media (max-width: 42rem) {
+  @media (max-width: 30rem) {
     width: 100%;
   }
 `
 
 const Div = styled.div`
-  display: flex;
+  display: inline-flex;
 
   & > :not(style) ~ :not(style) {
     margin-inline-start: 3px;
   }
 
-  @media (max-width: 42rem) {
+  @media (max-width: 30rem) {
     width: 100%;
+
     & > :not(style) ~ :not(style) {
       margin-inline-start: 5px;
     }
