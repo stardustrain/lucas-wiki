@@ -1,14 +1,23 @@
 import React, { createContext, useContext, useReducer } from 'react'
 import type { Dispatch, FC } from 'react'
 
-const defaultState: { selectedSeries: string | null } = {
+export const enum SortOption {
+  ASC = 'ASC',
+  DESC = 'DESC',
+}
+const defaultState: { selectedSeries: string | null; sortOption: SortOption } = {
   selectedSeries: null,
+  sortOption: SortOption.DESC,
 }
 
 type ActionParameter =
   | {
       type: 'SET_SERIES'
       payload: string
+    }
+  | {
+      type: 'SET_SORT_OPTION'
+      payload: SortOption
     }
   | {
       type: 'RESET_SERIES'
@@ -26,10 +35,19 @@ const reducer = (state: typeof defaultState, action: ActionParameter) => {
   switch (action.type) {
     case 'SET_SERIES':
       return {
+        ...state,
         selectedSeries: action.payload,
       }
     case 'RESET_SERIES':
-      return defaultState
+      return {
+        ...state,
+        selectedSeries: null,
+      }
+    case 'SET_SORT_OPTION':
+      return {
+        ...state,
+        sortOption: action.payload,
+      }
     default:
       return state
   }
