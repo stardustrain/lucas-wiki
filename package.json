@@ -49,8 +49,11 @@
     "typography-theme-github": "^0.16.19"
   },
   "devDependencies": {
+    "@babel/preset-typescript": "^7.14.5",
     "@types/react-helmet": "^6.1.1",
     "@types/typography": "^0.16.3",
+    "babel-preset-const-enum": "^1.0.0",
+    "babel-preset-gatsby": "^1.9.0",
     "prettier": "2.2.1"
   },
   "homepage": "https://github.com/stardustrain/lucas-wiki.git#readme",
