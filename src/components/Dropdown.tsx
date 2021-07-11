@@ -79,6 +79,7 @@ type Option = {
 interface Props {
   selectedValue: string | number | null
   defaultButtonTitle?: string
+  buttonTitle?: string
   options: Option[]
   className?: string
   onSelect: (arg: Option['value']) => void
@@ -87,6 +88,7 @@ interface Props {
 export default function Dropdown({
   selectedValue,
   defaultButtonTitle,
+  buttonTitle,
   options,
   className,
   onSelect,
@@ -159,7 +161,7 @@ export default function Dropdown({
           setIsOpen(currentState => !currentState)
         }}
       >
-        {selectedValue ?? defaultButtonTitle ?? 'Select'}
+        {buttonTitle ?? selectedValue ?? defaultButtonTitle ?? 'Select'}
       </Button>
       <Ul
         ref={listRef}

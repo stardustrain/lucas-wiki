@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { graphql } from 'gatsby'
 import styled from '@emotion/styled'
 import { isNil, uniq, flatMap } from 'lodash'
@@ -67,6 +67,8 @@ interface Props {
 }
 
 const BlogIndex = ({ data, location }: Props) => {
+  const [top, setTop] = useState<number | null>(null)
+  const [mounted, setMounted] = useState(false)
   const siteTitle = data.site.siteMetadata?.title || `Title`
   const posts = data.allMarkdownRemark.nodes
   const seriesList = uniq(
@@ -95,21 +97,39 @@ const BlogIndex = ({ data, location }: Props) => {
   const filteredPosts =
     selectedSeries === null
       ? posts
-      : posts.filter(post => post.frontmatter.series === selectedSeries)
+      : posts.filter(
+          post => post.frontmatter.series?.replace(/\s/g, '-').toLowerCase() === selectedSeries
+        )
 
   useEffect(() => {
-    if (isNil(selectedSeries)) {
+    if (divRef.current) {
+      setTop(divRef.current.offsetTop)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!mounted) {
+      setMounted(true)
       return
     }
 
-    if (divRef.current) {
-      const top = divRef.current.offsetTop
+    if (divRef.current === null) {
+      return
+    }
+
+    if (isNil(selectedSeries)) {
       window.scrollTo({
-        top,
+        top: 0,
         behavior: 'smooth',
       })
+      return
     }
-  }, [selectedSeries])
+
+    window.scrollTo({
+      top: top ?? divRef.current.offsetTop,
+      behavior: 'smooth',
+    })
+  }, [selectedSeries, top, mounted])
 
   return (
     <Layout location={location} title={siteTitle}>

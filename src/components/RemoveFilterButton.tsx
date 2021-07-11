@@ -1,4 +1,5 @@
 import React from 'react'
+import { navigate, useLocation } from '@reach/router'
 
 import { useSelectedTagContext } from '../contexts/SelectedTagContext'
 import { useSeriesContext } from '../contexts/SeriesContext'
@@ -10,6 +11,7 @@ interface Props {
 }
 
 export default function RemoveFilterButton({ disabled }: Props) {
+  const location = useLocation()
   const selectedTagContext = useSelectedTagContext()
   const seriesContext = useSeriesContext()
 
@@ -24,6 +26,7 @@ export default function RemoveFilterButton({ disabled }: Props) {
         seriesContext.dispatch({
           type: 'RESET_SERIES',
         })
+        navigate(`${location.pathname}`)
       }}
       disabled={disabled}
     >

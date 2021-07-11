@@ -16,6 +16,13 @@ require('./src/styles/global.css')
 require('prismjs/plugins/line-numbers/prism-line-numbers.css')
 smoothscroll.polyfill()
 
+export const shouldUpdateScroll = ({ prevRouterProps, routerProps, getSavedScrollPosition }) => {
+  if (!prevRouterProps) {
+    return true
+  }
+  return prevRouterProps.location.pathname !== routerProps.location.pathname
+}
+
 export const wrapRootElement = ({ element }) => (
   <ColorSchemeProvider>
     <SelectedTagProvider>
