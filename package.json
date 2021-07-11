@@ -23,6 +23,7 @@
     "gatsby-plugin-sharp": "^3.2.1",
     "gatsby-plugin-sitemap": "^3.2.0",
     "gatsby-plugin-typography": "^3.2.0",
+    "gatsby-plugin-vercel": "^1.0.3",
     "gatsby-remark-autolink-headers": "^3.2.0",
     "gatsby-remark-copy-linked-files": "^3.2.0",
     "gatsby-remark-custom-blocks": "^3.2.0",
