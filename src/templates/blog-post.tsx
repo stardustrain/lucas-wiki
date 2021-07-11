@@ -58,7 +58,7 @@ const BlogPostTemplate = ({ data, location }: Props) => {
   }
 
   return (
-    <Layout location={location} title={siteTitle}>
+    <Layout location={location} title={siteTitle} disableSkipLink>
       <SEO
         title={post.frontmatter.title}
         description={post.frontmatter.description || post.excerpt}
