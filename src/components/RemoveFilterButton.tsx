@@ -2,7 +2,7 @@ import React from 'react'
 import { navigate, useLocation } from '@reach/router'
 
 import { useSelectedTagContext } from '../contexts/SelectedTagContext'
-import { useSeriesContext } from '../contexts/SeriesContext'
+import { useFilterContext } from '../contexts/FilterContext'
 
 import Button from './Button'
 
@@ -13,7 +13,7 @@ interface Props {
 export default function RemoveFilterButton({ disabled }: Props) {
   const location = useLocation()
   const selectedTagContext = useSelectedTagContext()
-  const seriesContext = useSeriesContext()
+  const seriesContext = useFilterContext()
 
   return (
     <Button

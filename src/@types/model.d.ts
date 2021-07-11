@@ -4,6 +4,7 @@ type Frontmatter = {
   description: string
   tags: string[]
   series?: string
+  dateWithoutFormat: string
 }
 
 type PostNode = {

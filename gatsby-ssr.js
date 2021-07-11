@@ -1,7 +1,7 @@
 const React = require('react')
 const { ColorSchemeProvider } = require('./src/contexts/ColorSchemeContext')
 const { SelectedTagProvider } = require('./src/contexts/SelectedTagContext')
-const { SeriesContextProvider } = require('./src/contexts/SeriesContext')
+const { FilterContextProvider } = require('./src/contexts/FilterContext')
 
 export const onRenderBody = ({ setPreBodyComponents }) => {
   setPreBodyComponents([
@@ -19,7 +19,7 @@ export const onRenderBody = ({ setPreBodyComponents }) => {
 export const wrapRootElement = ({ element }) => (
   <ColorSchemeProvider>
     <SelectedTagProvider>
-      <SeriesContextProvider>{element}</SeriesContextProvider>
+      <FilterContextProvider>{element}</FilterContextProvider>
     </SelectedTagProvider>
   </ColorSchemeProvider>
 )

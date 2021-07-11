@@ -3,7 +3,7 @@ import { graphql } from 'gatsby'
 import styled from '@emotion/styled'
 import { isNil, uniq, flatMap } from 'lodash'
 
-import { useSeriesContext } from '../contexts/SeriesContext'
+import { useFilterContext, SortOption } from '../contexts/FilterContext'
 
 import Bio from '../components/bio'
 import Layout from '../components/layout'
@@ -11,7 +11,7 @@ import SEO from '../components/seo'
 import Link from '../components/Link'
 import ArticleMeta from '../components/ArticleMeta'
 import SeriesSelector from '../components/SeriesSelector'
-import RemoveFilterButton from '../components/RemoveFilterButton'
+import SortFilter from '../components/SortFilter'
 
 import type { WindowLocation } from '@reach/router'
 
@@ -43,18 +43,12 @@ const FilterWrapper = styled.div`
   display: flex;
   position: sticky;
   top: -1px;
+  justify-content: space-between;
   background-color: ${({ theme }) => theme.color.background};
   padding: ${({ theme }) => `${theme.spacing2} 0`};
 
-  & > :not(style) ~ :not(style) {
-    margin-inline-start: 3px;
-  }
-
-  @media (max-width: 42rem) {
-    width: 100%;
-    & > :not(style) ~ :not(style) {
-      margin-inline-start: 5px;
-    }
+  @media (max-width: 30rem) {
+    flex-direction: column;
   }
 `
 
@@ -77,8 +71,8 @@ const BlogIndex = ({ data, location }: Props) => {
     ).sort((seriesA, seriesB) => seriesA.localeCompare(seriesB))
   )
   const {
-    state: { selectedSeries },
-  } = useSeriesContext()
+    state: { selectedSeries, sortOption },
+  } = useFilterContext()
   const divRef = useRef<HTMLDivElement>(null)
 
   if (posts.length === 0) {
@@ -100,6 +94,13 @@ const BlogIndex = ({ data, location }: Props) => {
       : posts.filter(
           post => post.frontmatter.series?.replace(/\s/g, '-').toLowerCase() === selectedSeries
         )
+  const sortedPosts = filteredPosts.sort((postA, postB) => {
+    const postAPublishedTime = new Date(postA.frontmatter.dateWithoutFormat).getTime()
+    const postBPublishedTime = new Date(postB.frontmatter.dateWithoutFormat).getTime()
+    return sortOption === SortOption.DESC
+      ? postBPublishedTime - postAPublishedTime
+      : postAPublishedTime - postBPublishedTime
+  })
 
   useEffect(() => {
     if (divRef.current) {
@@ -138,10 +139,10 @@ const BlogIndex = ({ data, location }: Props) => {
       <PostContainer ref={divRef} id="post-container">
         <FilterWrapper>
           <SeriesSelector seriesList={seriesList} />
-          <RemoveFilterButton disabled={selectedSeries === null} />
+          <SortFilter />
         </FilterWrapper>
         <ol style={{ listStyle: 'none' }}>
-          {filteredPosts.map(post => {
+          {sortedPosts.map(post => {
             const title = post.frontmatter.title || post.fields.slug
 
             return (
@@ -201,6 +202,7 @@ export const pageQuery = graphql`
           description
           tags
           series
+          dateWithoutFormat: date
         }
         html
         timeToRead
