@@ -89,9 +89,10 @@ type Props = {
   title: string
   location: WindowLocation
   children: React.ReactNode
+  disableSkipLink?: boolean
 }
 
-const Layout = ({ location, title, children }: Props) => {
+const Layout = ({ location, title, children, disableSkipLink }: Props) => {
   const { themeMode, setThemeMode } = useColorScheme()
   const rootPath = `${__PATH_PREFIX__}/`
   const isRootPath = location.pathname === rootPath
@@ -99,7 +100,7 @@ const Layout = ({ location, title, children }: Props) => {
   return (
     <ThemeProvider theme={blogTheme}>
       <GlobalWrapper className="global-wrapper" data-is-root-path={isRootPath}>
-        <SkipLink href="#post-container">Skip to Content</SkipLink>
+        {!!disableSkipLink ? null : <SkipLink href="#post-container">Skip to Content</SkipLink>}
         <Header className="global-header">
           {isRootPath ? (
             <h1 className="main-heading">
