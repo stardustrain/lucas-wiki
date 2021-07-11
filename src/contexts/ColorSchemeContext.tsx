@@ -1,19 +1,21 @@
+import React from 'react'
 import { createContext, SetStateAction, useContext, useEffect, useState } from 'react'
 import { isCorrectTheme } from '../styles/theme'
 
-import type { Dispatch } from 'react'
+import type { Dispatch, FC } from 'react'
 import type { ThemeMode } from '../styles/theme'
 
+type Theme = ThemeMode | null
 const ColorSchemeContext = createContext<{
-  themeMode: null
-  setThemeMode: Dispatch<SetStateAction<ThemeMode>>
+  themeMode: Theme
+  setThemeMode: Dispatch<SetStateAction<Theme>>
 }>({
   themeMode: null,
   setThemeMode: () => {},
 })
 
-export const ColorSchemeProvider = ({ children }) => {
-  const [themeMode, setThemeMode] = useState(null)
+export const ColorSchemeProvider: FC = ({ children }) => {
+  const [themeMode, setThemeMode] = useState<Theme>(null)
 
   useEffect(() => {
     const currentTheme = document.body.dataset.theme

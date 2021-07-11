@@ -138,13 +138,6 @@ const plugins = [
   // To learn more, visit: https://gatsby.dev/offline
   // `gatsby-plugin-offline`,
   `gatsby-plugin-postcss`,
-  {
-    resolve: 'gatsby-plugin-vercel',
-    options: {
-      // (optional) Prints metrics in the console when true
-      debug: false,
-    },
-  },
 ]
 
 if (process.env.GA_TRACKING_ID) {
