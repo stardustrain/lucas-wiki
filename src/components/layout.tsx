@@ -7,6 +7,7 @@ import Switch from 'react-switch'
 
 import Icon from './Icon'
 import DefaultMoveToTopButton from './MoveToTopButton'
+import ExternalLink from './ExternalLink'
 import { useColorScheme } from '../contexts/ColorSchemeContext'
 import blogTheme from '../styles/theme'
 
@@ -136,7 +137,7 @@ const Layout = ({ location, title, children, disableSkipLink }: Props) => {
         <footer>
           © {new Date().getFullYear()}, Built with
           {` `}
-          <a href="https://www.gatsbyjs.com">Gatsby</a>
+          <ExternalLink href="https://www.gatsbyjs.com">Gatsby</ExternalLink>
         </footer>
       </GlobalWrapper>
     </ThemeProvider>

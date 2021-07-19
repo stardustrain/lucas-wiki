@@ -1,4 +1,11 @@
 import React from 'react'
+import styled from '@emotion/styled'
+
+const A = styled.a`
+  &:hover {
+    text-decoration: underline;
+  }
+`
 
 interface Props {
   className?: string
@@ -9,7 +16,7 @@ interface Props {
 
 export default function ExternalLink({ className, href, children, ariaLabel }: Props) {
   return (
-    <a
+    <A
       className={className}
       href={href}
       rel="noopener noreferrer"
@@ -17,6 +24,6 @@ export default function ExternalLink({ className, href, children, ariaLabel }: P
       aria-label={ariaLabel}
     >
       {children}
-    </a>
+    </A>
   )
 }
