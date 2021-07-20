@@ -2,6 +2,8 @@ import React, { Fragment } from 'react'
 import styled from '@emotion/styled'
 import { range, floor } from 'lodash'
 
+import DefaultIcon from './Icon'
+
 const Div = styled.div`
   small {
     color: ${({ theme }) => theme.color.textTertiary};
@@ -24,6 +26,12 @@ const Tag = styled.li`
   }
 `
 
+const Icon = styled(DefaultIcon)`
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 4px;
+`
+
 const AVERAGE_TIME_TO_DRINK_COFFEE = 10
 const emojiMap = {
   coffee: '☕',
@@ -44,6 +52,7 @@ export default function ArticleMeta({ className, date, readTime, tags }: Props) 
     <Div className={className}>
       {date && (
         <>
+          <Icon name="Calendar" size={13} aria-hidden focusable={false} />
           <small>{date}</small>
           {' · '}
         </>
@@ -57,6 +66,7 @@ export default function ArticleMeta({ className, date, readTime, tags }: Props) 
       {Array.isArray(tags) ? (
         <>
           {' · '}
+          <Icon name="Tag" size={12} aria-hidden focusable={false} />
           <ul>
             {tags.map(tag => (
               <Tag key={tag}>

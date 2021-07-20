@@ -132,7 +132,7 @@ const Bio = () => {
           )}
           {resume && (
             <li>
-              <Link to={resume}>
+              <Link to={resume} aria-label="Author's resume">
                 <Icon name="Resume" size={20} aria-hidden focusable={false} />
               </Link>
             </li>
