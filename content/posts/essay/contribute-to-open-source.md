@@ -114,3 +114,11 @@ Maintainer에게 의견을 물어볼 때 무례하다고 느껴지지 않게끔 
 겨우 작은 pull request 하나를 가지고 이렇게 생색을 내는 글을 쓰는 거냐고 생각할 수도 있을 것 같다. 하지만 그 작은 pull request가 merge 되었을 때의 짜릿한 감정을 공유하고 싶었고, 앞으로 기회가 될 때마다 오픈소스에 기여하겠다는 스스로의 다짐을 위해 글을 썼다고 생각해주시면 감사할 것 같다.
 
 **기회가 된다면 오픈소스에 꼭 기여해 보는 게 어떨까?**
+
+---
+
+#### 참고
+
+- [나는 어떻게 오픈소스 커뮤니티를 통해 성장했나](https://blog.cometkim.kr/posts/mattermost-contribution/how-i-grow-up-with-mattermost-community/)
+- [오픈소스를 좋아한다는 말에 대한 생각](https://kdy1.github.io/post/dev/oss/i-hate-i-love-oss/)
+- [오픈소스 뒤에 메인테이너 있어요](https://blog.outsider.ne.kr/1517)
