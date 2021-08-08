@@ -13,7 +13,8 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     `
       {
         allMarkdownRemark(
-          sort: { fields: [frontmatter___date, frontmatter___url], order: [DESC, ASC] }
+          sort: { fields: [frontmatter___date], order: [DESC] }
+          filter: { frontmatter: { withhold: { ne: true } } }
           limit: 1000
         ) {
           nodes {
@@ -122,6 +123,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       url: String
       disableDisqus: Boolean
       series: String
+      withhold: Boolean
     }
 
     type Fields {
