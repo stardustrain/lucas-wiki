@@ -51,6 +51,8 @@
   "devDependencies": {
     "@types/react-helmet": "^6.1.1",
     "@types/typography": "^0.16.3",
+    "commitizen": "^4.2.4",
+    "cz-emoji": "^1.3.1",
     "prettier": "2.2.1"
   },
   "homepage": "https://github.com/stardustrain/lucas-wiki.git#readme",
@@ -70,6 +72,12 @@
     "start": "yarn develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
+    "commit": "cz"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-emoji"
+    }
   }
 }
