@@ -56,6 +56,19 @@ const BlogPostTemplate = ({ data, location }: Props) => {
     keywords: post.frontmatter.keywords,
     description: post.frontmatter.description || post.excerpt,
   }
+  const metaImages =
+    typeof post.frontmatter.image === 'string'
+      ? [
+          {
+            name: 'og:image',
+            content: post.frontmatter.image,
+          },
+          {
+            name: 'twitter:image',
+            content: post.frontmatter.image,
+          },
+        ]
+      : []
 
   return (
     <Layout location={location} title={siteTitle} disableSkipLink>
@@ -65,6 +78,7 @@ const BlogPostTemplate = ({ data, location }: Props) => {
         slug={post.fields.slug}
         keywords={post.frontmatter.keywords}
         jsonLd={jsonLd}
+        meta={metaImages}
       />
       <article className="blog-post" itemScope itemType="http://schema.org/Article">
         <header>
@@ -143,6 +157,7 @@ export const pageQuery = graphql`
         url
         keywords
         disableDisqus
+        image
       }
     }
     previous: markdownRemark(id: { eq: $previousPostId }) {

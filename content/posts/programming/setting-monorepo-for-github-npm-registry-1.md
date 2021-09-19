@@ -4,6 +4,7 @@ description: Monorepo를 설정하고 기본적인 패키지 구조를 설정합
 url: https://wiki.lucashan.space/programming/setting-monorepo-for-github-npm-registry-1/
 date: 2021-09-19
 tags: [Programming, '2021']
+image: https://www.perforce.com/sites/default/files/styles/social_preview_image/public/image/2020-03/image-blog-monorepo.jpg?itok=4aHBZbCZ
 ---
 
 ## 1. 뜬금없이 monorepo
