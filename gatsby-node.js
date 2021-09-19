@@ -124,6 +124,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       disableDisqus: Boolean
       series: String
       withhold: Boolean
+      image: String
     }
 
     type Fields {
