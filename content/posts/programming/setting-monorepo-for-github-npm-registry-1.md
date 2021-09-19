@@ -1,6 +1,6 @@
 ---
 title: GitHub npm registry를 위한 monorepo 설정하기 (1)
-description: Monorepo를 설정하고 기본적인 패키지 구조 설정하기.
+description: Monorepo를 설정하고 기본적인 패키지 구조를 설정합니다.
 url: https://wiki.lucashan.space/programming/setting-monorepo-for-github-npm-registry-1/
 date: 2021-09-19
 tags: [Programming, '2021']
