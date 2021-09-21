@@ -442,3 +442,7 @@ center {
 summary {
   cursor: pointer;
 }
+
+.reference-title {
+  font-size: var(--fontSize3);
+}
