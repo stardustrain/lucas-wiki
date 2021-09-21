@@ -117,7 +117,7 @@ Maintainer에게 의견을 물어볼 때 무례하다고 느껴지지 않게끔 
 
 ---
 
-#### 참고
+<h2 class="reference-title">참고</h2>
 
 - [나는 어떻게 오픈소스 커뮤니티를 통해 성장했나](https://blog.cometkim.kr/posts/mattermost-contribution/how-i-grow-up-with-mattermost-community/)
 - [오픈소스를 좋아한다는 말에 대한 생각](https://kdy1.github.io/post/dev/oss/i-hate-i-love-oss/)
