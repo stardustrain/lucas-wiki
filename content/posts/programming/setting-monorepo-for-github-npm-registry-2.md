@@ -11,7 +11,7 @@ image: https://github.com/atlassian/changesets/raw/main/assets/images/changesets
 
 ## 1. Changesets?
 
-`Changesets`는 muti-package 레포지토리 내에서 패키지 간의 변경과 의존성을 자동으로 관리해주고 배포를 도와주는 툴이다. 특히 [semver bump type](https://semver.org/)으로 버전을 관리하고 있다면 최적의 선택이라고 생각한다. 개인적으로 사용해 보면서 정말 편하다고 느꼈고, 많은 부분을 알아서 처리해 주기 때문에 잘만 설정한다면 패키지 배포에는 크게 신경 쓰지 않아도 괜찮을 정도이다. 실제로 팀의 디자인 시스템 레포지토리에 한 달 정도 기여하며 느낀 장점은 대략 아래와 같다.
+`Changesets`는 muti-package 레포지토리 내에서 패키지 간의 변경과 의존성을 자동으로 관리해주고 배포를 도와주는 툴이다. 특히 [semver bump type](https://semver.org/)으로 버전을 관리하고 있다면 최적의 선택이라고 생각한다. 개인적으로 사용해 보면서 정말 편하다고 느꼈고, 많은 부분을 알아서 처리해 주기 때문에 잘만 설정한다면 패키지 배포는 크게 신경 쓰지 않아도 괜찮을 정도이다. 실제로 팀의 디자인 시스템 레포지토리에 한 달 정도 기여하며 느낀 장점은 대략 아래와 같았다.
 
 1. 자동으로 바뀐 패키지를 추적해준다. 패키지 간 내부 종속성이 걸려있는 경우도 알아서 처리해주며 특히 바뀐 패키지만 배포하기 때문에 유용하다.
 2. 각 패키지의 change log, tagging, versioning, 배포 등 대부분을 자동으로 처리해준다. 특히 `package.json`의 version property 같은 놓치기 쉬운 사소한 부분을 사람이 신경 쓸 필요가 없다는 것이 너무 좋았다.
@@ -200,7 +200,7 @@ qs 패키지도 마찬가지의 과정을 거쳐서 changeset을 생성한다. �
 
 자동으로 생성된 pull request의 내용을 확인해보면 `.changeset` directory 하위의 changeset을 기반으로 해당 pull request가 생성되었음을 알 수 있다. 이제 이 pull request를 merge하면, 위의 패키지는 배포된다.
 
-배포가 완료되면 배포가 된 패키지만 CHANGELOG.md가 업데이트되고, tagging 된다. 이는 레포지토리와 GitHub actions의 log를 보면 쉽게 확인할 수 있다.
+배포가 완료되면 배포가 된 패키지만 CHANGELOG.md가 업데이트되고, tagging 된다. 이는 레포지토리와 GitHub Actions의 log를 보면 쉽게 확인할 수 있다.
 
 ```bash
 /usr/local/bin/yarn release
@@ -222,7 +222,7 @@ $ changeset publish
 
 ### 4. Internal dependency
 
-chakra ui의 `chakra-ui/react` 패키지처럼 [단순히 다른 패키지들을 export만 하는 패키지](https://github.com/chakra-ui/chakra-ui/blob/main/packages/react/src/index.tsx)가 필요한 경우도 있다. 여기서는 `core`라는 이름(어떤 이름이 좋을지 잘 떠오르지 않는다)으로 그런 역할을 하는 패키지를 만들어 보도록 한다. 먼저 `packages` directory 아래에 `core`라는 패키지를 만들고 tsconfig.json과 package.json을 설정한다. 그리고 다른 패키지를 의존성에 추가해준다.
+chakra ui의 `chakra-ui/react` 패키지처럼 [단순히 다른 패키지들을 모아서 export만 하는 패키지](https://github.com/chakra-ui/chakra-ui/blob/main/packages/react/src/index.tsx)가 필요한 경우도 있다. 여기서는 `core`라는 이름(어떤 이름이 좋을지 잘 떠오르지 않는다)으로 그런 역할을 하는 패키지를 만들어 보도록 한다. 먼저 `packages` directory 아래에 `core`라는 패키지를 만들고 tsconfig.json과 package.json을 설정한다. 그리고 다른 패키지를 의존성에 추가해준다.
 
 ```bash
 $ yarn lerna add @{USER_NAME}/qs --scope=@{USER_NAME}/core
