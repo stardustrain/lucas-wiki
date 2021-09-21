@@ -2,7 +2,7 @@
 title: GitHub npm registry를 위한 monorepo 설정하기 (2)
 description: changesets를 이용해 monorepo에 구축되어있는 패키지를 배포해 봅니다.
 url: https://wiki.lucashan.space/programming/setting-monorepo-for-github-npm-registry-2/
-date: 2021-09-20
+date: 2021-09-21
 tags: [Programming, '2021']
 image: https://github.com/atlassian/changesets/raw/main/assets/images/changesets-banner-light.png
 ---
