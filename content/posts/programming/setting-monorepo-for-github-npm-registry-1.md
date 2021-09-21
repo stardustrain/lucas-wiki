@@ -358,7 +358,9 @@ commitizen 사용하는 방법은 여러 가지가 있으니 [commitizen reposit
 
 지금까지 작업한 부분을 모두 commit했다면 `changesets`를 사용할 준비가 모두 끝났다. 다음 글에서는 `changesets`을 설정하여 GitHub registry에 패키지를 배포해 보고자 한다.
 
-#### 참고
+---
+
+<h2 class="reference-title">참고</h2>
 
 - [chakra-ui](https://github.com/chakra-ui/chakra-ui)
 - [Benefits and challenges of using monorepo development practices](https://circleci.com/blog/monorepo-dev-practices/)
