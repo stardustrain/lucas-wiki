@@ -6,6 +6,8 @@ import useEventListener from '../hooks/useEventListener'
 import Button from './Button'
 import DefaultIcon from './Icon'
 
+import type { KeyboardEvent } from 'react'
+
 const Wrapper = styled.div`
   position: relative;
   display: inline-flex;
@@ -99,20 +101,22 @@ export default function Dropdown({
   const listRef = useRef<HTMLUListElement>(null)
   const $elem = listRef.current?.children[focusElementIndex]
 
-  const keyMap: { [key: string]: () => void } = {
+  const keyMap: { [key: string]: (e: KeyboardEvent<HTMLUListElement>) => void } = {
     Enter: () => {
       onSelect(options[focusElementIndex].value)
       if (isOpen) {
         setIsOpen(false)
       }
     },
-    ArrowUp: () => {
+    ArrowUp: e => {
+      e.preventDefault()
       if (focusElementIndex === 0) {
         return
       }
       setFocusElementIndex(focusElementIndex - 1)
     },
-    ArrowDown: () => {
+    ArrowDown: e => {
+      e.preventDefault()
       if (focusElementIndex + 1 === options.length) {
         return
       }
@@ -170,8 +174,7 @@ export default function Dropdown({
         tabIndex={-1}
         onKeyDown={e => {
           const action = keyMap[e.key]
-          e.preventDefault()
-          action?.()
+          action?.(e)
         }}
       >
         {options.map(({ label, value }, index) => {
