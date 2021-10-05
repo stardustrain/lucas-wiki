@@ -20,14 +20,21 @@ disableDisqus: true
 - Email. **lucas.han.public@gmail.com**
 - Blog. [https://wiki.lucashan.space/](https://wiki.lucashan.space/)
 - GitHub. [https://github.com/stardustrain](https://github.com/stardustrain)
+- LinkedIn. [profile](https://www.linkedin.com/in/lucas-keun-taek-han-443b08120/)
 
 ## Work experience
+
+### Codestates
+
+_Software Engineer_
+
+_2021.07 - 현재_
 
 ### ODK Media
 
 _Tech Lead_
 
-_2021.01 - 현재_
+_2021.01 - 2021.07_
 
 - ODK(한국), ODC(중국), ODL(라틴)의 통합 플랫폼인 ODX의 frontend 관련 프로젝트 (ODX player, design system, ODX GraphQL) 관리
   - 일정 관리 및 제품 스펙 개발의 우선순위 정리
@@ -35,7 +42,7 @@ _2021.01 - 현재_
 
 _Frontend Developer_
 
-_2019.04 - 현재_
+_2019.04 - 2021.07_
 
 - [ondemandkorea](https://www.ondemandkorea.com/)
   - Django template과 Vue.js로 만들어져있는 기존의 legacy code를 Next.js로 개선 (진행 중)
