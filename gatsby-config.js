@@ -12,7 +12,7 @@ const siteMetadata = {
     github: 'https://github.com/stardustrain',
     linkedin: 'https://www.linkedin.com/in/lucas-keun-taek-han-443b08120/',
   },
-  resume: '/intro/',
+  resume: '/about/',
 }
 
 const remarkPlugins = [
@@ -138,6 +138,7 @@ const plugins = [
   // To learn more, visit: https://gatsby.dev/offline
   // `gatsby-plugin-offline`,
   `gatsby-plugin-postcss`,
+  'gatsby-plugin-client-side-redirect',
 ]
 
 if (process.env.GA_TRACKING_ID) {

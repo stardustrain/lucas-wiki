@@ -3,7 +3,7 @@ const { createFilePath } = require(`gatsby-source-filesystem`)
 const { execSync } = require('child_process')
 
 exports.createPages = async ({ graphql, actions, reporter }) => {
-  const { createPage } = actions
+  const { createPage, createRedirect } = actions
 
   // Define a template for blog post
   const blogPost = path.resolve(`./src/templates/blog-post.tsx`)
@@ -55,6 +55,12 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       })
     })
   }
+
+  createRedirect({
+    fromPath: '/intro/',
+    toPath: '/about/',
+    isPermanent: true,
+  })
 }
 
 exports.onCreateNode = ({ node, actions, getNode }) => {

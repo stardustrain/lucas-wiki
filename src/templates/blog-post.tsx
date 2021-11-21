@@ -30,7 +30,7 @@ const StyledLink = styled(GatsbyLink)`
   }
 `
 
-const isIntroPage = (slug: string) => /intro/.test(slug)
+const isIntroPage = (slug: string) => /about/.test(slug)
 
 type Props = {
   location: WindowLocation

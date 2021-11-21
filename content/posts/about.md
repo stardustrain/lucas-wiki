@@ -1,7 +1,7 @@
 ---
 title: Introduce Keuntaek Lucas Han
 description: 글을 작성하는 본인과 wiki에 대한 설명입니다.
-url: https://wiki.lucashan.space/intro/
+url: https://wiki.lucashan.space/about/
 disableDisqus: true
 ---
 
