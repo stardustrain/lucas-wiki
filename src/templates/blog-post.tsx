@@ -69,6 +69,16 @@ const BlogPostTemplate = ({ data, location }: Props) => {
           },
         ]
       : []
+  const articleMeta = [
+    {
+      name: 'article:published_time',
+      content: post.frontmatter.seoDate,
+    },
+    {
+      name: 'article:modified_time',
+      content: post.fields.gitModifiedAt,
+    },
+  ]
 
   return (
     <Layout location={location} title={siteTitle} disableSkipLink>
@@ -78,7 +88,7 @@ const BlogPostTemplate = ({ data, location }: Props) => {
         slug={post.fields.slug}
         keywords={post.frontmatter.keywords}
         jsonLd={jsonLd}
-        meta={metaImages}
+        meta={metaImages.concat(articleMeta)}
       />
       <article className="blog-post" itemScope itemType="http://schema.org/Article">
         <header>

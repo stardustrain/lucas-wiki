@@ -60,6 +60,18 @@ const SEO = ({
       content: keywords ?? '',
     },
     {
+      property: 'og:site_name',
+      content: 'wiki.lucashan.space',
+    },
+    {
+      property: 'og:locale',
+      content: 'ko_KR',
+    },
+    {
+      property: 'og:type',
+      content: 'article',
+    },
+    {
       property: `og:title`,
       content: title,
     },
