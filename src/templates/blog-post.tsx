@@ -60,15 +60,25 @@ const BlogPostTemplate = ({ data, location }: Props) => {
     typeof post.frontmatter.image === 'string'
       ? [
           {
-            name: 'og:image',
+            property: 'og:image',
             content: post.frontmatter.image,
           },
           {
-            name: 'twitter:image',
+            property: 'twitter:image',
             content: post.frontmatter.image,
           },
         ]
       : []
+  const articleMeta = [
+    {
+      property: 'article:published_time',
+      content: post.frontmatter.seoDate,
+    },
+    {
+      property: 'article:modified_time',
+      content: post.fields.gitModifiedAt,
+    },
+  ]
 
   return (
     <Layout location={location} title={siteTitle} disableSkipLink>
@@ -78,7 +88,7 @@ const BlogPostTemplate = ({ data, location }: Props) => {
         slug={post.fields.slug}
         keywords={post.frontmatter.keywords}
         jsonLd={jsonLd}
-        meta={metaImages}
+        meta={metaImages.concat(articleMeta)}
       />
       <article className="blog-post" itemScope itemType="http://schema.org/Article">
         <header>

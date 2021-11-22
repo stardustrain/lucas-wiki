@@ -13,7 +13,7 @@ import { isPlainObject } from 'lodash'
 type Props = {
   description?: string
   lang?: string
-  meta?: { name: string; content: any }[]
+  meta?: { property: string; content: any }[]
   title: string
   slug?: string
   keywords?: string[]
@@ -60,6 +60,18 @@ const SEO = ({
       content: keywords ?? '',
     },
     {
+      property: 'og:site_name',
+      content: 'wiki.lucashan.space',
+    },
+    {
+      property: 'og:locale',
+      content: 'ko_KR',
+    },
+    {
+      property: 'og:type',
+      content: 'article',
+    },
+    {
       property: `og:title`,
       content: title,
     },
@@ -70,10 +82,6 @@ const SEO = ({
     {
       property: 'og:url',
       content: slug ? `${siteUrl}${slug}` : siteUrl,
-    },
-    {
-      property: `og:type`,
-      content: `website`,
     },
     {
       name: `twitter:card`,
