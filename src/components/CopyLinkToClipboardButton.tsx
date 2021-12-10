@@ -16,8 +16,13 @@ const Button = styled(DefaultButton)`
   padding: ${({ theme }) => theme.spacing2};
   vertical-align: top;
 
+  @media (pointer: fine) {
+    &:not(:disabled):hover {
+      color: ${({ theme }) => theme.color.textLink};
+    }
+  }
+
   &:not(:disabled):hover {
-    color: ${({ theme }) => theme.color.textLink};
     background-color: transparent;
   }
 `
