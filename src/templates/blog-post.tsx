@@ -8,6 +8,7 @@ import SEO from '../components/seo'
 import Link from '../components/Link'
 import Disqus from '../components/Disqus'
 import ArticleMeta from '../components/ArticleMeta'
+import CopyLinkToClipboardButton from '../components/CopyLinkToClipboardButton'
 
 import type { WindowLocation } from '@reach/router'
 
@@ -28,6 +29,17 @@ const StyledLink = styled(GatsbyLink)`
   :hover {
     text-decoration: underline;
   }
+`
+
+const Header = styled.header`
+  margin-bottom: ${({ theme }) => theme.spacing5};
+`
+
+const H1 = styled.h1`
+  display: inline;
+  margin: ${({ theme }) => `${theme.spacing0}`};
+  padding: 0;
+  vertical-align: top;
 `
 
 const isIntroPage = (slug: string) => /about/.test(slug)
@@ -91,9 +103,10 @@ const BlogPostTemplate = ({ data, location }: Props) => {
         meta={metaImages.concat(articleMeta)}
       />
       <article className="blog-post" itemScope itemType="http://schema.org/Article">
-        <header>
-          <h1 itemProp="headline">{post.frontmatter.title}</h1>
-        </header>
+        <Header>
+          <H1 itemProp="headline">{post.frontmatter.title}</H1>
+          <CopyLinkToClipboardButton />
+        </Header>
         {isIntroPage(post.fields.slug) ? null : (
           <ArticleMeta date={post.frontmatter.date} readTime={post.timeToRead} />
         )}

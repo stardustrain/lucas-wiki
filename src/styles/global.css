@@ -308,10 +308,6 @@ a:focus {
   font-size: var(--fontSize2);
 }
 
-.blog-post header h1 {
-  margin: var(--spacing0) var(--spacing0) var(--spacing5) var(--spacing0);
-}
-
 .blog-post header p {
   font-size: var(--fontSize2);
 }
