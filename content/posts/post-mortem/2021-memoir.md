@@ -98,11 +98,75 @@ tags: [Post-mortem, '2021']
 
   `Relay-like`라고 한 이유는, 서버의 스펙이 Relay에 완벽하게 맞지 않아 client에서 Relay를 사용할 수 없어 해당 framework를 흉내내어 개발했기 때문이다.
 
-  각 component에서는 필요한 데이터를 fragment로 선언하고, query loader 역할을 하는 component에 spread하는 방식으로 처리하였다. 이는 Relay의 `usePreloadedQuery` - `useFragment`의 관계를 (완벽하지는 않지만) 따라하려고 한 부분이다. Ondemandlatino를 개발했을 때 처럼 GraphQL을 사용하기 위한 query, mutation을 한곳에 몰아넣지 않고 각 component와 같은 위치에 선언한 것이다.
+  각 component에서는 필요한 데이터를 fragment로 선언하고, query loader 역할을 하는 component에 spread하는 방식으로 처리하였다. Component에서 hooks를 사용할 때는 query loader 역할을 하는 component에서 useQuery를 통해 fetch하고, fragment로 선언한 부분을 각 component에 props로 전달하는 방식으로 구현했다.
 
-  덧붙여, operation name의 convention도 Relay와 동일하게 가져갔다. 이름이 길어져 codegen을 사용했을때 hooks의 이름도 함께 길어지는 단점도 있었지만 어느 component에서 어떤 데이터를 요청했는지 한 눈에 알수 있어서 편하게 느껴지기도 했다.
+<details style="margin-bottom: var(--spacing8);">
+  <summary>Example</summary>
 
-  다만 아쉬운점은 실제로 제품을 운영하는 상태에서 유지보수를 하거나 새로운 기능을 추가해 볼 수 있는 기회가 없다는 것이다. 제품을 처음부터 개발할떄는 분명 좋다고 느꼈지만 유지보수에도 유용할 것인가는 미지수이기 때문에 반쪽짜리 실험이 되어버리고 말았다. 다음번에는 꼭 Relay를 이용해 개발한 제품을 운영하며 유지보수 해보고 싶다.
+```tsx
+// CardnewsListPage.tsx
+export const query = gql`
+  query CardnewsListPage_CardnewsList($pagination: PaginationInput) {
+    cardNewsList(pagination: $pagination, order: { createdAt: DESC }) {
+      nodes {
+        ...Cardnews_CardnewsItem
+      }
+      totalCount
+    }
+  }
+`
+
+export default function CardnewsListPage() {
+  const { data } = useCardnewsListPage_CardnewsListQuery({
+    variables: {
+      pagination: {
+        page,
+        perPage,
+      },
+    },
+  })
+
+  return (
+    <ul>
+      {data?.cardNewsList.nodes.map(node => (
+        <li key={node.id}>
+          <Cardnews cardnews={node} />
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+// Cardnews.tsx
+export const fragment = gql`
+  fragment Cardnews_CardnewsItem on CardNews {
+    id
+    title
+    description
+  }
+`
+
+interface Props {
+  cardnews: Cardnews_CardnewsItemFragment
+}
+
+export default function Cardnews({ cardnews }: Props) {
+  return (
+    <article>
+      <h2>{cardnews.title}</h2>
+      <p>{cardnews.description}</p>
+    </article>
+  )
+}
+```
+
+</details>
+
+이는 Relay의 `usePreloadedQuery` - `useFragment`의 관계를 (완벽하지는 않지만) 따라하려고 한 부분이다. Ondemandlatino를 개발했을 때 처럼 GraphQL을 사용하기 위한 query, mutation을 한곳에 몰아넣지 않고 각 component와 같은 위치에 선언한 것이다.
+
+덧붙여, operation name의 convention도 Relay와 동일하게 가져갔다. 이름이 길어져 codegen을 사용했을때 hooks의 이름도 함께 길어지는 단점도 있었지만 어느 component에서 어떤 데이터를 요청했는지 한 눈에 알수 있어서 편하게 느껴지기도 했다.
+
+다만 아쉬운점은 실제로 제품을 운영하는 상태에서 유지보수를 하거나 새로운 기능을 추가해 볼 수 있는 기회가 없다는 것이다. 제품을 처음부터 개발할떄는 분명 좋다고 느꼈지만 유지보수에도 유용할 것인가는 미지수이기 때문에 반쪽짜리 실험이 되어버리고 말았다. 다음번에는 꼭 Relay를 이용해 개발한 제품을 운영하며 유지보수 해보고 싶다.
 
 - Chakra
 
@@ -142,7 +206,7 @@ tags: [Post-mortem, '2021']
 
 ## 5. 마치며
 
-2021년은 많은 것을 느끼고, 고뇌했던 한 해였다. 기술적인 성장보다는 내적인 성장을 더 많이 할 수 있었으며, 이를 통해 내 안에 자리 잡고 있던 편견들의 일부를 깰 수 있었다. 개발자로서 기술적인 성장을 많이 하지 못했다는 것은 너무나 아쉽지만, 성장의 공간이 비어버린 만큼 내년에는 좀 더 공격적으로 그 공안을 채워넣을 수 있으리라 기대하고 있다.
+2021년은 많은 것을 느끼고, 고뇌했던 한 해였다. 기술적인 성장보다는 내적인 성장을 더 많이 할 수 있었으며, 이를 통해 내 안에 자리 잡고 있던 편견들의 일부를 깰 수 있었다. 개발자로서 기술적인 성장을 많이 하지 못했다는 것은 너무나 아쉽지만, 성장의 공간이 비어버린 만큼 내년에는 좀 더 공격적으로 그 공간을 채워넣을 수 있으리라 기대하고 있다.
 
 내년초가 되면 현재 몸담고 있는 곳을 떠나 새로운 곳에 합류하여 일하게 된다. 새로운 도전들과 새로운 동료들이 너무나 기대된다. 나 역시 새로운 곳에서 나의 성과를 증명하기 위해 치열하게 달릴 예정이고, 제품을 "만드는 것" 보다는 "잘 만드는 것"에 더 초점을 맞출 예정이다. 이제는 그런 노력을 함으로써 주변 동료들에게 건강한 영향을 주어야 한다고 생각한다.
 
