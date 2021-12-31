@@ -21,7 +21,7 @@ tags: [Programming, '2020']
 
 직접 작성한 `models.d.ts`도 문제였다. (분명한 잘못이지만) API의 변화에 맞춰 제대로 업데이트하지 않았기 때문에 필요 없는 property들이 많이 선언되어 있었고, 실제 API의 값과 다른 경우도 있었다. 이러한 문제들이 있어 코드 리뷰를 할 때나, 새로 온 팀원들이 ondemandchina에 관련한 task를 처리할 때 문제를 겪었다.
 
-이런 문제가 반복되다 보니, 팀의 리더인 [**그 분2**](https://blog.roto.codes/)는 어떻게 하면 좋을지에 대해 고민해보라고 ~~명령~~ 하셨고, 나와 동료인 [제프리](https://brightparagon.wordpress.com/)는 ~~절대복종~~ 문제의 원인을 먼저 찾기로 하였다.
+이런 문제가 반복되다 보니, 팀의 리더인 [**그분2**](https://blog.roto.codes/)는 어떻게 하면 좋을지에 대해 고민해보라고 ~~명령~~ 하셨고, 나와 동료인 [제프리](https://brightparagon.wordpress.com/)는 ~~절대복종~~ 문제의 원인을 먼저 찾기로 하였다.
 
 ## 2. RESTful 너란 녀석
 
