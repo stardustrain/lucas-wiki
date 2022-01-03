@@ -138,6 +138,62 @@ const plugins = [
   // `gatsby-plugin-offline`,
   `gatsby-plugin-postcss`,
   'gatsby-plugin-client-side-redirect',
+  {
+    resolve: 'gatsby-plugin-feed',
+    options: {
+      query: `
+        {
+          site {
+            siteMetadata {
+              title
+              description
+              siteUrl
+              site_url: siteUrl
+            }
+          }
+        }
+      `,
+      feeds: [
+        {
+          serialize: ({ query: { site, allMarkdownRemark } }) => {
+            return allMarkdownRemark.nodes
+              .filter(node => node.fields.slug !== '/about/')
+              .map(node => {
+                return Object.assign({}, node.frontmatter, {
+                  description: node.excerpt,
+                  date: node.frontmatter.date,
+                  url: `${site.siteMetadata.siteUrl}${node.fields.slug}`,
+                  guid: `${site.siteMetadata.siteUrl}${node.fields.slug}`,
+                  language: 'ko',
+                })
+              })
+          },
+          query: `
+        {
+          allMarkdownRemark(
+            sort: { fields: [frontmatter___date], order: [DESC] }
+            filter: { frontmatter: { withhold: { ne: true } } }
+            limit: 1000
+          ) {
+            nodes {
+              excerpt
+              fields {
+                slug
+              }
+              frontmatter {
+                title
+                date
+              }
+            }
+          }
+        }
+        `,
+          output: '/rss.xml',
+          title: "Lucas wiki's RSS Feed",
+        },
+      ],
+    },
+  },
 ]
 
 if (process.env.GA_TRACKING_ID) {
