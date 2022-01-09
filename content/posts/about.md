@@ -24,11 +24,20 @@ disableDisqus: true
 
 ## Work experience
 
+### Watcha Inc.
+
+_Frontend Engineer_
+
+_2022.01 - 현재_
+
 ### Codestates
 
 _Software Engineer_
 
-_2021.07 - 현재_
+_2021.07 - 2022.01_
+
+- Learning Management System admin 개발
+  - 기존의 legacy admin을 대체하는 새로운 admin 개발
 
 ### ODK Media
 
@@ -40,7 +49,7 @@ _2021.01 - 2021.07_
   - 일정 관리 및 제품 스펙 개발의 우선순위 정리
   - 다른 팀과의 커뮤니케이션 포인트 역할
 
-_Frontend Developer_
+_Frontend Engineer_
 
 _2019.04 - 2021.07_
 
@@ -81,7 +90,7 @@ _2019.04 - 2021.07_
 
 카카오의 블록체인 플랫폼인 Klaytn을 만들고 연구하는 회사.
 
-_Frontend Developer_
+_Frontend Engineer_
 
 _2018.11 - 2019.03_
 
@@ -96,7 +105,7 @@ _2018.11 - 2019.03_
 
 암호화폐 거래소인 GOPAX를 서비스하는 스타트업.
 
-_Frontend Developer_
+_Frontend Engineer_
 
 _2017.02 - 2018.10_
 
@@ -143,7 +152,7 @@ _2015.04 - 2016.04_
 
 인디 뮤지션들의 공연, 정보, 발매한 앨범 정보를 볼 수 있는 서비스.
 
-_Frontend Developer_
+_Frontend Engineer_
 
 _2021 - 현재_
 
