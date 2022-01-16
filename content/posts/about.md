@@ -24,12 +24,6 @@ disableDisqus: true
 
 ## Work experience
 
-### Watcha Inc.
-
-_Frontend Engineer_
-
-_2022.01 - 현재_
-
 ### Codestates
 
 _Software Engineer_
