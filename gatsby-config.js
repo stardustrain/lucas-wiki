@@ -125,7 +125,12 @@ const plugins = [
     },
   },
   `gatsby-plugin-react-helmet`,
-  'gatsby-plugin-sitemap',
+  {
+    resolve: 'gatsby-plugin-sitemap',
+    options: {
+      output: '/',
+    },
+  },
   {
     resolve: `gatsby-plugin-typography`,
     options: {
