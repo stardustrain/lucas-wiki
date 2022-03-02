@@ -9,6 +9,7 @@ import Link from '../components/Link'
 import Disqus from '../components/Disqus'
 import ArticleMeta from '../components/ArticleMeta'
 import CopyLinkToClipboardButton from '../components/CopyLinkToClipboardButton'
+import OverflowX from '../components/OverflowX'
 
 import type { WindowLocation } from '@reach/router'
 
@@ -19,6 +20,8 @@ const renderAst = new rehypeReact({
   components: {
     // @ts-ignore
     a: Link,
+    // @ts-ignore
+    'overflow-x': OverflowX,
   },
 }).Compiler
 
