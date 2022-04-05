@@ -435,10 +435,6 @@ center {
   margin-bottom: var(--spacing0);
 }
 
-summary {
-  cursor: pointer;
-}
-
 .reference-title {
   font-size: var(--fontSize3);
 }
