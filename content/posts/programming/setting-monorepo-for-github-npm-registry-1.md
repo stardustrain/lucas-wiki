@@ -130,8 +130,7 @@ $ yarn tsc --init
 
 `tsconfig.json`에 필요한 설정을 한다. 이 예시는 [tsdx에서 제공하는 예제의 설정](https://github.com/formium/tsdx/blob/master/templates/basic/tsconfig.json)을 참고했다. Project root의 tsconfig는 각 패키지의 `tsconfig.json`에서 extends하여 사용할 공통의 설정이라고 생각하면 좋을 것 같다.
 
-<details>
-  <summary>tsconfig.json</summary>
+<disclosure title="tsconfig.json">
 
 ```json
 {
@@ -158,7 +157,7 @@ $ yarn tsc --init
 }
 ```
 
-</details>
+</disclosure>
 
 ### 3. date 패키지 추가하기
 
@@ -174,8 +173,7 @@ $ mkdir packages/date && cd ./packages/date && yarn init
 /packages/date$ yarn tsc --init
 ```
 
-<details>
-  <summary>packages/date/tsconfig.json</summary>
+<disclosure title="packages/date/tsconfig.json">
 
 ```json
 {
@@ -187,8 +185,7 @@ $ mkdir packages/date && cd ./packages/date && yarn init
 }
 ```
 
-</details>
-<br/>
+</disclosure>
 
 설정을 추가했다면 `src/index.ts` 파일을 추가하고 간단한 함수를 작성한다.
 
