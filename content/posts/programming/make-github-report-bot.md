@@ -408,9 +408,8 @@ gsutil 4.46
    ```
 
    설명이 조금 어려운 느낌인데, GCP의 문서에는 아래와 같이 적혀있다.
-   ::: tip GCP functions documentation
-   Node.js 런타임의 경우 함수의 소스 코드는 Cloud Functions가 require() 호출로 로드하는 Node.js 모듈에서 내보내야 합니다. 로드할 모듈을 결정하기 위해 Cloud Functions는 package.json 파일의 main 필드를 사용합니다. main 필드가 지정되지 않은 경우 Cloud Functions는 index.js에서 코드를 로드합니다.
-   :::
+   [[tip]]
+   | Node.js 런타임의 경우 함수의 소스 코드는 Cloud Functions가 require() 호출로 로드하는 Node.js 모듈에서 내보내야 합니다. 로드할 모듈을 결정하기 위해 Cloud Functions는 package.json 파일의 main 필드를 사용합니다. main 필드가 지정되지 않은 경우 Cloud Functions는 index.js에서 코드를 로드합니다.
 
    자세한 것은 [이곳](https://cloud.google.com/functions/docs/writing?hl=ko)을 참고한다.
 
