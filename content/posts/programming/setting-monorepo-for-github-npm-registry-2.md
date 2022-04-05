@@ -81,8 +81,7 @@ CD pipeline에서 필요한 것은 npm 패키지를 설치하고 각 패키지�
 
 그리고 project root에 `.github/workflows/release.yml` 파일을 만들고 다음의 내용을 입력한다.
 
-<details>
-  <summary>release.yml</summary>
+<disclosure title="release.yml">
 
 ```yml
 name: Release
@@ -132,7 +131,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-</details>
+</disclosure>
 
 이렇게 하면 필요한 준비는 어느 정도 마무리된 것이다.
 

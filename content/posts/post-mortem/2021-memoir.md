@@ -101,8 +101,7 @@ image: https://user-images.githubusercontent.com/9318449/147798373-198eb26a-cd81
 
   각 component에서는 필요한 데이터를 fragment로 선언하고, query loader 역할을 하는 component에 spread 하는 방식으로 처리하였다. Component에서 hooks를 사용할 때는 query loader 역할을 하는 component에서 useQuery를 통해 fetch하고, fragment로 선언한 부분을 각 component에 props로 전달하는 방식으로 구현했다.
 
-<details style="margin-bottom: var(--spacing8);">
-  <summary>Example</summary>
+<disclosure title="Example">
 
 ```tsx
 // CardnewsListPage.tsx
@@ -161,7 +160,7 @@ export default function Cardnews({ cardnews }: Props) {
 }
 ```
 
-</details>
+</disclosure>
 
 이는 Relay의 `usePreloadedQuery` - `useFragment`의 관계를 (완벽하지는 않지만) 따라 하려고 한 부분이다. Ondemandlatino를 개발했을 때처럼 GraphQL을 사용하기 위한 query, mutation을 한곳에 몰아넣지 않고 각 component와 같은 위치에 선언한 것이다.
 
