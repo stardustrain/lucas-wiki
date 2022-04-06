@@ -782,7 +782,7 @@ defmodule MyAppWeb.UserController do
   def me(conn, _) do
     token = conn
     |> get_req_header("authorization")
-    |> List.first
+    |> List.first("")
     |> String.split
     |> List.last
     result = Guardian.resource_from_token(token)
@@ -813,9 +813,88 @@ end
 
 </disclosure>
 
-에러 상황을 테스트하는 케이스를 제외한 모든 테스트가 통과되었다면 이제 FallbackController를 만들어 에러를 적절히 처리해주면 된다.
+에러 상황을 테스트하는 케이스를 제외한 모든 테스트가 통과되었다면, 이제 FallbackController를 만들어 에러를 적절히 처리해주면 된다.
 
 ## 5. FallbackController로 error 상황 처리하기
+
+Action fallback을 이용하면 컨트롤러의 함수가 %Plug.Conn{} 구조체를 반환하지 못할 때 호출되는 오류 처리 코드를 하나로 집중해서 관리할 수 있다. 쉽게말해, 컨트롤러의 각 함수마다 반복되는 에러 처리를 하나의 모듈에서 할수 있다고 보면 된다. 자세한 것은 [이 문서](https://hexdocs.pm/phoenix/controllers.html#action-fallback)를 참고하면 된다.
+
+우선 `lib/my_app_web/controllers/` 하위에 `FallbackController`를 추가한다.
+
+<disclosure title="fallback_controller.ex">
+
+```elixir
+# lib/my_app_web/controllers/fallback_controller.ex
+
+defmodule MyAppWeb.FallbackController do
+  use Phoenix.Controller
+
+  alias MyAppWeb.ErrorHelpers
+
+  def call(conn, {:error, :unauthorized}) do
+    call(conn, {:error, :unauthorized, "Unauthorized"})
+  end
+
+  def call(conn, {:error, %Ecto.Changeset{} = changeset}) do
+    call(conn, {:error, :bad_request, changeset})
+  end
+
+  def call(conn, {:error, status_code, message}) when is_binary(message) do
+    conn
+    |> put_status(status_code)
+    |> put_view(IndistreetApiWeb.ErrorView)
+    |> render("error.json", %{detail: message})
+  end
+
+  def call(conn, {:error, status_code, %Ecto.Changeset{} = changeset}) do
+    detail = changeset
+    |> Ecto.Changeset.traverse_errors(&ErrorHelpers.translate_error(&1))
+
+    conn
+    |> put_status(status_code)
+    |> put_view(MyApp.ErrorView)
+    |> render("error.json", %{detail: detail})
+  end
+end
+```
+
+</disclosure>
+
+이렇게하면 각 call 함수에 패턴매칭되어 fallback action이 호출된다. FallbackController를 이용하려면 `ErrorView`에 render 함수를 구현하고 컨트롤러의 `action_fallback`으로 참조 하면 된다.
+
+<disclosure title="Action fallback 적용하기">
+
+```elixir
+# lib/my_app_web/views/error_view.ex
+
+defmodule MyAppWeb.ErrorView do
+  use MyAppWeb, :view
+
+  def render("error.json", %{detail: detail}) do
+    %{errors: %{detail: detail}}
+  end
+  # 코드 생략
+end
+```
+
+```diff-elixir
+  # lib/my_app_web/controllers/user_controller.ex
+
+  defmodule MyAppWeb.UserController do
+    use MyAppWeb, :controller
+
+    alias MyApp.Account
+    alias MyApp.Guardian
+
++  action_fallback MyAppWeb.FallbackController
+
+    # 코드 생략
+  end
+```
+
+</disclosure>
+
+위의 코드를 추가하면 모든 테스트가 통과하게 된다.
 
 ## 6. 인가 관련 API 추가하기
 
