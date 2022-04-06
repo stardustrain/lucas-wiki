@@ -44,7 +44,7 @@ end
 
 처음 할 일은 User schema를 추가하는 것이다. `mix phx.gen.schema` 명령어를 이용해도 되고, 그냥 수동으로 만들어도 된다. 수동으로 만들경우 `/lib/my_app` 하위에 account라는 디렉토리를 추가하고, user 모듈을 만든다. 그리고 다음과 같이 schema를 정의한다.
 
-<disclosure title="User schema">
+<disclosure title="lib/my_app/account/user.ex">
 
 ```elixir
 # lib/my_app/account/user.ex
@@ -70,7 +70,7 @@ end
 
 Schema를 정의했다면 `ecto.gen.migration` 명령어를 이용하여 migration을 생성한다. Migration이 생성되었다면 다음과 같이 내용을 추가한다.
 
-<disclosure title="Migration">
+<disclosure title="priv/repo/migrations/add_users.exs">
 
 ```elixir
 # priv/repo/migrations/20220405090253_add_users.exs
@@ -104,7 +104,7 @@ Guardian을 이용하기 위해서는 먼저 Guardian의 기능과 토큰을 enc
 
 `lib/my_app` 하위에 `Guardian` 모듈을 만들고 위의 함수를 간단히 구현한다.
 
-<disclosure title="Guardian implementation module">
+<disclosure title="lib/my_app/guardian.ex">
 
 ```elixir
 # lib/my_app/guardian.ex
@@ -152,7 +152,7 @@ end
 - 동일한 email로 가입 불가
 - Password는 8자 이상
 
-<disclosure title="유저 생성 테스트">
+<disclosure title="test/my_app/account_test.exs">
 
 ```elixir
 # test/my_app/account_test.exs
@@ -182,7 +182,7 @@ end
 
 테스트를 작성했다면, 테스트가 통과할때 까지 Account 모듈을 작성하면 된다. 우선 Account 모듈을 추가하기 전에 해당 모듈에서 사용할 changeset 로직을 User 모듈에 추가한다.
 
-<disclosure title="user.ex">
+<disclosure title="lib/my_app/account/user.ex">
 
 ```diff-elixir
   # lib/my_app/account/user.ex
@@ -223,7 +223,7 @@ end
 
 `/lib/my_app` 하위에 `Account` 모듈을 만들고 로직을 추가한다.
 
-<disclosure title="account.ex">
+<disclosure title="lib/my_app/account.ex">
 
 ```elixir
 # lib/my_app/account.ex
@@ -244,7 +244,7 @@ end
 
 이렇게 작성을 한 상태에서 테스트를 실행하면 assertion error가 발생하는데, `password_hash`에 대한 처리를 User 모듈에서 처리하지 않았기 때문이다. 해당 필드에는 hashing된 값이 저장되어야하기 때문에 테스트가 통과되기 위해서 다음과 같이 로직을 추가한다.
 
-<disclosure title="user.ex">
+<disclosure title="lib/my_app/account/user.ex">
 
 ```diff-elixir
   # lib/my_app/account/user.ex
@@ -426,7 +426,7 @@ end
 
 위와 마찬가지로 테스트 케이스 부터 작성한다.
 
-<disclosure title="가입 API 테스트">
+<disclosure title="test/my_app_web/controllers/user_controller_test.exs">
 
 ```elixir
 # test/my_app_web/controllers/user_controller_test.exs
@@ -551,17 +551,275 @@ end
 
 </disclosure>
 
+이렇게 해도 여전히 테스트가 모두 통과하지 못할 것이다. 에러 상황을 검증하는 부분이 통과하지 못할텐데 이는 [FallbackController로 error 상황 처리하기](#4-fallbackcontroller로-error-상황-처리하기)에서 다룰 예정이다.
+
+여기서는 글의 흐름을 위해, 일단 테스트가 모두 통과하지 못하는 것을 무시하고 다음 과정을 진행해 보려고 한다. TDD의 원칙인 *테스트가 모두 성공할때 까지 다른 기능 구현하지 않기*를 지키고 싶다면 FallbackController를 먼저 구현해도 좋을 것 같다.
+
 ### 2. Signin API 구현
+
+Signup API를 한번 구현했기 때문에 signin API를 추가하는 것은 어렵지 않을것이다.
 
 #### 1. 비즈니스 로직 작성
 
+먼저 email과 password를 받아서 유저를 검증한 다음, 올바르게 인증되었다면 token을 반환하는 `sign_in/2` 함수를 Account 모듈에 추가한다.
+
+<disclosure title="테스트 케이스와 함수 추가하기">
+
+```elixir
+# test/my_app/account_test.exs
+
+defmodule MyApp.AccountTest do
+  # 코드생략
+  alias MyApp.Guardian
+
+  test "sign_in/2 returns user with valid email and password" do
+    valid_attrs = %{email: "test@test.com", password: "test1234"}
+    user = user_fixture(valid_attrs)
+
+    {:ok, token, _} = Account.sign_in(valid_attrs.email, valid_attrs.password)
+    {:ok, claims} = Guardian.decode_and_verify(token)
+
+    assert claims["sub"] === user.id |> to_string
+  end
+
+  test "sign_in/2 returns error with invlid email and password" do
+    valid_attrs = %{email: "test@test.com", password: "test1234"}
+    user_fixture(valid_attrs)
+
+    assert {:error, :unauthorized} = Account.sign_in("wrong email", valid_attrs.password)
+    assert {:error, :unauthorized} = Account.sign_in(valid_attrs.email, "wrong password")
+  end
+end
+```
+
+```elixir
+# lib/my_app/account.ex
+
+defmodule MyApp.Account do
+  # 코드생략
+  import Pbkdf2, only: [check_pass: 2]
+
+  defp get_user_by_email(email) do
+    case User |> Repo.get_by(email: email) do
+      nil -> {:error, :notfound}
+      user -> {:ok, user}
+    end
+  end
+
+  def sign_in(email, password) do
+    with {:ok, user} <- get_user_by_email(email),
+         {:ok, user} <- check_pass(user, password) do
+      Guardian.encode_and_sign(user)
+    else
+      {:error, _reason} -> {:error, :unauthorized}
+    end
+  end
+end
+```
+
+</disclosure>
+
+[`check_pass/3`](https://hexdocs.pm/pbkdf2_elixir/Pbkdf2.html#check_pass/3)는 `verify_pass/2` 함수를 이용해 struct 내부에 있는 hashed password를 찾아 두번째 인자로 전달한 password와 비교하는 함수이다. Hashed password가 `:password_hash` 혹은 `:encrypted_password`라는 key로 저장되어있다면 함수가 알아서 해당 필드를 찾아 비교한다.
+
+`sign_in/2` 함수는 인증과정에서 문제가 생기면 무조건 `{:error, :unauthorized}` 튜플을 반환하게 만들었다.
+
 #### 2. 컨트롤러, 뷰 작성
 
-## 4. FallbackController로 error 상황 처리하기
+Signup과 동일한 과정을 거쳐서 signin endpoint를 추가하면 된다.
 
-## 5. 인가 관련 API 추가하기
+<disclosure title="테스트 케이스와 함수 추가하기">
 
-## 6. Pipeline을 통해 일반 유저와 admin 유저 구분하기
+```elixir
+# test/my_app_web/controllers/user_controller_test.exs
+
+defmodule MyAppWeb.UserControllerTest do
+  # 코드 생략
+  alias MyApp.Guardian
+
+  describe "user sign in" do
+    setup [:create_user]
+
+    test "should render jwt token with valid user", %{conn: conn, user: user} do
+      conn = post(
+        conn,
+        Routes.v1_user_path(conn, :signin),
+        @user_attrs
+      )
+
+      %{"token" => token} = json_response(conn, 200)
+      {:ok, claims} = Guardian.decode_and_verify(token)
+
+      assert claims["sub"] === user.id |> to_string
+    end
+
+    test "should render 401 with invalid attributes", %{conn: conn} do
+      invalid_attrs = %{email: "invalid@test.com", password: "test1234"}
+
+      conn = post(
+        conn,
+        Routes.v1_user_path(conn, :signin),
+        invalid_attrs
+      )
+
+      assert json_response(conn, 401)["errors"]["detail"] === "Unauthorized"
+    end
+  end
+end
+```
+
+```diff-elixir
+  # lib/my_app_web/router.ex
+  defmodule MyAppWeb.Router do
+    # 코드 생략
+
+    scope "/api", MyAppWeb do
+      pipe_through :api
+
+      post "/signup", UserController, :signup
++      post "/signin", UserController, :signin
+    end
+
+    # 코드 생략
+  end
+```
+
+```elixir
+# lib/my_app_web/controllers/user_controller.ex
+defmodule MyAppWeb.UserController do
+  # 코드 생략
+
+  def signin(conn, %{"email" => email, "password" => password}) do
+    with {:ok, token, _claims} <- Account.sign_in(email, password) do
+      conn
+      |> render("jwt.json", token: token)
+    end
+  end
+end
+```
+
+</disclosure>
+
+### 3. Profile API 구현
+
+이제 header에 포함된 token만으로 user를 조회하는 API를 추가한다.
+
+<disclosure title="test/my_app_web/controllers/user_controller_test.exs">
+
+```elixir
+# test/my_app_web/controllers/user_controller_test.exs
+
+defmodule MyAppWeb.UserControllerTest do
+  # 코드 생략
+  describe "retrieve user" do
+    setup [:create_user]
+
+    test "should render user information with valid jwt token", %{conn: conn} do
+      login_response = post(
+        conn,
+        Routes.v1_user_path(conn, :signin),
+        @user_attrs
+      )
+
+      %{"token" => token} = json_response(login_response, 200)
+
+      conn = conn |> put_req_header("authorization", "Bearer #{token}")
+      conn = get(
+        conn,
+        Routes.v1_user_path(conn, :me)
+      )
+
+      assert json_response(conn, 200)
+      keys = json_response(conn, 200) |> Map.keys
+
+      assert keys
+             |> Enum.all?(fn key -> Enum.member?(["id", "email", "inserted_at", "updated_at"], key)  end)
+      refute keys
+             |> Enum.all?(fn key -> Enum.member?(["is_admin", "is_super_user"], key)  end)
+    end
+
+    test "should render 401 with invalid jwt token", %{conn: conn} do
+      conn = get(
+        conn,
+        Routes.v1_user_path(conn, :me)
+      )
+
+      assert json_response(conn, 401)
+    end
+  end
+end
+```
+
+</disclosure>
+
+이번 테스트 케이스가 복잡하게 느껴질수도 있지만 자세히 보면 매우 간단한 로직이다. 먼저 login을 한 다음, 반환되는 token을 request header에 넣고 다시 유저 조회 API를 요청하는 방식이다. 조회한 결과에서 id, email와 같은 기본적인 정보는 보여주지만 다른 정보는 보여주지 않도록 한다. 이제 컨트롤러와 뷰를 작성하면 된다.
+
+<disclosure title="컨트롤러와 뷰 추가하기">
+
+```diff-elixir
+  # lib/my_app_web/router.ex
+  defmodule MyAppWeb.Router do
+    # 코드 생략
+
+    scope "/api", MyAppWeb do
+      pipe_through :api
+
+      post "/signup", UserController, :signup
+      post "/signin", UserController, :signin
++      get "/me", UserController, :me
+    end
+
+    # 코드 생략
+  end
+```
+
+```elixir
+# lib/my_app_web/controllers/user_controller.ex
+defmodule MyAppWeb.UserController do
+  # 코드 생략
+
+  alias MyApp.Guardian
+
+  def me(conn, _) do
+    token = conn
+    |> get_req_header("authorization")
+    |> List.first
+    |> String.split
+    |> List.last
+    result = Guardian.resource_from_token(token)
+
+    case result do
+      {:ok, resource, _claims} -> conn |> render("me.json", user: resource)
+      {:error, _reason} -> {:error, :unauthorized}
+    end
+  end
+end
+```
+
+```elixir
+# lib/my_app_web/views/user_view.ex
+defmodule MyAppWeb.UserView do
+  # 코드 생략
+
+  def render("me.json", %{user: user}) do
+    %{
+      id: user.id,
+      email: user.email,
+      inserted_at: user.inserted_at,
+      updated_at: user.updated_at
+    }
+  end
+end
+```
+
+</disclosure>
+
+에러 상황을 테스트하는 케이스를 제외한 모든 테스트가 통과되었다면 이제 FallbackController를 만들어 에러를 적절히 처리해주면 된다.
+
+## 5. FallbackController로 error 상황 처리하기
+
+## 6. 인가 관련 API 추가하기
+
+### 1. Pipeline을 통해 일반 유저와 admin 유저 구분하기
 
 ---
 
