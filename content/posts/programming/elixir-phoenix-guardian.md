@@ -42,7 +42,7 @@ end
 
 ## 2. User schema 추가하기
 
-그 다음엔 User schema를 추가한다. `mix phx.gen.schema` 명령어를 이용해도 되고, 그냥 수동으로 만들어도 된다. `/lib/my_app` 하위에 account라는 디렉토리를 추가하고, user 모듈을 만든다. 그리고 다음과 같이 schema를 정의한다.
+처음 할 일은 User schema를 추가하는 것이다. `mix phx.gen.schema` 명령어를 이용해도 되고, 그냥 수동으로 만들어도 된다. 수동으로 만들경우 `/lib/my_app` 하위에 account라는 디렉토리를 추가하고, user 모듈을 만든다. 그리고 다음과 같이 schema를 정의한다.
 
 <disclosure title="User schema">
 
@@ -553,6 +553,21 @@ end
 
 ### 2. Signin API 구현
 
+#### 1. 비즈니스 로직 작성
+
+#### 2. 컨트롤러, 뷰 작성
+
+## 4. FallbackController로 error 상황 처리하기
+
 ## 5. 인가 관련 API 추가하기
 
 ## 6. Pipeline을 통해 일반 유저와 admin 유저 구분하기
+
+---
+
+<h2 class="reference-title">참고</h2>
+
+- [JWT Auth with an Elixir on Phoenix 1.4 API and React Native, Part I: Phoenix JWT API](https://njwest.medium.com/jwt-auth-with-an-elixir-on-phoenix-1-3-guardian-api-and-react-native-mobile-app-1bd00559ea51)
+- [Implement token Authentication with Phoenix.Token](https://dev.to/onpointvn/implement-jwt-authentication-with-phoenix-token-n58)
+- [Phoenix framework](https://www.phoenixframework.org/)
+- [Guardian](https://hexdocs.pm/guardian/readme.html)
