@@ -9,9 +9,9 @@ keywords:
     elixir guardian tutorial,
   ]
 url: https://wiki.lucashan.space/programming/elixir-phoenix-guardian/
-date: 2022-04-05
+date: 2022-04-07
 tags: [Programming, '2022']
-image: https://pbs.twimg.com/profile_banners/2326272180/1417661421/600x200
+image: https://pbs.twimg.com/profile_images/540333799557439489/-s9uoLIN_400x400.png
 ---
 
 개인적인 사정으로 3개월 정도를 쉬면서 그동안 궁금했던 것들을 이것저것 공부해 보고있는데, 그중 하나가 [Elixir](https://elixir-lang.org/)와 [Phoenix framework](https://www.phoenixframework.org/)이다.
