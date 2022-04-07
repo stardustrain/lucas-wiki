@@ -1,6 +1,6 @@
 ---
 title: Elixir Phoenix + Guardian
-description: Phoenix framework에 guardian을 통해 인증처리를 구현한 과정을 공유합니다.
+description: Phoenix framework에 Guardian을 통해 인증처리 구현하기.
 keywords:
   [
     elixir phoenix guardian,
@@ -11,9 +11,10 @@ keywords:
 url: https://wiki.lucashan.space/programming/elixir-phoenix-guardian/
 date: 2022-04-05
 tags: [Programming, '2022']
+image: https://pbs.twimg.com/profile_banners/2326272180/1417661421/600x200
 ---
 
-개인적인 사정으로 3개월 정도를 쉬면서 그동안 궁금했던 것들을 이것저것 해보고있는데, 그중 하나가 [Elixir](https://elixir-lang.org/)와 [Phoenix framework](https://www.phoenixframework.org/)이다.
+개인적인 사정으로 3개월 정도를 쉬면서 그동안 궁금했던 것들을 이것저것 공부해 보고있는데, 그중 하나가 [Elixir](https://elixir-lang.org/)와 [Phoenix framework](https://www.phoenixframework.org/)이다.
 
 Elixir는 Erlang VM(BEAM) 상에서 동작하는 언어로 이미 성능이 어느정도 검증되어있고, 국내에서 [달빛조각사](https://www.slideshare.net/ssuserc22b6a/mmorpg-154123892) 서버에 사용된 것으로 알려져있다. 사실 무엇보다 마음에 들었던 것은 간결하고 유려하게 코드를 작성할수 있고, [Elixir 커뮤니티](https://elixirforum.com/)가 잘 형성되어있어 필요한 것을 어렵지 않게 얻을수 있다는 점이었다.
 
@@ -42,7 +43,7 @@ end
 
 ## 2. User schema 추가하기
 
-처음 할 일은 User schema를 추가하는 것이다. `mix phx.gen.schema` 명령어를 이용해도 되고, 그냥 수동으로 만들어도 된다. 수동으로 만들경우 `/lib/my_app` 하위에 account라는 디렉토리를 추가하고, user 모듈을 만든다. 그리고 다음과 같이 schema를 정의한다.
+처음 할 일은 User schema를 추가하는 것이다. `mix phx.gen.schema` 명령어를 이용해도 되고, 그냥 수동으로 만들어도 된다. 수동으로 만들경우 `/lib/my_app` 하위에 `account`라는 디렉토리를 추가하고, user 모듈을 만든다. 그리고 다음과 같이 schema를 정의한다.
 
 <disclosure title="lib/my_app/account/user.ex">
 
@@ -135,7 +136,7 @@ end
 
 </disclosure>
 
-`resource_from_claims/1` 함수를 보면 JWT에 담겨있는 id를 통해 DB의 유저를 조회하는 함수가 필요하다는 것을 알 수 있다. `Account.get_user_by_id!/1` 함수를 추가하기 위해 우선 Account 모듈을 추가해야 한다.
+`resource_from_claims/1` 함수를 보면 JWT에 담겨있는 id를 통해 DB의 유저를 조회하는 함수가 필요하다는 것을 알 수 있다. `Account.get_user_by_id!/1` 함수를 만들기 위해 우선 Account 모듈을 추가해야 한다.
 
 ### 2. Account 모듈 구현
 
@@ -143,11 +144,13 @@ end
 
 [[tip]]
 | 테스트 환경에서 `pbkdf2_elixir`를 사용하게 될 경우 다음의 설정을 `config/test.exs`에 추가하는게 도움이 될수도 있다.
-| `elixir | config: :pbkdf2_elixir, rounds: 1 | `
+| ```elixir
+|  config: :pbkdf2_elixir, rounds: 1
+|  ```
 
 #### 1. 유저 생성 함수 추가
 
-유저 생성에 대해서 다음 두 가지 규칙만 정하고자 한다.
+유저 생성에 대해서 다음 두 가지 규칙만 정하고자 한다. 해당 규칙을 검증하는 테스트 케이스를 추가한다.
 
 - 동일한 email로 가입 불가
 - Password는 8자 이상
@@ -371,7 +374,11 @@ config :my_app, MyApp.Guardian,
 [[warning | Production secret key]]
 | 여기서 잊으면 안되는 것이 production의 경우 secret key를 공개하면 안되기 때문에, `mix phx.gen.secret` 같은 명령어를 사용해 생성된 문자열을 환경변수로 넣어줘야 한다. 때문에 `config/prod.exs`는 다르게 설정해 주어야 한다.
 |
-| `elixir | config :my_app, MyApp.Guardian, | issuer: "my_app", | secret_key: System.get_env("SECRET_KEY") | `
+| ```elixir
+| config :my_app, MyApp.Guardian,
+|   issuer: "my_app",
+|   secret_key: System.get_env("SECRET_KEY")
+| ```
 
 ## 4. 인증 관련 API 추가하기
 
@@ -387,6 +394,7 @@ Endpoint를 설정하기에 앞서, 가입에 대한 비즈니스 로직을 먼�
 
 ```elixir
 # test/my_app/account_test.exs
+
 defmodule MyApp.AccountTest do
   # 코드생략
   test "sign_up/1 returns JWT token with valid attrs" do
@@ -406,11 +414,12 @@ end
 
 ```elixir
 # lib/my_app/account.ex
+
 defmodule MyApp.Account do
   # 코드생략
   alias MyApp.Guardian
 
-  def sign_up(attrs \\ {}) do
+  def sign_up(attrs \\ %{}) do
     with {:ok, user} <- create_user(attrs) do
       Guardian.encode_and_sign(user)
     end
@@ -485,6 +494,7 @@ end
 
 ```elixir
 # lib/my_app_web/router.ex
+
 defmodule MyAppWeb.Router do
   # 코드 생략
 
@@ -519,6 +529,7 @@ Generated my_app app
 
 ```elixir
 # lib/my_app_web/controllers/user_controller.ex
+
 defmodule MyAppWeb.UserController do
   use MyAppWeb, :controller
 
@@ -540,6 +551,7 @@ end
 
 ```elixir
 # lib/my_app_web/views/user_view.ex
+
 defmodule MyAppWeb.UserView do
   use MyAppWeb, :view
 
@@ -619,7 +631,7 @@ end
 
 </disclosure>
 
-[`check_pass/3`](https://hexdocs.pm/pbkdf2_elixir/Pbkdf2.html#check_pass/3)는 `verify_pass/2` 함수를 이용해 struct 내부에 있는 hashed password를 찾아 두번째 인자로 전달한 password와 비교하는 함수이다. Hashed password가 `:password_hash` 혹은 `:encrypted_password`라는 key로 저장되어있다면 함수가 알아서 해당 필드를 찾아 비교한다.
+[`check_pass/3`](https://hexdocs.pm/pbkdf2_elixir/Pbkdf2.html#check_pass/3)는 `verify_pass/2` 함수를 이용해 구조체 내부에 있는 hashed password를 찾아 두번째 인자로 전달한 password와 비교하는 함수이다. Hashed password가 `:password_hash` 혹은 `:encrypted_password`라는 key로 저장되어있다면 함수가 알아서 해당 필드를 찾아 비교한다.
 
 `sign_in/2` 함수는 인증과정에서 문제가 생기면 무조건 `{:error, :unauthorized}` 튜플을 반환하게 만들었다.
 
@@ -669,6 +681,7 @@ end
 
 ```diff-elixir
   # lib/my_app_web/router.ex
+
   defmodule MyAppWeb.Router do
     # 코드 생략
 
@@ -676,7 +689,7 @@ end
       pipe_through :api
 
       post "/signup", UserController, :signup
-+      post "/signin", UserController, :signin
++    post "/signin", UserController, :signin
     end
 
     # 코드 생략
@@ -685,6 +698,7 @@ end
 
 ```elixir
 # lib/my_app_web/controllers/user_controller.ex
+
 defmodule MyAppWeb.UserController do
   # 코드 생략
 
@@ -757,6 +771,7 @@ end
 
 ```diff-elixir
   # lib/my_app_web/router.ex
+
   defmodule MyAppWeb.Router do
     # 코드 생략
 
@@ -765,7 +780,7 @@ end
 
       post "/signup", UserController, :signup
       post "/signin", UserController, :signin
-+      get "/me", UserController, :me
++    get "/me", UserController, :me
     end
 
     # 코드 생략
@@ -774,6 +789,7 @@ end
 
 ```elixir
 # lib/my_app_web/controllers/user_controller.ex
+
 defmodule MyAppWeb.UserController do
   # 코드 생략
 
@@ -797,6 +813,7 @@ end
 
 ```elixir
 # lib/my_app_web/views/user_view.ex
+
 defmodule MyAppWeb.UserView do
   # 코드 생략
 
@@ -860,7 +877,9 @@ end
 
 </disclosure>
 
-이렇게하면 각 call 함수에 패턴매칭되어 fallback action이 호출된다. FallbackController를 이용하려면 `ErrorView`에 render 함수를 구현하고 컨트롤러의 `action_fallback`으로 참조 하면 된다.
+이렇게하면 각 call 함수에 패턴매칭되어 fallback action이 호출된다. [Signin API](http://localhost:8000/programming/elixir-phoenix-guardian/#2-signin-api-%EA%B5%AC%ED%98%84)를 예로들면, `MyApp.Account.sign_in/2` 함수에서 인증에 실패했을 경우 `{:error, :unauthorized}` 튜플이 리턴되는데 `MyAppWeb.UserController.sign_in/2`에서 특별히 처리되는 부분이 없기 때문에 FallbackController로 제어권이 이동한다. 그리고 FallbackController의 가장 처음 `call/2` 함수에 패턴매칭되어 처리된다.
+
+FallbackController를 이용하려면 `ErrorView`에 render 함수를 구현하고 컨트롤러의 `action_fallback`으로 참조 하면 된다.
 
 <disclosure title="Action fallback 적용하기">
 
@@ -869,6 +888,7 @@ end
 
 defmodule MyAppWeb.ErrorView do
   use MyAppWeb, :view
+  MyAppWeb.FallbackController
 
   def render("error.json", %{detail: detail}) do
     %{errors: %{detail: detail}}
@@ -896,9 +916,348 @@ end
 
 위의 코드를 추가하면 모든 테스트가 통과하게 된다.
 
-## 6. 인가 관련 API 추가하기
+## 6. Plug로 인증, 인가 pipeline 구현하기
 
-### 1. Pipeline을 통해 일반 유저와 admin 유저 구분하기
+Phoenix는 [plug](https://hexdocs.pm/phoenix/plug.html#content)를 통해서 모듈 혹은 route별로 pipeline을 설정할 수 있다. Guardian에서 기본적으로 제공하는 plug를 이용하면 아주 기본적인 인증처리를 쉽게 진행할 수 있다. 이 글에서는 인증과 인가를 처리하는 두개의 plug를 만들어 적용할 생각이다.
+
+### 1. Authentication plug 적용하기
+
+`lib/my_app/` 하위에 `plugs`라는 디렉토리를 추가하고 `Authentication` 모듈을 만든다.
+
+<disclosure title="lib/my_app/plugs/authentication.ex">
+
+```elixir
+# lib/my_app/plugs/authentication.ex
+
+defmodule MyApp.Authentication do
+  use Guardian.Plug.Pipeline,
+    otp_app: :my_app,
+    module: MyApp.Guardian,
+    error_handler: MyApp.AuthErrorHandler
+
+  plug Guardian.Plug.VerifyHeader, claims: %{"typ" => "access"}
+  plug Guardian.Plug.LoadResource
+  plug Guardian.Plug.EnsureAuthenticated
+end
+```
+
+</disclosure>
+
+각 plug의 경우 [문서](https://hexdocs.pm/guardian/Guardian.Plug.html#content)를 확인해보면 수행하는 일을 알 수 있다. 여기서 확인해야할 것은 `error_handler` 옵션인데, 이 옵션에 할당하는 모듈로 Guardian plug에서 발생하는 에러를 처리할 수 있다. 이 모듈은 `auth_error/3` 함수를 구현해야한다. `/lib/my_app/` 하위에 `AuthErrorHandler` 모듈을 추가한다.
+
+<disclosure title="lib/my_app/auth_error_handler.ex">
+
+```elixir
+# lib/my_app/auth_error_handler.ex
+
+defmodule MyApp.AuthErrorHandler do
+  import Plug.Conn
+
+  @behaviour Guardian.Plug.ErrorHandler
+
+  @impl Guardian.Plug.ErrorHandler
+  def auth_error(conn, {type, _reason}, _opts) do
+    body = %{errors: %{detail: type}} |> Jason.encode!
+
+    conn
+    |> put_resp_content_type("application/json")
+    |> send_resp(:unauthorized, body)
+  end
+end
+```
+
+</disclosure>
+
+추가했다면 이 plug를 router에서 pipeline으로 만들어 사용해야한다. Plug는 [모듈 단위로도 적용](https://hexdocs.pm/phoenix/plug.html#controller-plugs)이 가능하니 필요한 경우 참고하면 좋을것 같다. 일단 `router.ex`에 다음의 항목을 추가한다.
+
+<disclosure title="lib/my_app_web/router.ex">
+
+```diff-elixir
+  # lib/my_app_web/router.ex
+
+  defmodule MyAppWeb.Router do
+    use MyAppWeb, :router
+
+    pipeline :api do
+      plug :accepts, ["json"]
+    end
+
++  pipeline :authentication do
++    plug MyApp.Authentication
++  end
+
+    scope "/api", MyAppWeb do
+      pipe_through :api
+
+      post "/signup", UserController, :signup
+      post "/signin", UserController, :signin
+-    get "/me", UserController, :me
+    end
+
++  scope "/api", MyAppWeb do
++    pipe_through [:api, :authentication]
++
++    get "/me", UserController, :me
++  end
+
+    # 코드 생략
+  end
+```
+
+</disclosure>
+
+테스트도 실패하지 않고 크게 달라지는것은 없다. Plug를 테스트해보려면 `:authentication` pipeline이 실행되는 곳에 `:me`말고 다른 endpoint를 추가하면 된다.
+
+이제 `plug Guardian.Plug.LoadResource`가 실행되고나서 `MyAppWeb.UserController.me/2`가 실행되기 때문에, 아래와같이 간결하게 refactoring할 수 있다. 참고로 `plug Guardian.Plug.LoadResource`는 `MyApp.Guardian.resource_from_claims/1` 함수를 통해 유저를 조회하고 그 결과를 %Plug.Conn{} 구조체 내부에 추가한다.
+
+<disclosure title="user_controller.ex">
+
+```diff-elixir
+  defmodule MyAppWeb.UserController do
+    # 코드 생략
+
+    def me(conn, _) do
+-    token = conn
+-    |> get_req_header("authorization")
+-    |> List.first("")
+-    |> String.split
+-    |> List.last
+-    result = Guardian.resource_from_token(token)
+-
+-    case result do
+-      {:ok, resource, _claims} -> conn |> render("me.json", user: resource)
+-      {:error, _reason} -> {:error, :unauthorized}
+-    end
++    user = Guardian.Plug.current_resource(conn)
++
++    conn
++    |> render("me.json", user: user)
+    end
+  end
+```
+
+</disclosure>
+
+### 2. Authorization plug 적용하기
+
+이제 정상적인 토큰으로 요청을 보내는 유저가 admin인지 판단하기 위해 인가 로직을 간단하게 만들면 된다. `lib/my_app/plugs` 하위에 `Authorization` 모듈을 만든다. 그리고 %MyApp.User{} 내부의 `is_admin`이라는 값을 확인하는 로직을 넣고, 해당 값에 따라 적절한 처리를 해주면 된다. 이 글에서는, 만약 유저가 admin이 아니라면 403 error를 발생시키고, pipeline을 중단하는 처리를 하고자 한다.
+
+<disclosure title="lib/my_app/plugs/authorization.ex">
+
+```elixir
+# lib/my_app/plugs/authorization.ex
+
+defmodule MyApp.Authorization do
+  import Plug.Conn
+  alias MyAppWeb.ErrorView
+  alias MyApp.Guardian
+
+  def init(_) do
+  end
+
+  defp send_forbidden_error(conn) do
+    body = ErrorView.template_not_found("403.json", %{}) |> Jason.encode!
+
+    conn
+    |> put_resp_content_type("application/json")
+    |> send_resp(:forbidden, body)
+  end
+
+  def call(conn, _) do
+    with %MyApp.Account.User{} = user <- Guardian.Plug.current_resource(conn),
+      {:ok, true} <- Map.fetch(user, :is_admin) do
+        conn
+    else
+      _ -> conn |> send_forbidden_error |> halt
+    end
+  end
+end
+```
+
+</disclosure>
+
+`Plug.Conn.halt/1`을 호출하면, 이 plug에서 pipeline이 중지된다. 즉, router로 제어권이 넘어가지 않게 되는 것이다. 이제 admin만 호출할 수 있는 간단한 API를 만들어서 이 plug를 테스트해보면 된다.
+
+### 3. 인증, 인가 pipeline 적용하기
+
+우선 admin pipeline을 테스트하기 위한 케이스를 추가한다.
+
+<disclosure title="test/my_app_web/controllers/user_controller_test.exs">
+
+```elixir
+# test/my_app_web/controllers/user_controller_test.exs
+
+defmodule MyAppWeb.UserControllerTest do
+  # 코드 생략
+
+  describe "user authorization" do
+    setup [:create_user, :create_admin_token]
+
+    test "should render user information if admin", %{conn: conn, admin_token: token} do
+      conn = conn |> put_req_header("authorization", "Bearer #{token}")
+
+      conn = get(
+        conn,
+        Routes.user_path(conn, :admin_only)
+      )
+
+      assert json_response(conn, 200)
+    end
+
+    test "should render 401 error with invalid jwt token", %{conn: conn} do
+      conn = conn |> put_req_header("authorization", "Bearer INVALID_TOKEN")
+
+      conn = get(
+        conn,
+        Routes.user_path(conn, :admin_only)
+      )
+
+      assert json_response(conn, 401)
+    end
+
+    test "should render 403 error if not a admin user token", %{conn: conn, user: user} do
+      {:ok, token, _claims} = Guardian.encode_and_sign(user)
+      conn = conn |> put_req_header("authorization", "Bearer #{token}")
+
+      conn = get(
+        conn,
+        Routes.user_path(conn, :admin_only)
+      )
+
+      assert json_response(conn, 403)["errors"] === %{"detail" => "Forbidden"}
+    end
+  end
+
+  defp create_user(_) do
+    user = user_fixture()
+    %{user: user}
+  end
+
+  defp create_admin_token(_) do
+    admin = user_fixture(%{email: "admin@test.com", is_admin: true})
+    {:ok, token, _claims} = Guardian.encode_and_sign(admin)
+    %{admin_token: token}
+  end
+end
+```
+
+</disclosure>
+
+그 다음 router에 테스트용 endpoint를 하나 추가하고, UserController에 `admin_only/2` 함수를 추가한다.
+
+<disclosure title="Pipeline과 함수 추가하기">
+
+```diff-elixir
+  # lib/my_app_web/router.ex
+
+  defmodule MyAppWeb.Router do
+    use MyAppWeb, :router
+
+    pipeline :api do
+      plug :accepts, ["json"]
+    end
+
+    pipeline :authentication do
+      plug MyApp.Authentication
+    end
+
++  pipeline :ensure_admin do
++    plug MyApp.Authentication
++    plug MyApp.Authorization
++  end
+
+    scope "/api", MyAppWeb do
+      pipe_through :api
+
+      post "/signup", UserController, :signup
+      post "/signin", UserController, :signin
+    end
+
+    scope "/api", MyAppWeb do
+      pipe_through [:api, :authentication]
+
+      get "/me", UserController, :me
+    end
+
++  scope "/admin", MyAppWeb do
++    pipe_through [:api, :ensure_admin]
++
++    get "/admin-only", UserController, :admin_only
++  end
+
+    # 코드 생략
+  end
+```
+
+```elixir
+# lib/my_app_web/controllers/user_controller.ex
+
+defmodule MyAppWeb.UserController do
+  # 코드 생략
+
+  def admin_only(conn, _) do
+    user = Guardian.Plug.current_resource(conn)
+
+    conn
+    |> render("me.json", user: user)
+  end
+end
+```
+
+</disclosure>
+
+테스트를 실행하면, 테스트 케이스에 따라 잘못된 토큰일 경우 401 error, 잘못된 토큰이 아니지만 admin이 아닐경우 403 error를 반환하는 것 까지 확인해볼 수 있다.
+
+## 7. Conclusion
+
+Phoenix framework가 MVC 패턴을 따르다보니 여기저기 파일을 생성할 일이 많았는데, 최종적인 모습은 아래와 같다. 이 글에서 만든 파일만 확인하기 위해 자동으로 생성되는 파일은 제외한채로 표현하였다.
+
+<disclosure title="프로젝트 구조">
+
+```bash
+.
+├── config
+│   ├── config.exs
+│   ├── dev.exs
+│   ├── prod.exs
+│   └── test.exs
+├── lib
+│   ├── my_app
+│   │   ├── account
+│   │   │   └── user.ex
+│   │   ├── account.ex
+│   │   ├── auth_error_handler.ex
+│   │   ├── guardian.ex
+│   │   └── plugs
+│   │       ├── authentication.ex
+│   │       └── authorization.ex
+│   └── my_app_web
+│       ├── controllers
+│       │   ├── fallback_controller.ex
+│       │   └── user_controller.ex
+│       ├── router.ex
+│       └── views
+│           ├── error_helpers.ex
+│           ├── error_view.ex
+│           └── user_view.ex
+├── priv
+│   └── repo
+│       └── migrations
+│           └── 20220405090253_add_users.exs
+└── test
+    ├── my_app
+    │   └── account_test.exs
+    ├── my_app_web
+    │   └── controllers
+    │       └── user_controller_test.exs
+    └── support
+        └── fixtures
+            └── user_fixture.ex
+```
+
+</disclosure>
+
+길었지만, Phoenix framework에 Guardian을 이용해 인증, 인가처리를 할수있게 되었다. 이 부분을 구현하면서 Elixir와 Phoenix framework에 대해 많이 공부할 수 있었는데, 간결한 문법과 좋은 표현력 덕분에 토이 프로젝트에서 많이 사용할 것 같다.
 
 ---
 
