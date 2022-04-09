@@ -1258,7 +1258,8 @@ Phoenix framework가 MVC 패턴을 따르다 보니 여기저기 파일을 생�
 
 길었지만, Phoenix framework에 Guardian을 이용해 인증, 인가처리를 할 수 있게 되었다. 이 부분을 구현하면서 Elixir와 Phoenix framework에 대해 많이 공부할 수 있었는데, 간결한 문법과 좋은 표현력 덕분에 토이 프로젝트에서 많이 사용할 것 같다.
 
-이 글의 프로젝트는 이 repository 에 올려놓
+- 이 글의 프로젝트는 [repository](https://github.com/stardustrain/my-elixir-app) 에 올려놓았으니 필요하다면 참고하시면 됩니다.
+- 오탈자, 버그는 해당 repository에 이슈로 남겨주시면 감사하겠습니다.
 
 ---
 
