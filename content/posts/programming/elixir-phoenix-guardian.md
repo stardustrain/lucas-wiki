@@ -22,10 +22,11 @@ Elixir는 Erlang VM(BEAM) 상에서 동작하는 언어로 이미 성능이 어�
 
 ## 1. 필요한 의존성 설치하기
 
-[[warning]]
-| Elixir와 Phoenix framework의 기본적인 내용은 다루지 않습니다.
-|
-| Elixir v1.13.1, Phoenix v1.6.5 을 사용하였습니다.
+[[warning | 들어가기 전에]]
+| - Elixir와 Phoenix framework의 기본적인 내용은 다루지 않습니다.
+| - Elixir v1.13.1, Phoenix v1.6.5 을 사용하였습니다.
+| - 이 글의 프로젝트는 [repository](https://github.com/stardustrain/my-elixir-app) 에 올려놓았으니 필요하다면 참고하시면 됩니다.
+| - 오탈자, 버그는 해당 repository에 이슈로 남겨주시면 감사하겠습니다.
 
 `mix.exs` 파일을 열고, `deps` 함수 내부의 배열에 다음 의존성을 추가하여 설치한다. 의존성은 `mix deps.get` 명령어로 설치할 수 있다.
 
@@ -1257,9 +1258,6 @@ Phoenix framework가 MVC 패턴을 따르다 보니 여기저기 파일을 생�
 </disclosure>
 
 길었지만, Phoenix framework에 Guardian을 이용해 인증, 인가처리를 할 수 있게 되었다. 이 부분을 구현하면서 Elixir와 Phoenix framework에 대해 많이 공부할 수 있었는데, 간결한 문법과 좋은 표현력 덕분에 토이 프로젝트에서 많이 사용할 것 같다.
-
-- 이 글의 프로젝트는 [repository](https://github.com/stardustrain/my-elixir-app) 에 올려놓았으니 필요하다면 참고하시면 됩니다.
-- 오탈자, 버그는 해당 repository에 이슈로 남겨주시면 감사하겠습니다.
 
 ---
 
