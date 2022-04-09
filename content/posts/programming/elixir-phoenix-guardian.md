@@ -20,13 +20,14 @@ Elixir는 Erlang VM(BEAM) 상에서 동작하는 언어로 이미 성능이 어�
 
 뜬금없이 Elixir에 대한 글을 쓰는 이유는, 1년에 새로운 언어 하나씩은 맛이라도 보고, 맛만 보면 지루하니 그 언어의 유명한 프레임워크나 라이브러리를 이용해 간단한 웹서비스를 하나씩 만들어보는 개인적인 목표가 있기 때문이다. 이번 글은 Phoenix framework로 간단한 REST API 서버를 만들면서 인증, 인가에 대한 처리를 Guardian과 함께 구현한 경험을 정리하려고 한다.
 
-## 1. 필요한 의존성 설치하기
-
 [[warning | 들어가기 전에]]
 | - Elixir와 Phoenix framework의 기본적인 내용은 다루지 않습니다.
 | - Elixir v1.13.1, Phoenix v1.6.5 을 사용하였습니다.
 | - 이 글의 프로젝트는 [repository](https://github.com/stardustrain/my-elixir-app) 에 올려놓았으니 필요하다면 참고하시면 됩니다.
 | - 오탈자, 버그는 해당 repository에 이슈로 남겨주시면 감사하겠습니다.
+
+## 1. 필요한 의존성 설치하기
+
 
 `mix.exs` 파일을 열고, `deps` 함수 내부의 배열에 다음 의존성을 추가하여 설치한다. 의존성은 `mix deps.get` 명령어로 설치할 수 있다.
 
