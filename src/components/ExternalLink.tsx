@@ -1,7 +1,8 @@
 import React from 'react'
 import styled from '@emotion/styled'
+import { OutboundLink } from 'gatsby-plugin-google-gtag'
 
-const A = styled.a`
+const A = styled(OutboundLink)`
   &:hover {
     text-decoration: underline;
   }
