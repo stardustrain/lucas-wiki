@@ -205,12 +205,9 @@ if (process.env.GA_TRACKING_ID && process.env.OPT_CONTAINER_ID) {
   plugins.push({
     resolve: `gatsby-plugin-google-gtag`,
     options: {
-      trackingIds: [process.env.GA_TRACKING_ID],
-      gtagConfig: {
-        optimize_id: process.env.OPT_CONTAINER_ID,
-      },
+      trackingIds: [process.env.GA_TRACKING_ID, process.env.OPT_CONTAINER_ID],
       pluginConfig: {
-        origin: 'https://wiki.lucashan.space',
+        head: true,
       },
     },
   })
