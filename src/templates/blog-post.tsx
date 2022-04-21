@@ -11,6 +11,7 @@ import ArticleMeta from '../components/ArticleMeta'
 import CopyLinkToClipboardButton from '../components/CopyLinkToClipboardButton'
 import OverflowX from '../components/OverflowX'
 import Disclosure from '../components/Disclosure'
+import ProgressBar from '../components/ProgressBar'
 
 import type { WindowLocation } from '@reach/router'
 
@@ -108,6 +109,7 @@ const BlogPostTemplate = ({ data, location }: Props) => {
         jsonLd={jsonLd}
         meta={metaImages.concat(articleMeta)}
       />
+      <ProgressBar />
       <article className="blog-post" itemScope itemType="http://schema.org/Article">
         <Header>
           <H1 itemProp="headline">{post.frontmatter.title}</H1>
