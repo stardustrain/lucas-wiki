@@ -25,11 +25,12 @@ const throttleByRAF = <CallbackParam extends unknown[], CallbackReturn>(
   }
 }
 
-const getTotalHeight = () => document.documentElement.scrollHeight
+const getTotalHeight = () => document?.documentElement.scrollHeight
 
-const getScreenHeight = () => Math.max(document.documentElement.clientHeight, window.innerHeight, 0)
+const getScreenHeight = () =>
+  Math.max(document?.documentElement.clientHeight, window.innerHeight, 0)
 
-const getScrolledHeight = () => Math.max(document.documentElement.scrollTop, window.scrollY, 0)
+const getScrolledHeight = () => Math.max(document?.documentElement.scrollTop, window.scrollY, 0)
 
 const getProgressBarWithRAF = throttleByRAF(($divRef: RefObject<HTMLDivElement>) => {
   if (!isNil($divRef.current)) {
@@ -56,15 +57,12 @@ const StyledDiv = styled.div`
 export default function ProgressBar() {
   const $divRef = useRef<HTMLDivElement>(null)
 
-  useEventListener(
-    [
-      {
-        type: 'scroll',
-        callback: () => getProgressBarWithRAF($divRef),
-      },
-    ],
-    document
-  )
+  useEventListener([
+    {
+      type: 'scroll',
+      callback: () => getProgressBarWithRAF($divRef),
+    },
+  ])
 
   return <StyledDiv ref={$divRef} className="ProgressBar" />
 }
