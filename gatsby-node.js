@@ -127,7 +127,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       tags: [String!]
       keywords: [String!]
       url: String
-      disableDisqus: Boolean
+      disableComments: Boolean
       series: String
       withhold: Boolean
       image: String
