@@ -6,12 +6,12 @@ import styled from '@emotion/styled'
 import Layout from '../components/layout'
 import SEO from '../components/seo'
 import Link from '../components/Link'
-import Disqus from '../components/Disqus'
 import ArticleMeta from '../components/ArticleMeta'
 import CopyLinkToClipboardButton from '../components/CopyLinkToClipboardButton'
 import OverflowX from '../components/OverflowX'
 import Disclosure from '../components/Disclosure'
 import ProgressBar from '../components/ProgressBar'
+import Comments from '../components/Comments'
 
 import type { WindowLocation } from '@reach/router'
 
@@ -60,7 +60,7 @@ const BlogPostTemplate = ({ data, location }: Props) => {
   const post = data.markdownRemark
   const siteTitle = data.site.siteMetadata?.title || `Title`
   const { previous, next } = data
-  const disableDisqus = !!post.frontmatter.disableDisqus
+  const disableComments = !!post.frontmatter.disableComments
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
@@ -149,9 +149,7 @@ const BlogPostTemplate = ({ data, location }: Props) => {
           </ul>
         </nav>
       )}
-      {disableDisqus ? null : (
-        <Disqus url={location.href} identifier={post.id} title={post.frontmatter.title} />
-      )}
+      {disableComments ? null : <Comments />}
     </Layout>
   )
 }
@@ -187,7 +185,7 @@ export const pageQuery = graphql`
         description
         url
         keywords
-        disableDisqus
+        disableComments
         image
       }
     }
