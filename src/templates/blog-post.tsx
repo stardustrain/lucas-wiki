@@ -75,19 +75,17 @@ const BlogPostTemplate = ({ data, location }: Props) => {
     keywords: post.frontmatter.keywords,
     description: post.frontmatter.description || post.excerpt,
   }
-  const metaImages =
-    typeof post.frontmatter.image === 'string'
-      ? [
-          {
-            property: 'og:image',
-            content: post.frontmatter.image,
-          },
-          {
-            property: 'twitter:image',
-            content: post.frontmatter.image,
-          },
-        ]
-      : []
+  const imageUrl = post.frontmatter.image || 'https://avatars.githubusercontent.com/u/107472329'
+  const metaImages = [
+    {
+      property: 'og:image',
+      content: imageUrl,
+    },
+    {
+      property: 'twitter:image',
+      content: imageUrl,
+    },
+  ]
   const articleMeta = [
     {
       property: 'article:published_time',
