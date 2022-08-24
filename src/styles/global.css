@@ -110,30 +110,6 @@ body[data-theme='dark'] {
   --customBlock-danger-color: hsl(6, 100%, 72%);
 }
 
-@font-face {
-  font-family: 'Pretendard';
-  src: url('/Pretendard-Regular.woff') format('woff');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Pretendard';
-  src: url('/Pretendard-bold.woff') format('woff');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Pretendard';
-  src: url('/Pretendard-bold.woff') format('woff');
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
 html {
   line-height: var(--lineHeightNormal);
   font-size: var(--fontSizeRoot);
@@ -145,7 +121,7 @@ body {
   font-size: var(--fontSize1);
   background-color: var(--background);
   transition: color 0.4s ease-in, background-color 0.2s linear;
-  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, Montserrat, system-ui, 'Segoe UI', Roboto,
+  font-family: -apple-system, BlinkMacSystemFont, Montserrat, system-ui, 'Segoe UI', Roboto,
     'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
     'Segoe UI Symbol', 'Noto Color Emoji';
 }
