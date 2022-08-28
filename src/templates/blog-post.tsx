@@ -75,7 +75,7 @@ const BlogPostTemplate = ({ data, location }: Props) => {
     keywords: post.frontmatter.keywords,
     description: post.frontmatter.description || post.excerpt,
   }
-  const imageUrl = post.frontmatter.image || 'https://avatars.githubusercontent.com/u/107472329'
+  const imageUrl = post.frontmatter.image || post.frontmatter.featuredImage?.childImageSharp.fluid.src || 'https://avatars.githubusercontent.com/u/107472329'
   const metaImages = [
     {
       property: 'og:image',
@@ -185,6 +185,13 @@ export const pageQuery = graphql`
         keywords
         disableComments
         image
+        featuredImage {
+          childImageSharp {
+            fluid(maxWidth: 800) {
+              ...GatsbyImageSharpFluid
+            }
+          }
+        }
       }
     }
     previous: markdownRemark(id: { eq: $previousPostId }) {
