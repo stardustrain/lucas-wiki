@@ -52,14 +52,14 @@ const H1 = styled.h1`
 
 const isIntroPage = (slug: string) => /about/.test(slug)
 
-const getMetaImageUrl = (frontmatter: any, siteUrl: string) => {
+const getMetaImageUrl = (frontmatter: any) => {
   if (!isNil(frontmatter.image) && frontmatter.image.length > 0) {
     return frontmatter.image
   }
 
   const featuredImageSrc = frontmatter.featuredImage?.childImageSharp.fluid.src
   if (!isNil(featuredImageSrc) && featuredImageSrc.length > 0) {
-    return `${siteUrl}${featuredImageSrc}`
+    return `https://wiki.lucashan.space/${featuredImageSrc}`
   }
 
   return 'https://avatars.githubusercontent.com/u/107472329'
@@ -89,7 +89,7 @@ const BlogPostTemplate = ({ data, location }: Props) => {
     keywords: post.frontmatter.keywords,
     description: post.frontmatter.description || post.excerpt,
   }
-  const imageUrl = getMetaImageUrl(post.frontmatter, data.site.siteMetadata.siteUrl)
+  const imageUrl = getMetaImageUrl(post.frontmatter)
 
   const metaImages = [
     {
@@ -174,7 +174,6 @@ export const pageQuery = graphql`
     site {
       siteMetadata {
         title
-        siteUrl
         author {
           name
         }
