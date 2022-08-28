@@ -2,6 +2,7 @@ import React from 'react'
 import { Link as GatsbyLink, graphql } from 'gatsby'
 import rehypeReact from 'rehype-react'
 import styled from '@emotion/styled'
+import { isNil } from 'lodash'
 
 import Layout from '../components/layout'
 import SEO from '../components/seo'
@@ -46,10 +47,23 @@ const H1 = styled.h1`
   display: inline;
   margin: ${({ theme }) => `${theme.spacing0}`};
   padding: 0;
-  vertical-align: top;
+  vertical-align: middle;
 `
 
 const isIntroPage = (slug: string) => /about/.test(slug)
+
+const getMetaImageUrl = (frontmatter: any, siteUrl: string) => {
+  if (!isNil(frontmatter.image) && frontmatter.image.length > 0) {
+    return frontmatter.image
+  }
+
+  const featuredImageSrc = frontmatter.featuredImage?.childImageSharp.fluid.src
+  if (!isNil(featuredImageSrc) && featuredImageSrc.length > 0) {
+    return `${siteUrl}${featuredImageSrc}`
+  }
+
+  return 'https://avatars.githubusercontent.com/u/107472329'
+}
 
 type Props = {
   location: WindowLocation
@@ -75,7 +89,8 @@ const BlogPostTemplate = ({ data, location }: Props) => {
     keywords: post.frontmatter.keywords,
     description: post.frontmatter.description || post.excerpt,
   }
-  const imageUrl = post.frontmatter.image || post.frontmatter.featuredImage?.childImageSharp.fluid.src || 'https://avatars.githubusercontent.com/u/107472329'
+  const imageUrl = getMetaImageUrl(post.frontmatter, data.site.siteMetadata.siteUrl)
+
   const metaImages = [
     {
       property: 'og:image',
@@ -159,6 +174,7 @@ export const pageQuery = graphql`
     site {
       siteMetadata {
         title
+        siteUrl
         author {
           name
         }

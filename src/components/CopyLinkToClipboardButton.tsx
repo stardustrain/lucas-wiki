@@ -7,6 +7,7 @@ import DefaultIcon from './Icon'
 const Div = styled.div`
   display: inline-block;
   position: relative;
+  vertical-align: 'middle';
 `
 
 const Button = styled(DefaultButton)`
