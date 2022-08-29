@@ -154,9 +154,12 @@ const BlogIndex = ({ data, location }: Props) => {
                       </ArticleLink>
                     </H2>
                     <ArticleMeta
+                      title={post.frontmatter.title}
                       date={post.frontmatter.date}
                       readTime={post.timeToRead}
                       tags={post.frontmatter.tags}
+                      author={data.site.siteMetadata.author.name}
+                      frontMatter={post.frontmatter}
                     />
                   </Header>
                   <section>
@@ -184,6 +187,9 @@ export const pageQuery = graphql`
     site {
       siteMetadata {
         title
+        author {
+          name
+        }
       }
     }
     allMarkdownRemark(
@@ -201,6 +207,12 @@ export const pageQuery = graphql`
           description
           tags
           series
+          image
+          featuredImage {
+            childImageSharp {
+              gatsbyImageData
+            }
+          }
         }
         html
         timeToRead

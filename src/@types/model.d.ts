@@ -1,9 +1,17 @@
+type FeaturedImage = {
+  childImageSharp: {
+    gatsbyImageData: ImageDataLike
+  }
+}
+
 type Frontmatter = {
   date: string
   title: string
   description: string
   tags: string[]
   series?: string
+  image?: string
+  featuredImage?: FeaturedImage
 }
 
 type PostNode = {
@@ -15,7 +23,12 @@ type PostNode = {
 }
 
 type Site = {
-  siteMetadata: { title: string }
+  siteMetadata: {
+    title: string
+    author: {
+      name: string
+    }
+  }
 }
 
 type AllMarkdownRemark = {

@@ -2,7 +2,6 @@ import React from 'react'
 import { Link as GatsbyLink, graphql } from 'gatsby'
 import rehypeReact from 'rehype-react'
 import styled from '@emotion/styled'
-import { isNil } from 'lodash'
 
 import Layout from '../components/layout'
 import SEO from '../components/seo'
@@ -13,6 +12,8 @@ import OverflowX from '../components/OverflowX'
 import Disclosure from '../components/Disclosure'
 import ProgressBar from '../components/ProgressBar'
 import Comments from '../components/Comments'
+
+import getMetaImageUrl from '../utils/getMetaImageUrl'
 
 import type { WindowLocation } from '@reach/router'
 
@@ -51,19 +52,6 @@ const H1 = styled.h1`
 `
 
 const isIntroPage = (slug: string) => /about/.test(slug)
-
-const getMetaImageUrl = (frontmatter: any) => {
-  if (!isNil(frontmatter.image) && frontmatter.image.length > 0) {
-    return frontmatter.image
-  }
-
-  const featuredImageSrc = frontmatter.featuredImage?.childImageSharp.fluid.src
-  if (!isNil(featuredImageSrc) && featuredImageSrc.length > 0) {
-    return `https://wiki.lucashan.space/${featuredImageSrc}`
-  }
-
-  return 'https://avatars.githubusercontent.com/u/107472329'
-}
 
 type Props = {
   location: WindowLocation
@@ -129,7 +117,13 @@ const BlogPostTemplate = ({ data, location }: Props) => {
           <CopyLinkToClipboardButton />
         </Header>
         {isIntroPage(post.fields.slug) ? null : (
-          <ArticleMeta date={post.frontmatter.date} readTime={post.timeToRead} />
+          <ArticleMeta
+            title={post.frontmatter.title}
+            date={post.frontmatter.date}
+            readTime={post.timeToRead}
+            author={data.site.siteMetadata.author.name}
+            frontMatter={post.frontmatter}
+          />
         )}
         <section itemProp="articleBody">{renderAst(post.htmlAst)}</section>
         <hr />
@@ -202,9 +196,7 @@ export const pageQuery = graphql`
         image
         featuredImage {
           childImageSharp {
-            fluid(maxWidth: 800) {
-              ...GatsbyImageSharpFluid
-            }
+            gatsbyImageData
           }
         }
       }
