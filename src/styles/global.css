@@ -454,6 +454,10 @@ center {
   width: 1px;
 }
 
+figure > img {
+  display: block;
+}
+
 figure > span.gatsby-resp-image-wrapper {
   margin-bottom: 0.8125rem;
 }
