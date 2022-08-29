@@ -75,7 +75,7 @@ export default function Link({ href, children, className }: Props) {
       {children} <Icon />
     </StyledExternalLink>
   ) : (
-    <InternalLink className={className} to={href} rel="next">
+    <InternalLink className={className} to={href}>
       {children}
     </InternalLink>
   )
