@@ -438,3 +438,20 @@ center {
 .reference-title {
   font-size: var(--fontSize3);
 }
+
+.visually-hidden {
+  clip: rect(1px, 1px, 1px, 1px);
+  word-wrap: normal;
+  border: 0;
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+figure > span.gatsby-resp-image-wrapper {
+  margin-bottom: 0.8125rem;
+}
