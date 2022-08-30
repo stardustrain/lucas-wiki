@@ -202,7 +202,7 @@ Turborepo에 관해서는 [이 글을](https://engineering.linecorp.com/ko/blog/
   </figure>
 </center>
 
-처음에는 디자인 시스템에만 사용했는데, hygen에서 제공하는 기본적인 기능들이 다양하여 templating이 가능한 작업은 전부 hygen으로 자동화할 수 있었다. hygen의 사용법에 대한 것은 [이 문서](https://techblog.woowahan.com/8268/)에 잘 나와 있어 읽어보면 좋을 것 같다.
+처음에는 디자인 시스템에만 사용했는데, hygen에서 제공하는 기본적인 기능들이 다양하여 templating이 가능한 작업은 전부 hygen으로 자동화할 수 있었다. hygen의 사용법은 [이 문서](https://techblog.woowahan.com/8268/)에 잘 나와 있어 읽어보면 좋을 것 같다.
 
 #### code generator
 
