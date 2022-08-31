@@ -14,6 +14,7 @@ const Div = styled.div`
   ul {
     display: inline-block;
     list-style: none;
+    margin-bottom: 0;
   }
 
   margin-bottom: ${({ theme }) => theme.spacing4};
