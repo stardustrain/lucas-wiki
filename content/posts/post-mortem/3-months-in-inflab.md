@@ -2,7 +2,7 @@
 title: 수습회고 - Inflab에서의 3개월
 description: Inflab에 적응하기 위한 3개월간의 좌충우돌 생존기.
 url: https://wiki.lucashan.space/post-mortem/2018-memoir/
-date: 2022-09-14
+date: 2022-09-02
 tags: [Post-mortem, '2022']
 featuredImage: ../../assets/posts/post-mortem/inflab.png
 ---
