@@ -4,6 +4,8 @@ import { range, floor } from 'lodash'
 
 import DefaultIcon from './Icon'
 
+import getMetaImageUrl from '../utils/getMetaImageUrl'
+
 const Div = styled.div`
   small {
     color: ${({ theme }) => theme.color.textTertiary};
@@ -12,6 +14,7 @@ const Div = styled.div`
   ul {
     display: inline-block;
     list-style: none;
+    margin-bottom: 0;
   }
 
   margin-bottom: ${({ theme }) => theme.spacing4};
@@ -39,17 +42,21 @@ const emojiMap = {
 }
 
 interface Props {
+  title: string
   date: string
   readTime: number
   tags?: string[]
   className?: string
+  author: string
+  frontMatter: Frontmatter
 }
 
-export default function ArticleMeta({ className, date, readTime, tags }: Props) {
+export default function ArticleMeta({ title, className, date, readTime, tags, author, frontMatter }: Props) {
   const readTimeEmojiCount = floor(readTime / AVERAGE_TIME_TO_DRINK_COFFEE)
   const emoji = readTimeEmojiCount >= 3 ? 'meal' : 'coffee'
   return (
     <Div className={className}>
+      <div className="visually-hidden" itemProp="author">{author}</div>
       {date && (
         <>
           <Icon name="Calendar" size={13} aria-hidden focusable={false} />
@@ -76,6 +83,7 @@ export default function ArticleMeta({ className, date, readTime, tags }: Props) 
           </ul>
         </>
       ) : null}
+      <img className="visually-hidden" itemProp="image" src={getMetaImageUrl(frontMatter)} alt={`${title} article`} />
     </Div>
   )
 }

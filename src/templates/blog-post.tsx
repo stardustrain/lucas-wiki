@@ -13,6 +13,8 @@ import Disclosure from '../components/Disclosure'
 import ProgressBar from '../components/ProgressBar'
 import Comments from '../components/Comments'
 
+import getMetaImageUrl from '../utils/getMetaImageUrl'
+
 import type { WindowLocation } from '@reach/router'
 
 // !HACK
@@ -46,7 +48,7 @@ const H1 = styled.h1`
   display: inline;
   margin: ${({ theme }) => `${theme.spacing0}`};
   padding: 0;
-  vertical-align: top;
+  vertical-align: middle;
 `
 
 const isIntroPage = (slug: string) => /about/.test(slug)
@@ -75,19 +77,18 @@ const BlogPostTemplate = ({ data, location }: Props) => {
     keywords: post.frontmatter.keywords,
     description: post.frontmatter.description || post.excerpt,
   }
-  const metaImages =
-    typeof post.frontmatter.image === 'string'
-      ? [
-          {
-            property: 'og:image',
-            content: post.frontmatter.image,
-          },
-          {
-            property: 'twitter:image',
-            content: post.frontmatter.image,
-          },
-        ]
-      : []
+  const imageUrl = getMetaImageUrl(post.frontmatter)
+
+  const metaImages = [
+    {
+      property: 'og:image',
+      content: imageUrl,
+    },
+    {
+      property: 'twitter:image',
+      content: imageUrl,
+    },
+  ]
   const articleMeta = [
     {
       property: 'article:published_time',
@@ -116,7 +117,13 @@ const BlogPostTemplate = ({ data, location }: Props) => {
           <CopyLinkToClipboardButton />
         </Header>
         {isIntroPage(post.fields.slug) ? null : (
-          <ArticleMeta date={post.frontmatter.date} readTime={post.timeToRead} />
+          <ArticleMeta
+            title={post.frontmatter.title}
+            date={post.frontmatter.date}
+            readTime={post.timeToRead}
+            author={data.site.siteMetadata.author.name}
+            frontMatter={post.frontmatter}
+          />
         )}
         <section itemProp="articleBody">{renderAst(post.htmlAst)}</section>
         <hr />
@@ -187,6 +194,11 @@ export const pageQuery = graphql`
         keywords
         disableComments
         image
+        featuredImage {
+          childImageSharp {
+            gatsbyImageData
+          }
+        }
       }
     }
     previous: markdownRemark(id: { eq: $previousPostId }) {
