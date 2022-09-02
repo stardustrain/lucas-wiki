@@ -131,7 +131,6 @@ exports.createSchemaCustomization = ({ actions }) => {
       series: String
       withhold: Boolean
       image: String
-      featuredImage: File
     }
 
     type Fields {
