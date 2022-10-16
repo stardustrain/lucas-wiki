@@ -24,6 +24,12 @@ disableComments: true
 
 ## Work experience
 
+### Inflab
+
+_Software Engineer_
+
+_2022.06 - 현재_
+
 ### Codestates
 
 _Software Engineer_
