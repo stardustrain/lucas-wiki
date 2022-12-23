@@ -14,7 +14,6 @@ const getMetaImageUrl = (frontmatter: any) => {
   if (!isNil(featuredImageSrc) && featuredImageSrc.length > 0) {
     return `https://wiki.lucashan.space/${featuredImageSrc}`
   }
-
 }
 
 export default getMetaImageUrl
