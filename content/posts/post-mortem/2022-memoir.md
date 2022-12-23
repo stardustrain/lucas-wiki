@@ -4,7 +4,7 @@ description: FE개발자로 2022년을 돌아보는 회고록.
 url: https://wiki.lucashan.space/post-mortem/2022-memoir/
 date: 2022-12-23
 tags: [Post-mortem, '2022']
-image: ../../assets/posts/post-mortem/nietzsche.jpg
+featuredImage: ../../assets/posts/post-mortem/nietzsche.jpg
 ---
 
 ## 들어가며
