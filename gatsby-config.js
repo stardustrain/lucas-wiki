@@ -78,6 +78,15 @@ const remarkPlugins = [
       },
     },
   },
+  {
+    resolve: `gatsby-remark-footnotes`,
+    options: {
+      footnoteBackRefPreviousElementDisplay: "inline",
+      footnoteBackRefDisplay: "inline",
+      footnoteBackRefInnerText: "^",
+      footnoteBackRefInnerTextStartPosition: "front",
+    }
+  }
 ]
 
 const getFavicons = () =>

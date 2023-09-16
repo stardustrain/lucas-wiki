@@ -461,3 +461,8 @@ figure > img {
 figure > span.gatsby-resp-image-wrapper {
   margin-bottom: 0.8125rem;
 }
+
+.footnote-backref {
+  text-decoration: none;
+  margin-right: -5px;
+}
