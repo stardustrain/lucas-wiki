@@ -487,7 +487,6 @@ describe(‘useQueryString’, () => {
 
       // 함수의 인터페이스를 만족하는 의존성 주입
       const { result } = renderHook(() =>
-        //@ts-expect-error eslint-disable-next-line @typescript-eslint/ban-ts-comment
         useQueryString({ location: locationSearch, navigate: fakeUpdateQuery.updateQuery })
       );
 
@@ -507,12 +506,11 @@ describe(‘useQueryString’, () => {
 
 ## 7. 결론
 
-1. Side effect는 최대한 격리한다.
-2. 만약 side effect를 완전히 분리하기 어렵다면 특정 계층에 격리한다.
-3. Component에서 비즈니스 로직을 최대한 분리한다.
-4. 추상화된 인터페이스(잘 바뀌지 않는 것)에 의존해야 한다.
-5. 인터페이스는 상태가 아닌 행위를 기반으로 정한다.
-6. 만약 component 간의 상호 작용 혹은 전체 프로세스를 검증하고 싶다면 통합테스트를 작성한다.
+1. Side effect를 완전히 분리하기 어렵다면 특정 계층에 격리한다.
+2. Component에서 비즈니스 로직을 최대한 분리한다.
+3. 추상화된 인터페이스(잘 바뀌지 않는 것)에 의존한다.
+4. 인터페이스는 상태가 아닌 행위를 기반으로 정한다.
+5. 만약 component 간의 상호 작용 혹은 전체 프로세스를 검증하고 싶다면 통합테스트를 작성한다.
    - 다만 통합테스트는 비용이 크기 때문에 신중하게 결정한다.
 
 [^1]: [구글 엔지니어는 이렇게 일한다](https://product.kyobobook.co.kr/detail/S000061352347) 에서는 false-positive가 테스트 수정에 대한 의욕을 더 떨어뜨린다고 한다 (p.538). 두 오류의 관계는 항상 trade-off 관계인데, 개인적으로는 false-negative를 조금 더 경계하는 편이다.
