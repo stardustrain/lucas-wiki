@@ -121,7 +121,7 @@ const SEO = ({
       titleTemplate={defaultTitle ? `%s | ${defaultTitle}` : undefined}
       meta={metaTags}
     >
-      <link rel="canonical" href={`${location.origin}${slug}`} />
+      <link rel="canonical" href={`${siteUrl}${slug}`} />
       {isPlainObject(jsonLd) ? (
         <script type="application/ld+json">{`${JSON.stringify(jsonLd)}`}</script>
       ) : null}
