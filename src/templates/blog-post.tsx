@@ -5,7 +5,6 @@ import styled from '@emotion/styled'
 
 import Layout from '../components/layout'
 import SEO from '../components/seo'
-import Link from '../components/Link'
 import ArticleMeta from '../components/ArticleMeta'
 import CopyLinkToClipboardButton from '../components/CopyLinkToClipboardButton'
 import OverflowX from '../components/OverflowX'
@@ -22,8 +21,6 @@ import type { WindowLocation } from '@reach/router'
 const renderAst = new rehypeReact({
   createElement: React.createElement,
   components: {
-    // @ts-ignore
-    a: Link,
     // @ts-ignore
     'overflow-x': OverflowX,
     // @ts-ignore
