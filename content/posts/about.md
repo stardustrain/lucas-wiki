@@ -32,7 +32,6 @@ _2022.06 - 2023.11_
 
 - Inflearn 분리/개선
   - 기존에 Vanilla JavaScript로 구현된 SSR + MPA 구조의 서비스를 React SPA(or Next.js)로 분리, 개선 진행
-  - 기존에 Vanilla JavaScript로 구현된 SSR + MPA 구조의 서비스를 React SPA(or Next.js)로 분리, 개선 진행
   - TypeScript 도입
   - Code generator를 이용해 API 호출과 관련한 hooks, response type, API endpoint를 자동 생성하도록 설정
 - Code generator 개발 ([회사 기술 블로그](https://tech.inflab.com/20230613-code-generator-part-1/))
