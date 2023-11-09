@@ -26,9 +26,31 @@ disableComments: true
 
 ### Inflab
 
-_Software Engineer_
+_Lead Frontend Engineer_
 
-_2022.06 - 현재_
+_2022.06 - 2023.11_
+
+- Inflearn 분리/개선
+  - 기존에 Vanilla JavaScript로 구현된 SSR + MPA 구조의 서비스를 React SPA(or Next.js)로 분리, 개선 진행
+  - TypeScript 도입
+  - Code generator를 이용해 API 호출과 관련한 hooks, response type, API endpoint를 자동 생성하도록 설정
+- Code generator 개발 ([회사 기술 블로그](https://tech.inflab.com/20230613-code-generator-part-1/))
+    - OpenAPI specification을 통해 [GraphQL Code generator](https://the-guild.dev/graphql/codegen)와 유사한 결과물을 자동 생성
+    - hooks, response type, API endpoint 자동 생성
+    - Type guard 함수 자동 생성
+    - Schema validator 자동 생성
+        - 이를 이용해 서버의 Swagger 선언 테스트
+- Inflab Design system 개발
+    - Design system 구축 초기부터 참여
+    - 현재 외부 라이브러리를 사용하고 있지만, 추후 자체 개발을 염두에 둔 인터페이스 설계
+- Frontend 파트 DX 개선
+    - pnpm + turborepo + yarn workspace를 이용해 파트 내 monorepo 설정 표준 제시
+    - npm 패키지 배포 파이프라인 팀 내 표준 제시
+        - 개발자가 배포 과정보다는 기능 개발에 더 집중할 수 있게 하는것이 목표
+        - monorepo의 경우 [changesets](https://github.com/changesets/changesets) 사용
+        - multirepo의 경우 [release-please](https://github.com/googleapis/release-please) 사용
+    - DevOps팀과 협력하여 CI/CD 파이프라인 설계, 최적화
+        - GitHub Actions(CI) 및 Jenkins(CD) 사용
 
 ### Codestates
 
