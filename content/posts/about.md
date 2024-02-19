@@ -24,6 +24,12 @@ disableComments: true
 
 ## Work experience
 
+### Karrot
+
+_Frontend Engineer_
+
+_2023.11 -_
+
 ### Inflab
 
 _Lead Frontend Engineer_
