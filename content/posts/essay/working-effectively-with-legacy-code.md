@@ -2,7 +2,7 @@
 title: 처음 보는 코드 다루기
 description: 처음 보는 복잡한 코드를 어떻게 다룰것인지에 대한 고민, 그리고 다짐.
 url: https://wiki.lucashan.space/essay/working-effectively-with-legacy-code/
-date:
+date: 2024-03-03
 tags: [Essay, '2024']
 ---
 
@@ -56,27 +56,9 @@ tags: [Essay, '2024']
 3. `setupRedirectionPolicy`라는 fastify의 onRequest hook에서 `redirectionPolicy`를 호출한다. - `redirectionPolicy`함수에 `Fastify.req`, `Fastify.reply`를 주입하고, 그 외의 동작은 하지 않는다.
    추출한 방식에 따라, 의존관계를 표현하자면 아래와 같다.
 
-```mermaid
-flowchart LR
-
-setupRedirectionPolicy
-
-canonicalize
-
-reorderURLCountryCode
-
-redirectionPolicy[redirectionPolicy\nFastify.reply.redirect]
-
-
-
-setupRedirectionPolicy
-
-setupRedirectionPolicy -.onRequestHandler.-> redirectionPolicy
-
-redirectionPolicy -.-> canonicalize
-
-redirectionPolicy -.-> reorderURLCountryCode
-```
+<center>
+    <img src="../../assets/posts/essay/dependency-graph.png" width="100%" alt="함수 의존 관계">
+</center>
 
 기존의 `setupRemix` 함수에서 관련 로직을 분리하고나니, 생각보다 많은 line을 삭제할 수 있었다. 함수의 크기가 작아지고 특정 영역을 담당하는 로직이 사라져 `setupRemix` 역시 context에만 관여하는 함수로 바뀌어 응집력이 조금 나아졌다.
 
@@ -184,20 +166,9 @@ https://karrotmarket.com/?in=toronto-3551
 
 최근 팀 내에서 하나의 정책이 더 합의 되었다. [karrotmarket.com](https://karrotmarket.com/ca/)는 아직 한국 서비스를 제공하고 있지 않기 때문에 국가 코드가 `kr`인 상태로 접속하면 "알 수없는 에러가 발생했습니다." 라는 화면이 보이는 상태였다. 그렇기 때문에, 국가 코드가 `kr`인 경우 production stage에서는 기존의 daangn.com으로 리디렉션하고, 현재 진행중인 마이그레이션 작업을 alpha stage에서는 확인할 수 있게 다른 국가의 서비스처럼 동작해야만 했다. 그래서 아래와 같은 정책이 추가되었다.
 
-```mermaid
-flowchart LR
-    E{국가 코드가\nca/us 인가?}
-    G{국가 코드가\nkr 인가?}
-    G1{alpha stage 인가?}
-
-    E --Yes-->F[국가 코드 삭제] --> H([307 리디렉션])
-
-    E --No --> G --Yes-->G1
-    G --No --> G2([302 리디렉션])
-
-    G1 --Yes--> G11([302 리디렉션])
-    G1 --No --> G12([307 daangn.com 리디렉션])
-```
+<center>
+    <img src="../../assets/posts/essay/kr-service-flowchart.png" width="100%" alt="한국 서비스 리디렉션 정책 흐름도">
+</center>
 
 처음 `redirectionPolicy` 함수의 내부는 `if ~ else`로 점철되었고, 앞으로 정책이 늘어날 수록 함수의 본문이 점점 거대해 지면서 걷잡을 수 없어질거라 판단했다. 그랬기 때문에, 로직을 변경하면서 **정책**만을 담당하는 함수의 인터페이스를 정의하고 `redirectionPolicy` 함수에서는 정책의 배열을 순차적으로 실행하는 방향으로 수정했었다.
 
