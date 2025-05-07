@@ -2,7 +2,7 @@
 title: 대규모 홈페이지 마이그레이션 하기
 description: 당근닷컴의 마이그레이션 과정을 공유하고, 그 과정속에서 어떤 고민을 했는지 남기는 기록.
 url: https://wiki.lucashan.space/programming/migrating-a-large-scale-homepage/
-date: 2025-05-
+date: 2025-05-07
 tags: [Programming, '2025']
 featuredImage: ../../assets/posts/programming/daangn.com.png
 ---
