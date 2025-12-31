@@ -86,5 +86,8 @@
     "commitizen": {
       "path": "cz-emoji"
     }
+  },
+  "volta": {
+    "node": "24.12.0"
   }
 }
